@@ -1,0 +1,4 @@
+#ifndef CPU_INSTRUCTIONS_H
+#define CPU_INSTRUCTIONS_H
+
+#endif
