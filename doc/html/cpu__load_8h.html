@@ -81,26 +81,35 @@ $(function() {
 
 <p>This file is used to implement all gameboy's cpu load instructions. This is done with the help of <a href="https://rgbds.gbdev.io/docs/v0.9.1/gbz80.7">https://rgbds.gbdev.io/docs/v0.9.1/gbz80.7</a>.  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><code>#include &quot;../gameboy.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for cpu_load.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="cpu__load_8h__incl.png" border="0" usemap="#aheaders_2instructions_2cpu__load_8h" alt=""/></div>
+</div>
+</div>
 <p><a href="cpu__load_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8f38a3e0c2ce0277beb32dda2b86c0ca" id="r_a8f38a3e0c2ce0277beb32dda2b86c0ca"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cpu__load_8h.html#a8f38a3e0c2ce0277beb32dda2b86c0ca">ld_r8_r8</a> (uint8_t *reg_a, uint8_t *reg_b)</td></tr>
-<tr class="memdesc:a8f38a3e0c2ce0277beb32dda2b86c0ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the value from reg_b to reg_a. Takes 1 cycle.  <br /></td></tr>
-<tr class="separator:a8f38a3e0c2ce0277beb32dda2b86c0ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70064f267fb36b29da2bdd8f0d568efe" id="r_a70064f267fb36b29da2bdd8f0d568efe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cpu__load_8h.html#a70064f267fb36b29da2bdd8f0d568efe">ld_r8_r8</a> (uint8_t *reg_x, uint8_t *reg_y)</td></tr>
+<tr class="memdesc:a70064f267fb36b29da2bdd8f0d568efe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the value from reg_y to reg_x.  <br /></td></tr>
+<tr class="separator:a70064f267fb36b29da2bdd8f0d568efe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a258ab0d99653b737ae395f00eba1dd22" id="r_a258ab0d99653b737ae395f00eba1dd22"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cpu__load_8h.html#a258ab0d99653b737ae395f00eba1dd22">ld_r8_n8</a> (uint8_t *reg, uint8_t v)</td></tr>
-<tr class="memdesc:a258ab0d99653b737ae395f00eba1dd22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the value of v into reg. Takes 2 cycles.  <br /></td></tr>
+<tr class="memdesc:a258ab0d99653b737ae395f00eba1dd22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the value of v into reg.  <br /></td></tr>
 <tr class="separator:a258ab0d99653b737ae395f00eba1dd22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12fd24a5cb2cd7db0d79dbc1ac4a393e" id="r_a12fd24a5cb2cd7db0d79dbc1ac4a393e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cpu__load_8h.html#a12fd24a5cb2cd7db0d79dbc1ac4a393e">ld_r16_n16</a> (uint16_t *reg, uint16_t v)</td></tr>
-<tr class="memdesc:a12fd24a5cb2cd7db0d79dbc1ac4a393e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the value of v into reg. Takes 3 cycles.  <br /></td></tr>
+<tr class="memdesc:a12fd24a5cb2cd7db0d79dbc1ac4a393e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the value of v into reg.  <br /></td></tr>
 <tr class="separator:a12fd24a5cb2cd7db0d79dbc1ac4a393e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae79a7e22b028c20756ec94d5ed113353" id="r_ae79a7e22b028c20756ec94d5ed113353"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cpu__load_8h.html#ae79a7e22b028c20756ec94d5ed113353">ld_hl_r8</a> (uint8_t *reg)</td></tr>
 <tr class="memdesc:ae79a7e22b028c20756ec94d5ed113353"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy value in reg to the adress pointed to by HL.  <br /></td></tr>
 <tr class="separator:ae79a7e22b028c20756ec94d5ed113353"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aedc4f6527c18fa402004a45d8707e034" id="r_aedc4f6527c18fa402004a45d8707e034"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cpu__load_8h.html#aedc4f6527c18fa402004a45d8707e034">ld_hl_n8</a> (uint8_t v)</td></tr>
-<tr class="memdesc:aedc4f6527c18fa402004a45d8707e034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the value into the adress pointed to by HL. Takes 3 cycles.  <br /></td></tr>
+<tr class="memdesc:aedc4f6527c18fa402004a45d8707e034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the value into the adress pointed to by HL.  <br /></td></tr>
 <tr class="separator:aedc4f6527c18fa402004a45d8707e034"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb83d271a343e41b3e2a64ee752ce084" id="r_aeb83d271a343e41b3e2a64ee752ce084"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cpu__load_8h.html#aeb83d271a343e41b3e2a64ee752ce084">ld_r8_hl</a> (uint8_t *reg)</td></tr>
+<tr class="memdesc:aeb83d271a343e41b3e2a64ee752ce084"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy value in adress pointed by HL to register.  <br /></td></tr>
+<tr class="separator:aeb83d271a343e41b3e2a64ee752ce084"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This file is used to implement all gameboy's cpu load instructions. This is done with the help of <a href="https://rgbds.gbdev.io/docs/v0.9.1/gbz80.7">https://rgbds.gbdev.io/docs/v0.9.1/gbz80.7</a>. </p>
@@ -125,14 +134,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copy the value into the adress pointed to by HL. Takes 3 cycles. </p>
+<p>Copy the value into the adress pointed to by HL. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">v</td><td>Value to copy </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>3 cycles </dd></dl>
 
 </div>
 </div>
@@ -159,7 +168,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>2 cycles </dd></dl>
 
 </div>
 </div>
@@ -189,7 +198,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copy the value of v into reg. Takes 3 cycles. </p>
+<p>Copy the value of v into reg. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">reg</td><td>Destination register </td></tr>
@@ -197,7 +206,34 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>3 cycles </dd></dl>
+
+</div>
+</div>
+<a id="aeb83d271a343e41b3e2a64ee752ce084" name="aeb83d271a343e41b3e2a64ee752ce084"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb83d271a343e41b3e2a64ee752ce084">&#9670;&#160;</a></span>ld_r8_hl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ld_r8_hl </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>reg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy value in adress pointed by HL to register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reg</td><td>Copy destination </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>2 cycles </dd></dl>
 
 </div>
 </div>
@@ -227,7 +263,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copy the value of v into reg. Takes 2 cycles. </p>
+<p>Copy the value of v into reg. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">reg</td><td>Destination register </td></tr>
@@ -235,12 +271,12 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>2 cycles </dd></dl>
 
 </div>
 </div>
-<a id="a8f38a3e0c2ce0277beb32dda2b86c0ca" name="a8f38a3e0c2ce0277beb32dda2b86c0ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f38a3e0c2ce0277beb32dda2b86c0ca">&#9670;&#160;</a></span>ld_r8_r8()</h2>
+<a id="a70064f267fb36b29da2bdd8f0d568efe" name="a70064f267fb36b29da2bdd8f0d568efe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70064f267fb36b29da2bdd8f0d568efe">&#9670;&#160;</a></span>ld_r8_r8()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -249,13 +285,13 @@ Functions</h2></td></tr>
           <td class="memname">int ld_r8_r8 </td>
           <td>(</td>
           <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>reg_a</em>, </td>
+          <td class="paramname"><em>reg_x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>reg_b</em>&#160;</td>
+          <td class="paramname"><em>reg_y</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -265,15 +301,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copy the value from reg_b to reg_a. Takes 1 cycle. </p>
+<p>Copy the value from reg_y to reg_x. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">reg_a</td><td>Destination register </td></tr>
-    <tr><td class="paramname">reg_b</td><td>Source register </td></tr>
+    <tr><td class="paramname">reg_x</td><td>Destination register </td></tr>
+    <tr><td class="paramname">reg_y</td><td>Source register </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>1 cycle </dd></dl>
 
 </div>
 </div>

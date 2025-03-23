@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['sb_0',['SB',['../hardware_8h.html#a5c5526b246db088c8f509c0a52e574d7',1,'hardware.h']]],
-  ['sc_1',['SC',['../hardware_8h.html#a6bb7a09d1931dfbdd6d373cfe6e23357',1,'hardware.h']]],
-  ['sp_2',['sp',['../structcpu__reg.html#a0971cd5aad3f9e4922f1607606662c81',1,'cpu_reg']]]
+  ['pc_0',['pc',['../structcpu__reg.html#affec0d02ed5392c6e53a0ed95dea7120',1,'cpu_reg']]],
+  ['picture_20processing_20unit_20ppu_1',['Picture processing unit (PPU)',['../md_README.html#autotoc_md6',1,'']]],
+  ['ppu_2',['Picture processing unit (PPU)',['../md_README.html#autotoc_md6',1,'']]],
+  ['processing_20unit_20ppu_3',['Picture processing unit (PPU)',['../md_README.html#autotoc_md6',1,'']]]
 ];

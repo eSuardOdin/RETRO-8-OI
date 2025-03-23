@@ -79,7 +79,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Define constant adresses used to access special "registers" in RAM.  
+<p>Define constant adresses used to access special "registers" in RAM - Doing only DMG (original GB)  
 <a href="#details">More...</a></p>
 
 <p><a href="hardware_8h_source.html">Go to the source code of this file.</a></p>
@@ -117,9 +117,60 @@ Macros</h2></td></tr>
 <tr class="memitem:ac138c68a0709c57bc5f7567abc1558eb" id="r_ac138c68a0709c57bc5f7567abc1558eb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hardware_8h.html#ac138c68a0709c57bc5f7567abc1558eb">IF</a>&#160;&#160;&#160;0xFF0F</td></tr>
 <tr class="memdesc:ac138c68a0709c57bc5f7567abc1558eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt Flag - Used to know if an interrupt is requested.  <br /></td></tr>
 <tr class="separator:ac138c68a0709c57bc5f7567abc1558eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4d73397b6a181409fa4b2b104e97273" id="r_ac4d73397b6a181409fa4b2b104e97273"><td class="memItemLeft" align="right" valign="top"><a id="ac4d73397b6a181409fa4b2b104e97273" name="ac4d73397b6a181409fa4b2b104e97273"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IE</b>&#160;&#160;&#160;0xFFFF</td></tr>
+<tr class="memdesc:ac4d73397b6a181409fa4b2b104e97273"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt Enable - Same bit order as IF (FF0F) <br /></td></tr>
+<tr class="separator:ac4d73397b6a181409fa4b2b104e97273"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f0ce0b89c9ae66f36610dd15e0610f2" id="r_a1f0ce0b89c9ae66f36610dd15e0610f2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hardware_8h.html#a1f0ce0b89c9ae66f36610dd15e0610f2">LCDC</a>&#160;&#160;&#160;0xFF40</td></tr>
+<tr class="memdesc:a1f0ce0b89c9ae66f36610dd15e0610f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">LDC Control - Manages what elements are printed on screen and how.  <br /></td></tr>
+<tr class="separator:a1f0ce0b89c9ae66f36610dd15e0610f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47c1b9c9a7b4183ac4fd96dc5ca8e820" id="r_a47c1b9c9a7b4183ac4fd96dc5ca8e820"><td class="memItemLeft" align="right" valign="top"><a id="a47c1b9c9a7b4183ac4fd96dc5ca8e820" name="a47c1b9c9a7b4183ac4fd96dc5ca8e820"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>STAT</b>&#160;&#160;&#160;0xFF41</td></tr>
+<tr class="memdesc:a47c1b9c9a7b4183ac4fd96dc5ca8e820"><td class="mdescLeft">&#160;</td><td class="mdescRight">LCD Status - Check doc. <br /></td></tr>
+<tr class="separator:a47c1b9c9a7b4183ac4fd96dc5ca8e820"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6a88fd37a5e9911477d966d252d8bc7" id="r_af6a88fd37a5e9911477d966d252d8bc7"><td class="memItemLeft" align="right" valign="top"><a id="af6a88fd37a5e9911477d966d252d8bc7" name="af6a88fd37a5e9911477d966d252d8bc7"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SCY</b>&#160;&#160;&#160;0xFF42</td></tr>
+<tr class="memdesc:af6a88fd37a5e9911477d966d252d8bc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Background Viewport Y - Topleft Y axis of visible area in BG map. <br /></td></tr>
+<tr class="separator:af6a88fd37a5e9911477d966d252d8bc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62ec295a1b47581922424359c14d50a9" id="r_a62ec295a1b47581922424359c14d50a9"><td class="memItemLeft" align="right" valign="top"><a id="a62ec295a1b47581922424359c14d50a9" name="a62ec295a1b47581922424359c14d50a9"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SCX</b>&#160;&#160;&#160;0xFF43</td></tr>
+<tr class="memdesc:a62ec295a1b47581922424359c14d50a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Background Viewport X - Topleft X axis of visible area in BG map. <br /></td></tr>
+<tr class="separator:a62ec295a1b47581922424359c14d50a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add5c26517fdf364c8baca05e70005af5" id="r_add5c26517fdf364c8baca05e70005af5"><td class="memItemLeft" align="right" valign="top"><a id="add5c26517fdf364c8baca05e70005af5" name="add5c26517fdf364c8baca05e70005af5"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>WY</b>&#160;&#160;&#160;0xFF4A</td></tr>
+<tr class="memdesc:add5c26517fdf364c8baca05e70005af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Window Y Position - Onscreen coordinate of the window's Y top left pixel. <br /></td></tr>
+<tr class="separator:add5c26517fdf364c8baca05e70005af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a020d4efc7ed02a3cc6b771818e1cd4" id="r_a5a020d4efc7ed02a3cc6b771818e1cd4"><td class="memItemLeft" align="right" valign="top"><a id="a5a020d4efc7ed02a3cc6b771818e1cd4" name="a5a020d4efc7ed02a3cc6b771818e1cd4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>WX</b>&#160;&#160;&#160;0xFF4B</td></tr>
+<tr class="memdesc:a5a020d4efc7ed02a3cc6b771818e1cd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Window X Position - Onscreen coordinate of the window's X top left pixel. <br /></td></tr>
+<tr class="separator:a5a020d4efc7ed02a3cc6b771818e1cd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad077839d4f21b640cbe0dcb94c002d94" id="r_ad077839d4f21b640cbe0dcb94c002d94"><td class="memItemLeft" align="right" valign="top"><a id="ad077839d4f21b640cbe0dcb94c002d94" name="ad077839d4f21b640cbe0dcb94c002d94"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LY</b>&#160;&#160;&#160;0xFF44</td></tr>
+<tr class="memdesc:ad077839d4f21b640cbe0dcb94c002d94"><td class="mdescLeft">&#160;</td><td class="mdescRight">LCD Y coordinate [READ ONLY] - Indicate line to draw, drawing or just been drawn. <br /></td></tr>
+<tr class="separator:ad077839d4f21b640cbe0dcb94c002d94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62f611264d1713c90f51b2539aa3a7d2" id="r_a62f611264d1713c90f51b2539aa3a7d2"><td class="memItemLeft" align="right" valign="top"><a id="a62f611264d1713c90f51b2539aa3a7d2" name="a62f611264d1713c90f51b2539aa3a7d2"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LYC</b>&#160;&#160;&#160;0xFF45</td></tr>
+<tr class="memdesc:a62f611264d1713c90f51b2539aa3a7d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">LY Compare - GameBoy checks if LYC = LY and set STAT interrupt if enabled. <br /></td></tr>
+<tr class="separator:a62f611264d1713c90f51b2539aa3a7d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a137c9e7c0bc9e12f455df0a6e41c0287" id="r_a137c9e7c0bc9e12f455df0a6e41c0287"><td class="memItemLeft" align="right" valign="top"><a id="a137c9e7c0bc9e12f455df0a6e41c0287" name="a137c9e7c0bc9e12f455df0a6e41c0287"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>DMA</b>&#160;&#160;&#160;0xFF46</td></tr>
+<tr class="memdesc:a137c9e7c0bc9e12f455df0a6e41c0287"><td class="mdescLeft">&#160;</td><td class="mdescRight">OAM DMA - Contains source from RAM or ROM to copy into OAM, writing to this register starts the DMA transfer. <br /></td></tr>
+<tr class="separator:a137c9e7c0bc9e12f455df0a6e41c0287"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a038b372f0024c962a04f2b959f02f139" id="r_a038b372f0024c962a04f2b959f02f139"><td class="memItemLeft" align="right" valign="top"><a id="a038b372f0024c962a04f2b959f02f139" name="a038b372f0024c962a04f2b959f02f139"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BGP</b>&#160;&#160;&#160;0xFF47</td></tr>
+<tr class="memdesc:a038b372f0024c962a04f2b959f02f139"><td class="mdescLeft">&#160;</td><td class="mdescRight">Background Palette Data - Assigns shades of gray for BG and Windows tiles. <br /></td></tr>
+<tr class="separator:a038b372f0024c962a04f2b959f02f139"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cb32f7eebd301308f1108d12abf6fb7" id="r_a3cb32f7eebd301308f1108d12abf6fb7"><td class="memItemLeft" align="right" valign="top"><a id="a3cb32f7eebd301308f1108d12abf6fb7" name="a3cb32f7eebd301308f1108d12abf6fb7"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>OBP0</b>&#160;&#160;&#160;0xFF48</td></tr>
+<tr class="memdesc:a3cb32f7eebd301308f1108d12abf6fb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">OBJ Palette 0. <br /></td></tr>
+<tr class="separator:a3cb32f7eebd301308f1108d12abf6fb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13b5fef8f7993f1b3e4963776a78ebe9" id="r_a13b5fef8f7993f1b3e4963776a78ebe9"><td class="memItemLeft" align="right" valign="top"><a id="a13b5fef8f7993f1b3e4963776a78ebe9" name="a13b5fef8f7993f1b3e4963776a78ebe9"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>OBP1</b>&#160;&#160;&#160;0xFF49</td></tr>
+<tr class="memdesc:a13b5fef8f7993f1b3e4963776a78ebe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">OBJ Palette 1. <br /></td></tr>
+<tr class="separator:a13b5fef8f7993f1b3e4963776a78ebe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Define constant adresses used to access special "registers" in RAM. </p>
+<div class="textblock"><p>Define constant adresses used to access special "registers" in RAM - Doing only DMG (original GB) </p>
 <dl class="section author"><dt>Author</dt><dd>Erwann Suard </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2025-03-23</dd></dl>
@@ -144,7 +195,24 @@ Macros</h2></td></tr>
  Bit 2 : Timer <br  />
  Bit 3 : Serial <br  />
  Bit 4 : Joypad <br  />
- </p>
+ See specifics at <a href="https://gbdev.io/pandocs/Interrupts.html#ff0f&ndash;if-interrupt-flag">https://gbdev.io/pandocs/Interrupts.html#ff0f&amp;ndash;if-interrupt-flag</a> </p>
+
+</div>
+</div>
+<a id="a1f0ce0b89c9ae66f36610dd15e0610f2" name="a1f0ce0b89c9ae66f36610dd15e0610f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f0ce0b89c9ae66f36610dd15e0610f2">&#9670;&#160;</a></span>LCDC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LCDC&#160;&#160;&#160;0xFF40</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LDC Control - Manages what elements are printed on screen and how. </p>
+<p>Check doc at <a href="https://gbdev.io/pandocs/LCDC.html#ff40&ndash;lcdc-lcd-control">https://gbdev.io/pandocs/LCDC.html#ff40&amp;ndash;lcdc-lcd-control</a> </p>
 
 </div>
 </div>
