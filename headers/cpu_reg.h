@@ -10,6 +10,10 @@
  */
 #ifndef CPU_REG_H
 #define CPU_REG_H
+
+#include <stdint.h>
+
+
 typedef struct {
     union {
         struct {

@@ -12,6 +12,7 @@
 #define CPU_LOAD_H
 
 #include "../gameboy.h"
+#include <stdint.h>
 /**
  * @brief Copy the value from reg_y to reg_x.
  * 
@@ -67,4 +68,34 @@ int ld_hl_n8(uint8_t v);
  * @return 2 cycles
  */
 int ld_r8_hl(uint8_t *reg);
+
+/**
+ * @brief Copies the value in A into byte pointed to by address
+ * 
+ * @param address_p The address pointer to memory to copy byte to
+ * @param value The value to copy
+ * @return 2 cycles
+ */
+int ld_r16_a(uint16_t address_p, uint8_t value);
+
+/**
+ * @brief Copies the value in A register to address
+ * 
+ * @param address Address to copy value to
+ * @param value Value to copy
+ * @return 4 cycles 
+ */
+int ld_n16_a(uint16_t address, uint8_t value);
+
+
+/**
+ * @brief Copy the value in register A into byte at address if address is between 0xFF00 and 0xFFFF
+ * 
+ * @param address 
+ * @param value 
+ * @return int 
+ */
+int ldh_n16_a(uint16_t address, uint8_t value);
+
+
 #endif
