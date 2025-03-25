@@ -8,5 +8,7 @@ digraph "headers/cpu_reg.h"
   Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
   Node2 [id="Node000002",label="headers/gameboy.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$gameboy_8h_source.html",tooltip=" "];
   Node2 -> Node3 [id="edge2_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node3 [id="Node000003",label="headers/instructions\l/cpu_load.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$cpu__load_8h.html",tooltip="This file is used to implement all gameboy's cpu load instructions. This is done with the help of htt..."];
+  Node3 [id="Node000003",label="headers/instructions\l/cpu_instructions.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$cpu__instructions_8h_source.html",tooltip=" "];
+  Node2 -> Node4 [id="edge3_Node000002_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="headers/instructions\l/cpu_load.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$cpu__load_8h.html",tooltip="This file is used to implement all gameboy's cpu load instructions. This is done with the help of htt..."];
 }

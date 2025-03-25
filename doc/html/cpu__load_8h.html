@@ -82,6 +82,7 @@ $(function() {
 <p>This file is used to implement all gameboy's cpu load instructions. This is done with the help of <a href="https://rgbds.gbdev.io/docs/v0.9.1/gbz80.7">https://rgbds.gbdev.io/docs/v0.9.1/gbz80.7</a>.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;../gameboy.h&quot;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for cpu_load.h:</div>
 <div class="dyncontent">
@@ -110,6 +111,15 @@ Functions</h2></td></tr>
 <tr class="memitem:aeb83d271a343e41b3e2a64ee752ce084" id="r_aeb83d271a343e41b3e2a64ee752ce084"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cpu__load_8h.html#aeb83d271a343e41b3e2a64ee752ce084">ld_r8_hl</a> (uint8_t *reg)</td></tr>
 <tr class="memdesc:aeb83d271a343e41b3e2a64ee752ce084"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy value in adress pointed by HL to register.  <br /></td></tr>
 <tr class="separator:aeb83d271a343e41b3e2a64ee752ce084"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a631817c3e38edaa6b62509512f7a7b61" id="r_a631817c3e38edaa6b62509512f7a7b61"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cpu__load_8h.html#a631817c3e38edaa6b62509512f7a7b61">ld_r16_a</a> (uint16_t address_p, uint8_t value)</td></tr>
+<tr class="memdesc:a631817c3e38edaa6b62509512f7a7b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the value in A into byte pointed to by address.  <br /></td></tr>
+<tr class="separator:a631817c3e38edaa6b62509512f7a7b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9742d2b9b873a0ec25eddc4f27ccb12f" id="r_a9742d2b9b873a0ec25eddc4f27ccb12f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cpu__load_8h.html#a9742d2b9b873a0ec25eddc4f27ccb12f">ld_n16_a</a> (uint16_t address, uint8_t value)</td></tr>
+<tr class="memdesc:a9742d2b9b873a0ec25eddc4f27ccb12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the value in A register to address.  <br /></td></tr>
+<tr class="separator:a9742d2b9b873a0ec25eddc4f27ccb12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0645bc8bd888b2d1f06613cb92031054" id="r_a0645bc8bd888b2d1f06613cb92031054"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cpu__load_8h.html#a0645bc8bd888b2d1f06613cb92031054">ldh_n16_a</a> (uint16_t address, uint8_t value)</td></tr>
+<tr class="memdesc:a0645bc8bd888b2d1f06613cb92031054"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the value in register A into byte at address if address is between 0xFF00 and 0xFFFF.  <br /></td></tr>
+<tr class="separator:a0645bc8bd888b2d1f06613cb92031054"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This file is used to implement all gameboy's cpu load instructions. This is done with the help of <a href="https://rgbds.gbdev.io/docs/v0.9.1/gbz80.7">https://rgbds.gbdev.io/docs/v0.9.1/gbz80.7</a>. </p>
@@ -165,6 +175,82 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">reg</td><td>Register with value to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>2 cycles </dd></dl>
+
+</div>
+</div>
+<a id="a9742d2b9b873a0ec25eddc4f27ccb12f" name="a9742d2b9b873a0ec25eddc4f27ccb12f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9742d2b9b873a0ec25eddc4f27ccb12f">&#9670;&#160;</a></span>ld_n16_a()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ld_n16_a </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies the value in A register to address. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>Address to copy value to </td></tr>
+    <tr><td class="paramname">value</td><td>Value to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>4 cycles </dd></dl>
+
+</div>
+</div>
+<a id="a631817c3e38edaa6b62509512f7a7b61" name="a631817c3e38edaa6b62509512f7a7b61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a631817c3e38edaa6b62509512f7a7b61">&#9670;&#160;</a></span>ld_r16_a()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ld_r16_a </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>address_p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies the value in A into byte pointed to by address. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address_p</td><td>The address pointer to memory to copy byte to </td></tr>
+    <tr><td class="paramname">value</td><td>The value to copy </td></tr>
   </table>
   </dd>
 </dl>
@@ -310,6 +396,44 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 cycle </dd></dl>
+
+</div>
+</div>
+<a id="a0645bc8bd888b2d1f06613cb92031054" name="a0645bc8bd888b2d1f06613cb92031054"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0645bc8bd888b2d1f06613cb92031054">&#9670;&#160;</a></span>ldh_n16_a()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ldh_n16_a </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy the value in register A into byte at address if address is between 0xFF00 and 0xFFFF. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td></td></tr>
+    <tr><td class="paramname">value</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 
 </div>
 </div>

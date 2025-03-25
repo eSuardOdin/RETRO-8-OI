@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ram_0',['ram',['../structgameboy.html#a959b21df577816b6af1aead711c5ceee',1,'gameboy']]]
+  ['pc_0',['pc',['../structcpu__reg.html#affec0d02ed5392c6e53a0ed95dea7120',1,'cpu_reg']]]
 ];

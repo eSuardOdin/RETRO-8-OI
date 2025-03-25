@@ -1,5 +1,5 @@
 /**
- * @file hardware.h
+ * @file memory_constants.h
  * @author Erwann Suard
  * @brief Define constant adresses used to access special "registers" in RAM - Doing only DMG (original GB)
  * @version 0.1
@@ -8,8 +8,18 @@
  * @copyright Copyright (c) 2025
  * 
  */
-#ifndef HARDWARE_H
-#define HARDWARE_H
+#ifndef MEMORY_CONSTANTS_H
+#define MEMORY_CONSTANTS_H
+
+// O#########################O
+// |                         |
+// |    SPECIAL REGISTERS    |
+// |                         |
+// O#########################O
+
+
+
+
 // ##############
 // ### Joypad ###
 // ##############
@@ -156,4 +166,28 @@
  * @brief OBJ Palette 1
  */
 #define OBP1 0xFF49
+
+
+
+
+
+
+// O##########################O
+// |                          |
+// |      MEMORY OFFSETS      |
+// |                          |
+// O##########################O
+
+#define VRAM_OFST 0X8000
+
+#define EXT_RAM_OFST 0XA000
+
+#define WRAM_OFST 0XC000
+
+#define OAM_OFST 0XFE00
+
+#define IO_OFST 0XFF00
+
+#define HRAM_OFST 0XFF80
+
 #endif
