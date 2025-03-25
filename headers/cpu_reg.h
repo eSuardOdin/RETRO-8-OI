@@ -54,6 +54,19 @@ typedef struct {
         };
         uint16_t hl;
     };
+
+    /**
+     * @brief Instruction Register
+     * 
+     */
+    uint8_t ir;
+
+    /**
+     * @brief Interrupt Enable
+     * 
+     */
+    uint8_t ie;
+
     /**
      * @brief Stack pointer
      */

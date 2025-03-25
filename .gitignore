@@ -1,5 +1,7 @@
 # Prerequisites
 *.d
+*.gb
+*.pdf
 
 # Object files
 *.o
