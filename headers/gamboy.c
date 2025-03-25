@@ -7,6 +7,8 @@ void reset_gameboy(gameboy *gb)
     gb->reg->pc = 0x0100;
 }
 
-uint8_t fetch_opcode(gameboy* gb);
-uint8_t fetch_byte(gameboy* gb);
-uint16_t fetch_word(gameboy* gb);
+
+int load_cart(char *path)
+{
+    
+}

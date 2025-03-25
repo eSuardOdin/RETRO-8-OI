@@ -5,6 +5,7 @@
 
 
 typedef struct {
+    /// Cpu registers of gameboy
     cpu_reg *reg;
     /// Represents the whole memory adressable by the GameBOY
     uint8_t ram[0x10000];
@@ -12,8 +13,6 @@ typedef struct {
 
 void reset_gameboy(gameboy *gb);
 
-uint8_t fetch_opcode(gameboy* gb);
-uint8_t fetch_byte(gameboy* gb);
-uint16_t fetch_word(gameboy* gb);
+int load_cart(char *path);
 
 #endif
