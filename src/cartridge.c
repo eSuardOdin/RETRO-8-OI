@@ -104,7 +104,7 @@ int load_cart(char *path, cartridge* c)
     c->header_checksum = byte;
 
     /* 0x014e - 0x14f : GLOBAL CHECKSUM -> OSEF (?) */
-    
+    printf("RAM SIZE : %d | RAM BANKING : %d\n", c->ram_size, c->ram_banks);
     printf("#######################################\n");
     printf("%s\n\tCGB : %d\n\tMBC : %d\n\tROM Size : %d | ROM Banks : %d\n\tRAM Size : %d | RAM Banks : %d\n\tHEADER CHECKSUM : %02x\n",
     c->title, c->gen_type, c->mbc_type, c->rom_size, c->rom_banks, c->ram_size, c->ram_banks, c->header_checksum);
