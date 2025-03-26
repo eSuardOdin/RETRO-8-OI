@@ -7,17 +7,15 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/types.h>
-#include <sys/stat.h>
 
 #include "../headers/cartridge.h"
 
 int load_cart(char *path, cartridge* c)
 {
-    struct stat st;
     uint16_t address;
     uint8_t byte;
 
-    // Open cart
+    /* Open cart */
     int fd = open(path, O_RDONLY);
     if(fd == -1)
     {
@@ -25,14 +23,7 @@ int load_cart(char *path, cartridge* c)
         exit(EXIT_FAILURE);
     }
 
-    // Get stats to debug
-    if (fstat(fd, &st) == -1) {
-        perror("fstat");
-        exit(EXIT_FAILURE);
-    }
-
-    errno = 0;
-    // Get title
+    /* Get title */
     address = 0x134;
     if(pread(fd, c->title, 16, address) == -1)
     {
@@ -43,7 +34,7 @@ int load_cart(char *path, cartridge* c)
     }
     
 
-    // Get gen (if 0x80 -> CGB but retro compatible / if 0xC0 CGB only)
+    /* Get gen (if 0x80 -> CGB but retro compatible / if 0xC0 CGB only) */
     address = 0x0143;
     if(pread(fd, &byte, 1, address) == -1)
     {
@@ -53,10 +44,10 @@ int load_cart(char *path, cartridge* c)
     }
     c->gen_type = get_cgb(byte);
 
-    // Get SGB ? -0x0146- (useless for now I think)
+    /* Get SGB ? -0x0146- (useless for now I think) */
 
 
-    // Get cartridge type
+    /* Get cartridge type */
     address = 0x0146; 
     if(pread(fd, &byte, 1, address) == -1)
     {
@@ -64,14 +55,14 @@ int load_cart(char *path, cartridge* c)
         close(fd);
         exit(EXIT_FAILURE);
     }
-    c->cart_type = get_mbc(byte);
-    if(c->cart_type == UNKNOWN_MBC)
+    c->mbc_type = get_mbc(byte);
+    if(c->mbc_type == UNKNOWN_MBC)
     {
         fprintf(stderr, "Error, cartridge type is UNKNOWN.\n");
         exit(EXIT_FAILURE);
     }
 
-    // Get ROM Banks
+    /* Get ROM Banks and size */
     address = 0x0148; 
     if(pread(fd, &byte, 1, address) == -1)
     {
@@ -79,13 +70,45 @@ int load_cart(char *path, cartridge* c)
         close(fd);
         exit(EXIT_FAILURE);
     }
-    c->rom_banks = get_rom_banks(byte);
+    if(get_rom_banks_size(byte, c)) // Add error status ?
+    {
+        exit(EXIT_FAILURE);
+    }
 
-    // Get ROM Size (32 KiB * (1 << rom_banks))
-    c->rom_size = 0x8000 * (1 << c->rom_banks);
-    printf("##################################\n");
-    printf("%s\n\tCGB : %d\n\tMBC : %d\n\tRom Size : %d | Rom Banks : %d\n", c->title, c->gen_type, c->cart_type, c->rom_size, c->rom_banks);
-    printf("##################################\n");
+    /* Get RAM banks and size */
+    address = 0x0149; 
+    if(pread(fd, &byte, 1, address) == -1)
+    {
+        perror("Reading RAM banks");
+        close(fd);
+        exit(EXIT_FAILURE);
+    }
+    if(get_ram_banks_size(byte, c)) // Add error status ?
+    {
+        exit(EXIT_FAILURE);
+    }
+
+    /* 0x014a : Destination code -> OSEF (?) */
+    /* 0x014b : Old licensee code -> OSEF (?) */
+    /* 0x014b : Mask ROM version number -> OSEF (?) */
+
+
+    /* Get header checksum */
+    address = 0x014d; 
+    if(pread(fd, &byte, 1, address) == -1)
+    {
+        perror("Reading header checksum");
+        close(fd);
+        exit(EXIT_FAILURE);
+    }
+    c->header_checksum = byte;
+
+    /* 0x014e - 0x14f : GLOBAL CHECKSUM -> OSEF (?) */
+    
+    printf("#######################################\n");
+    printf("%s\n\tCGB : %d\n\tMBC : %d\n\tROM Size : %d | ROM Banks : %d\n\tRAM Size : %d | RAM Banks : %d\n\tHEADER CHECKSUM : %02x\n",
+    c->title, c->gen_type, c->mbc_type, c->rom_size, c->rom_banks, c->ram_size, c->ram_banks, c->header_checksum);
+    printf("#######################################\n");
     
     return 0;
 }
@@ -205,34 +228,107 @@ e_cgb get_cgb(uint8_t byte)
 }
 
 
-uint16_t get_rom_banks(uint8_t byte)
+int get_rom_banks_size(uint8_t byte, cartridge *c)
 {
+    // Get ROM Size (32 KiB * (1 << value)
+    c->rom_size = 0x8000 * (1 << byte);
     switch (byte)
     {
         case 0x0 :
-            return 2;
+            c->rom_banks = 2;
+            break;
         case 0x1 :
-            return 4;
+            c->rom_banks = 4;
+            break;
         case 0x2 :
-            return 8;
+            c->rom_banks = 8;
+            break;
         case 0x3 :
-            return 16;
+            c->rom_banks = 16;
+            break;
         case 0x4 :
-            return 32;
+            c->rom_banks = 32;
+            break;
         case 0x5 :
-            return 64;
+            c->rom_banks = 64;
+            break;
         case 0x6 :
-            return 128;
+            c->rom_banks = 128;
+            break;
         case 0x7 :
-            return 256;
+            c->rom_banks = 256;
+            break;
         case 0x8 :
-            return 512;
+            c->rom_banks = 512;
+            break;
         // -- See docs : Never seen officially the next 3 --
         case 0x52 :
-            return 72;
+            c->rom_banks = 72;
+            break;
         case 0x53 :
-            return 80;
+            c->rom_banks = 80;
+            break;
         case 0x54 :
-            return 96;    
+            c->rom_banks = 96;
+            break;    
     }
+    return 0;
+}
+
+
+int get_ram_banks_size(uint8_t byte, cartridge *c)
+{
+    printf("Byte : %0x\n", byte);
+
+    // If MBC type does not include RAM in name -> RAM = 0
+    // if(
+    //     c->mbc_type != MBC1_RAM && 
+    //     c->mbc_type != MBC1_RAM_BATTERY &&
+    //     c->mbc_type != ROM_RAM &&
+    //     c->mbc_type != ROM_RAM_BATTERY &&
+    //     c->mbc_type != MMM01_RAM &&
+    //     c->mbc_type != MMM01_RAM_BATTERY &&
+    //     c->mbc_type != MBC3_TIMER_RAM_BATTERY &&
+    //     c->mbc_type != MBC3_RAM &&
+    //     c->mbc_type != MBC3_RAM_BATTERY &&
+    //     c->mbc_type != MBC5_RAM &&
+    //     c->mbc_type != MBC5_RAM_BATTERY &&
+    //     c->mbc_type != MBC5_RUMBLE_RAM &&
+    //     c->mbc_type != MBC5_RUMBLE_RAM_BATTERY &&
+    //     c->mbc_type != MBC7_SENSOR_RUMBLE_RAM_BATTERY &&
+    //     c->mbc_type != HuC1_RAM_BATTERY)
+    // {
+    //     c->ram_banks = 0;
+    //     c->ram_size = 0;
+    // }
+    // else
+    // {
+        switch (byte)
+        {
+            case 0x0:
+                c->ram_banks = 0;
+                c->ram_size = 0;
+                break;
+            case 0x2:
+                printf("Je suis sensé passer ici.\n");
+                c->ram_banks = 0x1;
+                c->ram_size = 0x2000;
+                break;
+            case 0x3:
+                c->ram_banks = 4;
+                c->ram_size = 0x8000;
+                break;
+            case 0x4:
+                c->ram_banks = 16;
+                c->ram_size = 0x20000;
+                break;
+            case 0x5:
+                c->ram_banks = 8;
+                c->ram_size = 0x10000;
+                break;
+        }
+    //}
+    
+    printf("Before exiting, RAM size is %0x and RAM banks is %0x\n", c->ram_size, c->ram_banks);
+    return 0;
 }

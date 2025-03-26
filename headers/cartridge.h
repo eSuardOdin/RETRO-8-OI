@@ -62,12 +62,15 @@ typedef enum {
 typedef struct
 {
     char title[17];
-    e_mbc cart_type;
+    e_mbc mbc_type;
     e_cgb gen_type;
     uint8_t *rom;   // To malloc with rom size
     uint16_t rom_banks;
     uint32_t rom_size;
-
+    uint16_t ram_banks;
+    uint32_t ram_size;
+    uint8_t header_checksum;
+    //uint16_t global_checksum;
 } cartridge;
 
 
@@ -96,5 +99,22 @@ e_mbc get_mbc(uint8_t byte);
  */
 e_cgb get_cgb(uint8_t byte);
 
-uint16_t get_rom_banks(uint8_t byte);
+/**
+ * @brief Get the number of rom banks and rom size based on byte at 0x0148<br>
+ * ### Warning ###<br>Changes the struct attributes directly 
+ * @param byte The value checked in header
+ * @param cartridge The cartridge struct to modify (rom_banks and rom_size)
+ * @return error status to implement
+ */
+int get_rom_banks_size(uint8_t byte, cartridge *c);
+
+
+/**
+ * @brief Get the number of ram banks and ram size based on byte at 0x0149<br>
+ * ### Warning ###<br>Changes the struct attributes directly 
+ * @param byte The value checked in header
+ * @param cartridge The cartridge struct to modify (ram_banks and ram_size)
+ * @return error status to implement
+ */
+int get_ram_banks_size(uint8_t byte, cartridge *c);
 #endif
