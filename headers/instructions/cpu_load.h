@@ -13,8 +13,10 @@
 
 #include "../gameboy.h"
 #include <stdint.h>
+
+// ######### LD 8 bits #########
 /**
- * @brief Copy the value from reg_y to reg_x.
+ * @brief Copy the value from reg_y to reg_x. OPCODE : 0b01xxxyyy
  * 
  * @param reg_x Destination register
  * @param reg_y Source register

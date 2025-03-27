@@ -1,4 +1,4 @@
-#include "cpu_instructions.h"
+#include "../../headers/instructions/cpu_instructions.h"
 #include <stdint.h>
 
 uint8_t fetch_instruction(gameboy* gb)

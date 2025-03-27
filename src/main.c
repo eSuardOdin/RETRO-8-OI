@@ -17,10 +17,12 @@ int main(int argc, char *argv[])
 
     // Init gameboy
     gameboy *g = malloc(sizeof(gameboy));
-    reset_gameboy(g);
+    reset_gameboy(g, argv[1]);
     
-    // Load cart
-    cartridge *c = malloc(sizeof(cartridge));
-    load_cart(argv[1], c);
+    // // Load cart
+    // cartridge *c = malloc(sizeof(cartridge));
+    // load_cart(argv[1], c);
+
+    run_gameboy(g);
     return 0;
 }

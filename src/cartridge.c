@@ -10,7 +10,7 @@
 
 #include "../headers/cartridge.h"
 
-int load_cart(char *path, cartridge* c)
+cartridge* load_cart(char *path, cartridge* c)
 {
     uint16_t address;
     uint8_t byte;
@@ -32,7 +32,7 @@ int load_cart(char *path, cartridge* c)
         close(fd);
         exit(EXIT_FAILURE);
     }
-    
+
 
     /* Get gen (if 0x80 -> CGB but retro compatible / if 0xC0 CGB only) */
     address = 0x0143;
@@ -48,7 +48,7 @@ int load_cart(char *path, cartridge* c)
 
 
     /* Get cartridge type */
-    address = 0x0146; 
+    address = 0x0147;
     if(pread(fd, &byte, 1, address) == -1)
     {
         perror("Reading cartridge type");
@@ -63,7 +63,7 @@ int load_cart(char *path, cartridge* c)
     }
 
     /* Get ROM Banks and size */
-    address = 0x0148; 
+    address = 0x0148;
     if(pread(fd, &byte, 1, address) == -1)
     {
         perror("Reading ROM banks");
@@ -76,13 +76,14 @@ int load_cart(char *path, cartridge* c)
     }
 
     /* Get RAM banks and size */
-    address = 0x0149; 
+    address = 0x0149;
     if(pread(fd, &byte, 1, address) == -1)
     {
         perror("Reading RAM banks");
         close(fd);
         exit(EXIT_FAILURE);
     }
+
     if(get_ram_banks_size(byte, c)) // Add error status ?
     {
         exit(EXIT_FAILURE);
@@ -94,7 +95,7 @@ int load_cart(char *path, cartridge* c)
 
 
     /* Get header checksum */
-    address = 0x014d; 
+    address = 0x014d;
     if(pread(fd, &byte, 1, address) == -1)
     {
         perror("Reading header checksum");
@@ -103,14 +104,18 @@ int load_cart(char *path, cartridge* c)
     }
     c->header_checksum = byte;
 
+    /* Copy CARTRIDGE */
+    c->rom = malloc(c->rom_size);
+    if(pread(fd, c->rom, c->rom_size, 0) == -1)
+    {
+        perror("Copying rom");
+        close(fd);
+        exit(EXIT_FAILURE);
+    }
+
     /* 0x014e - 0x14f : GLOBAL CHECKSUM -> OSEF (?) */
-    printf("RAM SIZE : %d | RAM BANKING : %d\n", c->ram_size, c->ram_banks);
-    printf("#######################################\n");
-    printf("%s\n\tCGB : %d\n\tMBC : %d\n\tROM Size : %d | ROM Banks : %d\n\tRAM Size : %d | RAM Banks : %d\n\tHEADER CHECKSUM : %02x\n",
-    c->title, c->gen_type, c->mbc_type, c->rom_size, c->rom_banks, c->ram_size, c->ram_banks, c->header_checksum);
-    printf("#######################################\n");
-    
-    return 0;
+
+    return c;
 }
 
 
@@ -270,7 +275,7 @@ int get_rom_banks_size(uint8_t byte, cartridge *c)
             break;
         case 0x54 :
             c->rom_banks = 96;
-            break;    
+            break;
     }
     return 0;
 }
@@ -278,11 +283,10 @@ int get_rom_banks_size(uint8_t byte, cartridge *c)
 
 int get_ram_banks_size(uint8_t byte, cartridge *c)
 {
-    printf("Byte : %0x\n", byte);
 
     // If MBC type does not include RAM in name -> RAM = 0
     // if(
-    //     c->mbc_type != MBC1_RAM && 
+    //     c->mbc_type != MBC1_RAM &&
     //     c->mbc_type != MBC1_RAM_BATTERY &&
     //     c->mbc_type != ROM_RAM &&
     //     c->mbc_type != ROM_RAM_BATTERY &&
@@ -310,7 +314,7 @@ int get_ram_banks_size(uint8_t byte, cartridge *c)
                 c->ram_size = 0;
                 break;
             case 0x2:
-                printf("Je suis sensé passer ici.\n");
+                //printf("Je suis sensé passer ici.\n");
                 c->ram_banks = 0x1;
                 c->ram_size = 0x2000;
                 break;
@@ -328,7 +332,6 @@ int get_ram_banks_size(uint8_t byte, cartridge *c)
                 break;
         }
     //}
-    
-    printf("Before exiting, RAM size is %0x and RAM banks is %0x\n", c->ram_size, c->ram_banks);
+
     return 0;
 }

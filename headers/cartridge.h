@@ -64,24 +64,23 @@ typedef struct
     char title[17];
     e_mbc mbc_type;
     e_cgb gen_type;
-    uint8_t *rom;   // To malloc with rom size
     uint16_t rom_banks;
     uint32_t rom_size;
     uint16_t ram_banks;
     uint32_t ram_size;
     uint8_t header_checksum;
-    //uint16_t global_checksum;
+    uint8_t *rom;   // To malloc with rom size
 } cartridge;
 
 
 /**
- * @brief Load cart
+ * @brief Load cart and init cartridge struct
  * 
  * @param path The path to rom
  * @param c The struct to copy cart file to
- * @return 0 if success
+ * @return Returns the cart to be loaded in gameboy struct
  */
-int load_cart(char *path, cartridge* c);
+cartridge* load_cart(char *path, cartridge* c);
 
 /**
  * @brief Get the mbc type
