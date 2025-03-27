@@ -6,6 +6,7 @@
 #include "../headers/cartridge.h"
 #include "../headers/memory.h"
 #include "../headers/memory_constants.h"
+#include "../headers/instructions/cpu_instructions.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,13 +17,15 @@ int main(int argc, char *argv[])
     }
 
     // Init gameboy
-    gameboy *g = malloc(sizeof(gameboy));
-    reset_gameboy(g, argv[1]);
+    gameboy *gb = malloc(sizeof(gameboy));
+    reset_gameboy(gb, argv[1]);
     
     // // Load cart
     // cartridge *c = malloc(sizeof(cartridge));
     // load_cart(argv[1], c);
 
-    run_gameboy(g);
+    run_gameboy(gb);
+
+    test_instructions(gb);
     return 0;
 }

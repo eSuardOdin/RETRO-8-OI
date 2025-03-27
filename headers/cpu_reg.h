@@ -18,39 +18,39 @@ typedef struct {
     union {
         struct {
             /**
-             * @brief Accumulator register.
-             */
-            uint8_t a;
-            /**
              * @brief Flag register, lower nibble must ALWAYS be zero.<br>
              * Bit 7 : Zero flag            (z)<br>
              * Bit 6 : Substraction flag    (s)<br>
              * Bit 5 : Half carry flag      (h)<br>
              * Bit 4 : Carry flag           (c)
              */
-            uint8_t f; 
+            uint8_t f;
+            /**
+             * @brief Accumulator register.
+             */
+            uint8_t a;
         };
 
         uint16_t af;
     };
     union {
         struct {
+            uint8_t c;
             uint8_t b;
-            uint8_t c; 
         };
         uint16_t bc;
     };
     union {
         struct {
+            uint8_t e;
             uint8_t d;
-            uint8_t e; 
         };
         uint16_t de;
     };
     union {
         struct {
+            uint8_t l;
             uint8_t h;
-            uint8_t l; 
         };
         uint16_t hl;
     };

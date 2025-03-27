@@ -60,4 +60,12 @@ uint8_t *get_r8(uint8_t byte, gameboy* gb);
  * @param gb 
  */
 void inc_cycle(gameboy *gb);
+
+
+/**
+ * @brief Just here to debug
+ * 
+ * @param gb 
+ */
+void print_registers(gameboy *gb);
 #endif

@@ -2,7 +2,11 @@
 #define CPU_INSTRUCTIONS_H
 
 #include <stdint.h>
+#include <stdio.h>
+
 #include "../gameboy.h"
+#include "cpu_load.h"
+
 
 /**
  * @brief Fetch the next instruction pointed to by Program Counter to put it in IR or variable
@@ -37,7 +41,12 @@ uint8_t get_byte(gameboy* gb, uint16_t addr);
  */
 uint16_t get_word(gameboy* gb, uint16_t addr);
 
-
+/**
+ * @brief Just here to test cases waiting for something better
+ * 
+ * @param gb 
+ */
+void test_instructions(gameboy *gb);
 
 
 #endif

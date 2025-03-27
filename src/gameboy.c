@@ -221,6 +221,17 @@ uint8_t *get_r8(uint8_t byte, gameboy *gb)
         case 0x7:
             return &(gb->reg->a);
     }
+    return NULL;
 }
 
+void print_registers(gameboy *gb)
+{
+    printf("============================\n");
+    printf("A : %02x\t\tB : %02x\n", gb->reg->a, gb->reg->b);
+    printf("C : %02x\t\tD : %02x\n", gb->reg->c, gb->reg->d);
+    printf("E : %02x\t\tF : %02x\n", gb->reg->e, gb->reg->f);
+    printf("HL: %04x\tPC: %04x\n", gb->reg->hl, gb->reg->pc);
+    printf("M-Cycles : %d\n", gb->t_cycles/4);
+    printf("============================\n\n");
 
+}

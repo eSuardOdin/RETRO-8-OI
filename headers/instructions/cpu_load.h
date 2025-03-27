@@ -15,11 +15,11 @@
 #include <stdint.h>
 
 // ######### LD 8 bits #########
+
 /**
- * @brief Copy the value from reg_y to reg_x.<br/>
- * OPCODE : 0b01xxxyyy<br/>
- * CYCLES : 1<br/>
- * LENGHT : 1<br/>
+ * @brief Copy the value from src register to dst register. (LD r, r’)
+ * 
+ * OPCODE : 0b01xxxyyy | CYCLES : 1 | LENGTH : 1
  * @param opcode Opcode to get register from
  * @param gb Gameboy struct
  * @return TO DETERMINE
@@ -28,21 +28,20 @@ int ld_r8_r8(uint8_t opcode, gameboy* gb);
 
 
 /**
- * @brief Copy the next absolute value in memory into register.<br/>
- * OPCODE : 0b00xxx110 
- * CYCLES : 2<br/>
- * LENGHT : 2<br/>
+ * @brief Copy the next absolute value in memory into register. (LD r, n)
+ * 
+ * OPCODE : 0b00xxx110 | CYCLES : 2 | LENGTH : 2
  * @param opcode Opcode to get register from
  * @param gb Gameboy struct
  * @return TO DETERMINE
  */
 int ld_r8_n8(uint8_t opcode, gameboy* gb);  // Can be used to implement LD [HL], n8 ? Takes the same amount of cycles
 
+
 /**
- * @brief Load data from memory address in [HL] into register.<br/>
- * OPCODE : 0b01xxx110 
- * CYCLES : 2<br/>
- * LENGHT : 1<br/>
+ * @brief Load data from memory address in [HL] into register. (LD r, (HL))
+ * 
+ * OPCODE : 0b01xxx110 | CYCLES : 2 | LENGTH : 1
  * @param opcode Opcode to get register from
  * @param gb Gameboy struct
  * @return TO DETERMINE
@@ -51,27 +50,74 @@ int ld_r8_hl(uint8_t opcode, gameboy* gb);
 
 
 /**
- * @brief Copy the value into the adress pointed to by HL.
+ * @brief Load data from register in memory address in [HL]. (LD (HL), r)
  * 
- * @param v Value to copy
- * @return 3 cycles
- */
-int ld_hl_n8(uint8_t opcode, gameboy* gb);
-
-
-/**
- * @brief Copy value in reg to the adress pointed to by HL
- * 
- * @param reg Register with value to copy
- * @return 2 cycles
+ * OPCODE : 0b01110xxx | CYCLES : 2 | LENGTH : 1
+ * @param opcode Opcode to get register from
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
  */
 int ld_hl_r8(uint8_t opcode, gameboy* gb);
 
 
+/**
+ * @brief Load next immediate data in [HL]. (LD (HL), n)
+ * 
+ * OPCODE : 0b00110110/0x36 | CYCLES : 3 | LENGTH : 2
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ld_hl_n8(gameboy* gb);
 
 
+/**
+ * @brief Load data from indirection [BC] into acc A. (LD A, (BC))
+ * 
+ * OPCODE : 0b00001010/0x0A | CYCLES : 2 | LENGTH : 1
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ld_a_bc(gameboy *gb);
 
 
+/**
+ * @brief Load data from indirection [DE] into acc A. (LD A, (DE))
+ * 
+ * OPCODE : 0b00011010/0x1A | CYCLES : 2 | LENGTH : 1
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ld_a_de(gameboy *gb);
+
+
+/**
+ * @brief Load data from indirection acc A into [BC]. (LD (BC), A)
+ * 
+ * OPCODE : 0b00000010/0x02 | CYCLES : 2 | LENGTH : 1
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ld_bc_a(gameboy *gb);
+
+
+/**
+ * @brief Load data from indirection acc A into [DE]. (LD (DE), A)
+ * 
+ * OPCODE : 0b00010010/0x12 | CYCLES : 2 | LENGTH : 1
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ld_de_a(gameboy *gb);
+
+
+/**
+ * @brief Load to the 8-bit A register, data from the absolute address specified by the 16-bit operand nn. (LD A, (nn))
+ * 
+ * OPCODE : 0b11111010/0xFA | CYCLES : 4 | LENGTH : 3
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ld_a_nn(gameboy *gb);
 
 
 
