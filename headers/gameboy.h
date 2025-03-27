@@ -31,6 +31,33 @@ int run_gameboy(gameboy *gb);
  */
 uint8_t read_memory(gameboy *gb, uint16_t address);
 
+/**
+ * @brief Get the address of a memory location
+ * 
+ * @param gb 
+ * @param address 
+ * @return uint8_t* 
+ */
+uint8_t *get_address(gameboy *gb, uint16_t address);
+
 
 uint8_t write_memory(gameboy *gb, uint16_t address);
+
+
+
+/**
+ * @brief Get the the address of an 8 bits register depending on opcode
+ * 
+ * @param byte Byte to decode
+ * @param gb Gameboy struct to get register address
+ * @return A pointer to the register
+ */
+uint8_t *get_r8(uint8_t byte, gameboy* gb);
+
+/**
+ * @brief Just increments T-Cycles by 4
+ * 
+ * @param gb 
+ */
+void inc_cycle(gameboy *gb);
 #endif

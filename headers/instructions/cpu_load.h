@@ -22,7 +22,7 @@
  * @param reg_y Source register
  * @return 1 cycle
  */
-int ld_r8_r8(uint8_t *reg_x, uint8_t *reg_y);
+int ld_r8_r8(uint8_t opcode, gameboy* gb);
 
 
 /**
@@ -32,9 +32,44 @@ int ld_r8_r8(uint8_t *reg_x, uint8_t *reg_y);
  * @param v Value to copy
  * @return 2 cycles
  */
-int ld_r8_n8(uint8_t *reg, uint8_t v);  // Can be used to implement LD [HL], n8 ? Takes the same amount of cycles
+int ld_r8_n8(uint8_t opcode, gameboy* gb);  // Can be used to implement LD [HL], n8 ? Takes the same amount of cycles
 
 
+/**
+ * @brief Copy the value into the adress pointed to by HL.
+ * 
+ * @param v Value to copy
+ * @return 3 cycles
+ */
+int ld_hl_n8(uint8_t opcode, gameboy* gb);
+
+
+/**
+ * @brief Copy value in reg to the adress pointed to by HL
+ * 
+ * @param reg Register with value to copy
+ * @return 2 cycles
+ */
+int ld_hl_r8(uint8_t opcode, gameboy* gb);
+
+/**
+ * @brief Copy value in adress pointed by HL to register.
+ * 
+ * @param reg Copy destination
+ * @return 2 cycles
+ */
+int ld_r8_hl(uint8_t opcode, gameboy* gb);
+
+
+
+
+
+
+
+
+
+
+// ######### LD 16 bits #########
 /**
  * @brief Copy the value of v into reg.
  * 
@@ -45,31 +80,9 @@ int ld_r8_n8(uint8_t *reg, uint8_t v);  // Can be used to implement LD [HL], n8 
 int ld_r16_n16(uint16_t *reg, uint16_t v);
 
 
-/**
- * @brief Copy value in reg to the adress pointed to by HL
- * 
- * @param reg Register with value to copy
- * @return 2 cycles
- */
-int ld_hl_r8(uint8_t *reg);
 
 
-/**
- * @brief Copy the value into the adress pointed to by HL.
- * 
- * @param v Value to copy
- * @return 3 cycles
- */
-int ld_hl_n8(uint8_t v);
 
-
-/**
- * @brief Copy value in adress pointed by HL to register.
- * 
- * @param reg Copy destination
- * @return 2 cycles
- */
-int ld_r8_hl(uint8_t *reg);
 
 /**
  * @brief Copies the value in A into byte pointed to by address
