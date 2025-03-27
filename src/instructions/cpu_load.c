@@ -50,8 +50,14 @@ int ld_r8_hl(uint8_t opcode, gameboy *gb)
 {
     uint8_t *dst;
     uint8_t *src;
-
+    // Get destination register
     uint8_t dst_byte = (opcode & 0b00111000) >> 3;
     dst = get_r8(dst_byte, gb);
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Get [HL]
+    src = get_address(gb, gb->reg->pc);
+    
     return 0;
 }

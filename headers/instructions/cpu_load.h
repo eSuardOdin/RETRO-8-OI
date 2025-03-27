@@ -16,23 +16,38 @@
 
 // ######### LD 8 bits #########
 /**
- * @brief Copy the value from reg_y to reg_x. OPCODE : 0b01xxxyyy
- * 
- * @param reg_x Destination register
- * @param reg_y Source register
- * @return 1 cycle
+ * @brief Copy the value from reg_y to reg_x.<br/>
+ * OPCODE : 0b01xxxyyy<br/>
+ * CYCLES : 1<br/>
+ * LENGHT : 1<br/>
+ * @param opcode Opcode to get register from
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
  */
 int ld_r8_r8(uint8_t opcode, gameboy* gb);
 
 
 /**
- * @brief Copy the value of v into reg.
- * 
- * @param reg Destination register
- * @param v Value to copy
- * @return 2 cycles
+ * @brief Copy the next absolute value in memory into register.<br/>
+ * OPCODE : 0b00xxx110 
+ * CYCLES : 2<br/>
+ * LENGHT : 2<br/>
+ * @param opcode Opcode to get register from
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
  */
 int ld_r8_n8(uint8_t opcode, gameboy* gb);  // Can be used to implement LD [HL], n8 ? Takes the same amount of cycles
+
+/**
+ * @brief Load data from memory address in [HL] into register.<br/>
+ * OPCODE : 0b01xxx110 
+ * CYCLES : 2<br/>
+ * LENGHT : 1<br/>
+ * @param opcode Opcode to get register from
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ld_r8_hl(uint8_t opcode, gameboy* gb);
 
 
 /**
@@ -51,14 +66,6 @@ int ld_hl_n8(uint8_t opcode, gameboy* gb);
  * @return 2 cycles
  */
 int ld_hl_r8(uint8_t opcode, gameboy* gb);
-
-/**
- * @brief Copy value in adress pointed by HL to register.
- * 
- * @param reg Copy destination
- * @return 2 cycles
- */
-int ld_r8_hl(uint8_t opcode, gameboy* gb);
 
 
 
