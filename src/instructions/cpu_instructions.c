@@ -123,5 +123,9 @@ void test_instructions(gameboy *gb)
     ldh_a_c(gb);
     print_registers(gb);
     
+
+    // LDH C, A -> Changing C to get to ffaa
+    gb->reg->c = 0xaa;
+    //value = 
 }
 

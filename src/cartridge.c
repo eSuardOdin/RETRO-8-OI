@@ -314,7 +314,6 @@ int get_ram_banks_size(uint8_t byte, cartridge *c)
                 c->ram_size = 0;
                 break;
             case 0x2:
-                //printf("Je suis sensé passer ici.\n");
                 c->ram_banks = 0x1;
                 c->ram_size = 0x2000;
                 break;

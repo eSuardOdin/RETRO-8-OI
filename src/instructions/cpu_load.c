@@ -11,7 +11,7 @@ int ld_r8_r8(uint8_t opcode, gameboy *gb)
     uint8_t *src;
     uint8_t *dst;
     uint8_t dst_byte = (opcode & 0b00111000) >> 3;
-    uint8_t src_byte = (opcode & 0b00000111) >> 3;
+    uint8_t src_byte = opcode & 0b00000111;
     dst = get_r8(dst_byte, gb);
     src = get_r8(src_byte, gb);
 
