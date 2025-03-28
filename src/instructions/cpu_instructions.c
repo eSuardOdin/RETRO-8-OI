@@ -10,15 +10,7 @@ uint8_t fetch_instruction(gameboy* gb)
     return res;
 }
 
-uint8_t get_byte(gameboy* gb, uint16_t addr)
-{
-    return read_memory(gb, addr);
-}
 
-uint16_t get_word(gameboy *gb, uint16_t addr)
-{
-    return (read_memory(gb, addr) << 8) | read_memory(gb, addr+1);
-}
 
 
 void test_instructions(gameboy *gb)
@@ -112,6 +104,24 @@ void test_instructions(gameboy *gb)
     ld_a_nn(gb);
     print_registers(gb);
 
+
+    // LD nn, A -> Changing HRAM 0xFF81 to A
+    value = get_address(gb, gb->reg->pc + 1);
+    *value = 0x81;
+    value = get_address(gb, gb->reg->pc + 2);
+    *value = 0xff;
+    printf("LD nn (%02x%02x), A\n", get_byte(gb, gb->reg->pc + 2), get_byte(gb, gb->reg->pc + 1));
+    ld_nn_a(gb);
+    printf("FF81 is now %02x.\n", get_byte(gb, 0xff81));
+    print_registers(gb);
+
+
+    // LDH A, C -> Putting 0xCC in A
+    value = get_address(gb, 0xff00 | gb->reg->c);
+    *value = 0xcc;
+    printf("LDH A, C (ff%02x)\n", gb->reg->c);
+    ldh_a_c(gb);
+    print_registers(gb);
     
 }
 

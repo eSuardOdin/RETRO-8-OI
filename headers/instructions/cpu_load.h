@@ -120,6 +120,48 @@ int ld_de_a(gameboy *gb);
 int ld_a_nn(gameboy *gb);
 
 
+/**
+ * @brief Load to the absolute address specified by the 16-bit operand nn, data from the 8-bit A register.
+ * 
+ * OPCODE : 0b11101010/0xEA | CYCLES : 4 | LENGTH : 3
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ld_nn_a(gameboy *gb);
+
+
+/**
+ * @brief Load to the 8-bit A register, data from the address specified by the 8-bit C register.
+ * 
+ * OPCODE : 0b11110010/0xF2 | CYCLES : 2 | LENGTH : 1
+ * 
+ * @details The full 16-bit absolute address is obtained by setting the most significant byte to 0xFF and the least significant byte to the value of C, so the possible range is 0xFF00-0xFFFF.
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ldh_a_c(gameboy *gb);
+
+
+
+/**
+ * @brief Load to the address specified by the 8-bit C register, data from the 8-bit A register.
+ * 
+ * OPCODE : 0b11100010/0xE2 | CYCLES : 2 | LENGTH : 1
+ * 
+ * @details The full 16-bit absolute address is obtained by setting the most significant byte to 0xFF and the least significant byte to the value of C, so the possible range is 0xFF00-0xFFFF.
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ldh_c_a(gameboy *gb);
+
+
+
+
+
+
+
+
+
 
 
 // ######### LD 16 bits #########

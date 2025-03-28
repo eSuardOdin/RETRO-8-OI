@@ -41,6 +41,10 @@ uint8_t read_memory(gameboy *gb, uint16_t address);
 uint8_t *get_address(gameboy *gb, uint16_t address);
 
 
+
+
+
+
 uint8_t write_memory(gameboy *gb, uint16_t address);
 
 
@@ -53,6 +57,27 @@ uint8_t write_memory(gameboy *gb, uint16_t address);
  * @return A pointer to the register
  */
 uint8_t *get_r8(uint8_t byte, gameboy* gb);
+
+
+/**
+ * @brief Get the byte in memory correponding with addr and return it.
+ * 
+ * @param gb To get the ram from
+ * @param addr The addr where to get the byte
+ * @return The byte pointed to.
+ */
+uint8_t get_byte(gameboy* gb, uint16_t addr);
+
+/**
+ * @brief Get the byte in memory correponding with addr and return it.
+ * @param gb To get the ram from
+ * @param addr The addr where to get the word
+ * @return The word pointed to.
+ */
+uint16_t get_word(gameboy* gb, uint16_t addr);
+
+
+
 
 /**
  * @brief Just increments T-Cycles by 4

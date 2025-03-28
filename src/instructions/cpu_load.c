@@ -1,6 +1,7 @@
 #include "../../headers/instructions/cpu_load.h"
 #include "../../headers/gameboy.h"
 #include <stdint.h>
+#include <stdio.h>
 /*
     8 Bits LD
 */
@@ -220,6 +221,70 @@ int ld_a_nn(gameboy *gb)
     gb->reg->a = read_memory(gb, addr);
 
     // Increment cycle
+    inc_cycle(gb);
+    return 0;
+}
+
+
+int ld_nn_a(gameboy *gb)
+{
+    uint16_t dst_addr = 0;
+    uint8_t *dst;
+    // Increment PC
+    gb->reg->pc++;
+    
+    // Get LSB
+    dst_addr = read_memory(gb, gb->reg->pc);
+    
+    // Increment Cycle and PC
+    inc_cycle(gb);
+    gb->reg->pc++;
+    
+    // Get MSB
+    dst_addr = dst_addr | ((uint16_t) read_memory(gb, gb->reg->pc) << 8);
+    //printf("### DST : %04x. ###\n", dst_addr);
+    // Increment Cycle
+    inc_cycle(gb);
+    
+    // Get target pointer and assign value
+    dst = get_address(gb, dst_addr);
+    *dst = gb->reg->a;
+
+    // Increment cycle
+    inc_cycle(gb);
+    return 0;
+}
+
+
+int ldh_a_c(gameboy *gb)
+{
+    // Get source data
+    uint8_t data = get_byte(gb, 0xff00 | gb->reg->c);
+
+    // Increment Cycles
+    inc_cycle(gb);
+
+    // Assign value
+    gb->reg->a = data;
+
+    // Increment cycles
+    inc_cycle(gb);
+    return 0;
+}
+
+
+int ldh_c_a(gameboy *gb)
+{
+    // Get dst pointer 
+    uint8_t *dst = get_address(gb, 0xff00 | gb->reg->c);
+
+    // Increment Cycles
+    inc_cycle(gb);
+
+    // Assign value
+    *dst = gb->reg->a;
+
+    // Increment cycles
     inc_cycle(gb);
     return 0;
 }

@@ -24,22 +24,6 @@ uint8_t fetch_instruction(gameboy* gb);
  */
 uint8_t execute_instruction(uint8_t opcode);
 
-/**
- * @brief Get the byte in memory correponding with addr and return it.
- * 
- * @param gb To get the ram from
- * @param addr The addr where to get the byte
- * @return The byte pointed to.
- */
-uint8_t get_byte(gameboy* gb, uint16_t addr);
-
-/**
- * @brief Get the byte in memory correponding with addr and return it.
- * @param gb To get the ram from
- * @param addr The addr where to get the word
- * @return The word pointed to.
- */
-uint16_t get_word(gameboy* gb, uint16_t addr);
 
 /**
  * @brief Just here to test cases waiting for something better

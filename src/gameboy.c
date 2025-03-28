@@ -235,3 +235,15 @@ void print_registers(gameboy *gb)
     printf("============================\n\n");
 
 }
+
+
+
+uint8_t get_byte(gameboy* gb, uint16_t addr)
+{
+    return read_memory(gb, addr);
+}
+
+uint16_t get_word(gameboy *gb, uint16_t addr)
+{
+    return (read_memory(gb, addr) << 8) | read_memory(gb, addr+1);
+}
