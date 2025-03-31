@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -217,11 +218,27 @@ uint8_t *get_r8(uint8_t byte, gameboy *gb)
         case 0x5:
             return &(gb->reg->l);
         case 0x6: // GET [HL] (Indirection of HL)
-            return get_address(gb, byte);
+            printf("Getting [HL]\n");
+            return get_address(gb, gb->reg->hl);
         case 0x7:
             return &(gb->reg->a);
     }
     return NULL;
+}
+
+uint16_t *get_r16(uint8_t byte, gameboy *gb)
+{
+    switch(byte)
+    {
+        case 0x0:
+            return &(gb->reg->bc);
+        case 0x1:
+            return &(gb->reg->de);
+        case 0x2:
+            return &(gb->reg->hl);
+        case 0x3:
+            return &(gb->reg->sp);
+    }
 }
 
 void print_registers(gameboy *gb)

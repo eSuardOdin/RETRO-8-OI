@@ -58,6 +58,7 @@ uint8_t write_memory(gameboy *gb, uint16_t address);
  */
 uint8_t *get_r8(uint8_t byte, gameboy* gb);
 
+uint16_t *get_r16(uint8_t byte, gameboy *gb);
 
 /**
  * @brief Get the byte in memory correponding with addr and return it.
