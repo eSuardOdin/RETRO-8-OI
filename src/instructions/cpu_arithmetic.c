@@ -14,6 +14,14 @@
     ADD
 =====================
 */
+
+/**
+ * @brief Additionne A avec r8.
+ *
+ * @author Thomas
+ * @param opcode Opcode.
+ * @param gb Instance de GameBoy.
+ */
 int add_a_r8(uint8_t opcode, gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src;
@@ -30,6 +38,12 @@ int add_a_r8(uint8_t opcode, gameboy* gb){
     return 0;
 }
 
+/**
+ * @brief Additionne A avec La valeur pointée par HL.
+ *
+ * @author Thomas
+ * @param gb Instance de GameBoy.
+ */
 int add_hl_a(gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src = get_address(gb, gb->reg->hl);
@@ -51,6 +65,14 @@ int add_hl_a(gameboy* gb){
     SUB
 =====================
 */
+
+/**
+ * @brief Soustrait A avec r8.
+ *
+ * @author Thomas
+ * @param opcode Opcode.
+ * @param gb Instance de GameBoy.
+ */
 int sub_a_r8(uint8_t opcode, gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src;
@@ -67,6 +89,12 @@ int sub_a_r8(uint8_t opcode, gameboy* gb){
     return 0;
 }
 
+/**
+ * @brief Soustrait A avec La valeur pointée par HL.
+ *
+ * @author Thomas
+ * @param gb Instance de GameBoy.
+ */
 int sub_hl_a(gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src = get_address(gb, gb->reg->hl);
@@ -88,7 +116,13 @@ int sub_hl_a(gameboy* gb){
 =====================
 */
 
-
+/**
+ * @brief Compare A avec r8.
+ *
+ * @author Thomas
+ * @param opcode Opcode.
+ * @param gb Instance de GameBoy.
+ */
 int cp_a_r8(uint8_t opcode, gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src;
