@@ -292,7 +292,7 @@ int ldh_c_a(gameboy *gb)
 
 int ldh_a_n(gameboy *gb)
 {
-    uint16_t dst;
+    uint16_t src;
     
     // Increment Cycle
     inc_cycle(gb);
@@ -302,10 +302,10 @@ int ldh_a_n(gameboy *gb)
     inc_cycle(gb);
 
     // Assign LSB
-    dst = 0xff00 | get_byte(gb, gb->reg->pc);
+    src = 0xff00 | get_byte(gb, gb->reg->pc);
 
     // Assign Value
-    gb->reg->a = get_byte(gb, dst);
+    gb->reg->a = get_byte(gb, src);
 
     // Increment Cycle
     inc_cycle(gb);
@@ -314,4 +314,120 @@ int ldh_a_n(gameboy *gb)
 
 
 
+int ldh_n_a(gameboy *gb)
+{
+    uint16_t dst_addr;
+    uint8_t *dst;
+
+    // Increment Cycle
+    inc_cycle(gb);
+
+    // Increment PC and Cycle
+    gb->reg->pc++;
+    inc_cycle(gb);
+
+    // Assign LSB
+    dst_addr = 0xff | get_byte(gb, gb->reg->pc);
+
+    // Assign Value
+    dst = get_address(gb, dst_addr);
+    *dst = gb->reg->a;
+
+    // Increment Cycle
+    inc_cycle(gb);
+    return 0;
+}
+
+
+
+
+int ldh_a_hl_dec(gameboy *gb)
+{
+    uint8_t *src;
+
+    // Get address
+    src = get_address(gb, gb->reg->hl);
+
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Decrement hl
+    gb->reg->hl--;
+
+    // Assign value
+    gb->reg->a = *src;
+
+    // Increment cycle
+    inc_cycle(gb);
+    return 0;
+}
+
+
+
+int ldh_hl_dec_a(gameboy *gb)
+{
+    uint8_t *dst;
+
+    // Get address
+    dst = get_address(gb, gb->reg->hl);
+
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Decrement hl
+    gb->reg->hl--;
+
+    // Assign value
+    *dst = gb->reg->a;
+
+    // Increment cycle
+    inc_cycle(gb);
+    return 0;
+}
+
+
+
+int ldh_a_hl_inc(gameboy *gb)
+{
+    uint8_t *src;
+
+    // Get address
+    src = get_address(gb, gb->reg->hl);
+
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Increment hl
+    gb->reg->hl++;
+
+    // Assign value
+    gb->reg->a = *src;
+
+    // Increment cycle
+    inc_cycle(gb);
+    return 0;
+}
+
+
+
+int ldh_hl_inc_a(gameboy *gb)
+{
+    uint8_t *dst;
+
+    // Get address
+    dst = get_address(gb, gb->reg->hl);
+
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Increment hl
+    gb->reg->hl++;
+
+    // Assign value
+    *dst = gb->reg->a;
+
+    // Increment cycle
+    inc_cycle(gb);
+    return 0;
+}
 
