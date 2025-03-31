@@ -264,3 +264,16 @@ uint16_t get_word(gameboy *gb, uint16_t addr)
 {
     return (read_memory(gb, addr) << 8) | read_memory(gb, addr+1);
 }
+
+int set_flags(gameboy* gb, unsigned int result, int is_8_bit, int is_sub){
+    int mask = 0;
+    if(!result)
+        mask += 0b10000000; //setup Z
+    if(is_sub)
+        mask += 0b01000000; //setup N
+    if(result > 15 && is_8_bit) //peut être modifier que avec du 8bits
+        mask += 0b00100000; //setup H
+    if((is_8_bit && (result > 255)) || (!is_8_bit && (result > 65535)))
+        mask += 0b00010000; //setup C
+    gb->reg->f = (gb->reg->f | mask) & 0b11110000; //on applique le mask et on suppr les 4 derniers bits
+}
