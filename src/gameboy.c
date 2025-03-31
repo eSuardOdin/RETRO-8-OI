@@ -258,5 +258,5 @@ int set_flags(gameboy* gb, unsigned int result, int is_8_bit, int is_sub){
         mask += 0b00100000; //setup H
     if((is_8_bit && (result > 255)) || (!is_8_bit && (result > 65535)))
         mask += 0b00010000; //setup C
-    gb->reg->f = (gb->reg->f | mask) & 0b11110000; //on applique le mask et on tej les 4 derniers bits
+    gb->reg->f = (gb->reg->f | mask) & 0b11110000; //on applique le mask et on suppr les 4 derniers bits
 }
