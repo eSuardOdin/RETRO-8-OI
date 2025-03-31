@@ -168,8 +168,68 @@ int ldh_c_a(gameboy *gb);
 int ldh_a_n(gameboy *gb);
 
 
+/**
+ * @brief Load to the address specified by the 8-bit C register, data from the 8-bit A register
+ * 
+ * OPCODE : 0b11100000/0xE0 | CYCLES : 3 | LENGTH : 2
+ * 
+ * @details The full 16-bit absolute address is obtained by setting the most significant byte to 0xFF and the least significant byte to the value of n, so the possible range is 0xFF00-0xFFFF.
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ldh_n_a(gameboy *gb);
 
 
+
+/**
+ * @brief Load to the 8-bit A register, data from the absolute address specified by the 16-bit register HL
+ * 
+ * OPCODE : 0b00111010/0x3A | CYCLES : 2 | LENGTH : 1
+ * 
+ * @details The value of HL is decremented after the memory read.
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ldh_a_hl_dec(gameboy *gb);
+
+
+
+/**
+ * @brief Load to the absolute address specified by the 16-bit register HL, data from the 8-bit A register
+ * 
+ * OPCODE : 0b00110010/0x32 | CYCLES : 2 | LENGTH : 1
+ * 
+ * @details The value of HL is decremented after the memory write.
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ld_hl_dec_a(gameboy *gb);
+
+
+
+/**
+ * @brief Load to the 8-bit A register, data from the absolute address specified by the 16-bit register HL.
+ * 
+ * OPCODE : 0b00101010/0x2A | CYCLES : 2 | LENGTH : 1
+ * 
+ * @details The value of HL is incremented after the memory read. 
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ldh_a_hl_inc(gameboy *gb);
+
+
+
+/**
+ * @brief Load to the absolute address specified by the 16-bit register HL, data from the 8-bit A register
+ * 
+ * OPCODE : 0b00110010/0x32 | CYCLES : 2 | LENGTH : 1
+ * 
+ * @details The value of HL is decremented after the memory write.
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ld_hl_dec_a(gameboy *gb);
 
 
 // ######### LD 16 bits #########
