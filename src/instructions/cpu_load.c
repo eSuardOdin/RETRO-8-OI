@@ -310,6 +310,8 @@ int ldh_a_n(gameboy *gb)
     // Increment Cycle
     inc_cycle(gb);
     return 0;
-}//
+}
+
+
 
 
