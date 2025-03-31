@@ -311,5 +311,3 @@ int ldh_a_n(gameboy *gb)
     inc_cycle(gb);
     return 0;
 }
-
-
