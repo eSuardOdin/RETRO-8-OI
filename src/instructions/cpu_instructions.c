@@ -126,6 +126,17 @@ void test_instructions(gameboy *gb)
 
     // LDH C, A -> Changing C to get to ffaa
     gb->reg->c = 0xaa;
-    //value = 
+    printf("LDH (C), A (ff%02x)\n", gb->reg->c);
+    printf("Before : Value of FFAA is %0x.\n", get_byte(gb, 0xffaa));
+    ldh_c_a(gb);
+    printf("After : Value of FFAA is %0x.\n", get_byte(gb, 0xffaa));
+    print_registers(gb);
+
+
+    // LDH A, (n) -> Changing n to get to ff05 with value 0x45
+    value = get_address(gb, 0xff00 | gb->reg->pc + 1);
+    *value = 0x45;
+    
+
 }
 

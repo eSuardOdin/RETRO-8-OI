@@ -156,8 +156,16 @@ int ldh_c_a(gameboy *gb);
 
 
 
-
-
+/**
+ * @brief Load to the 8-bit A register, data from the address specified by the 8-bit immediate data n.
+ * 
+ * OPCODE : 0b11110000/0xF0 | CYCLES : 3 | LENGTH : 2
+ * 
+ * @details The full 16-bit absolute address is obtained by setting the most significant byte to 0xFF and the least significant byte to the value of n, so the possible range is 0xFF00-0xFFFF.
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ldh_a_n(gameboy *gb);
 
 
 

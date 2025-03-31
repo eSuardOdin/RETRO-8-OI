@@ -278,13 +278,38 @@ int ldh_c_a(gameboy *gb)
     // Get dst pointer 
     uint8_t *dst = get_address(gb, 0xff00 | gb->reg->c);
 
-    // Increment Cycles
+    // Increment Cycle
     inc_cycle(gb);
 
     // Assign value
     *dst = gb->reg->a;
 
-    // Increment cycles
+    // Increment cycle
     inc_cycle(gb);
     return 0;
 }
+
+
+int ldh_a_n(gameboy *gb)
+{
+    uint16_t dst;
+    
+    // Increment Cycle
+    inc_cycle(gb);
+
+    // Increment PC and cycle
+    gb->reg->pc++;
+    inc_cycle(gb);
+
+    // Assign LSB
+    dst = 0xff00 | get_byte(gb, gb->reg->pc);
+
+    // Assign Value
+    gb->reg->a = get_byte(gb, dst);
+
+    // Increment Cycle
+    inc_cycle(gb);
+    return 0;
+}
+
+
