@@ -463,5 +463,3 @@ int dec_hl(gameboy* gb){
     set_flags(gb,carry,1,0);
     return 0;
 }
-
-
