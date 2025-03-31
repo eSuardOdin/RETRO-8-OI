@@ -133,10 +133,13 @@ void test_instructions(gameboy *gb)
     print_registers(gb);
 
 
-    // LDH A, (n) -> Changing n to get to ff05 with value 0x45
-    value = get_address(gb, 0xff00 | gb->reg->pc + 1);
+    // LDH A, (n) -> Changing n to get value 0x45
+    value = get_address(gb, 0xff00 | get_byte(gb, gb->reg->pc + 1));
     *value = 0x45;
-    
+    printf("LDH A, n (%04x)\n", 0xff00 | get_byte(gb, gb->reg->pc + 1));
+    ldh_a_n(gb);
+    print_registers(gb);
+
 
 }
 
