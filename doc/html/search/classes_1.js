@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gameboy_0',['gameboy',['../structgameboy.html',1,'']]]
+  ['gameboy_74',['gameboy',['../structgameboy.html',1,'']]]
 ];

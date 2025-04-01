@@ -245,12 +245,15 @@ uint16_t get_word(gameboy *gb, uint16_t addr)
     return (read_memory(gb, addr) << 8) | read_memory(gb, addr+1);
 }
 
+
+// ES : Need to change signature and implementation
 int set_flags(gameboy* gb, unsigned int result, int is_8_bit, int is_sub){
     int mask = 0;
     if(!result)
         mask += 0b10000000; //setup Z
     if(is_sub)
         mask += 0b01000000; //setup N
+    // Warning : Not accurate, the result may have been > 15 before operation. Check : https://gist.github.com/meganesu/9e228b6b587decc783aa9be34ae27841 
     if(result > 15 && is_8_bit) //peut être modifier que avec du 8bits
         mask += 0b00100000; //setup H
     if((is_8_bit && (result > 255)) || (!is_8_bit && (result > 65535)))

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['8_20oi_0',['RETRO-8-OI',['../md_README.html',1,'']]]
+  ['a_0',['a',['../structcpu__reg.html#af212f2a70e7b8ce887fa09e0f4bd4a80',1,'cpu_reg']]]
 ];

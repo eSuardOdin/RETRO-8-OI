@@ -294,11 +294,24 @@ int push_r16(uint8_t opcode, gameboy *gb);
  * @brief Pop from the stack memory to the 16-bit register rr
  * OPCODE : 0b11xx0001 | CYCLES : 3 | LENGTH : 1
  * @details Copy LSB and increase SP, then, copy MSB and increase SP by one
+ *
+ * WARNING : MAY MODIFY F REGISTER   
  * @author Erwann SUARD
  * @param gb Gameboy struct
  * @return TO DETERMINE
  */
 int pop_r16(uint8_t opcode, gameboy *gb);
+
+
+/**
+ * @brief Add the signed value e8 to SP and copy the result in HL.
+ * OPCODE : 0b11111000/0xF8 | CYCLES : 3 | LENGTH : 2
+ * @details Flags : Z = 0 | N = 0 | H = Overflow from bit 3 | C = Overflow from bit 7  
+ * @author Erwann SUARD
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ld_hl_sp_e(uint8_t opcode, gameboy *gb);
 
 
 #endif
