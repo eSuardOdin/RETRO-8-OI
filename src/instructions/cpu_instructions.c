@@ -37,6 +37,12 @@ void test_instructions(gameboy *gb)
     printf("AFTER PUSH: SP = %04x.\n", gb->reg->sp);
     printf("Points to %02x (lsb) %02x (msb).\n", get_byte(gb, gb->reg->sp), get_byte(gb, gb->reg->sp+1));
 
+
+    printf("Poping to BC register.\n");
+    pop_r16(0b11000001, gb);
+    printf("AFTER POP: SP = %04x.\n", gb->reg->sp);
+    print_registers(gb);
+
     // // LD B, A
     // printf("LD B into A -> 1 Cycle | 1 Length\n");
     // ld_r8_r8(0b01111000, gb);

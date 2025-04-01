@@ -554,3 +554,41 @@ int push_r16(uint8_t opcode, gameboy *gb)
     inc_cycle(gb);
     return 0;
 }
+
+
+
+int pop_r16(uint8_t opcode, gameboy *gb)
+{
+    uint16_t *dst;
+    uint8_t msb;
+    uint8_t lsb;
+    uint16_t data = 0;
+    uint8_t r16_byte;
+    
+    // Get dst r16
+    r16_byte = (opcode & 0b00110000) >> 4;
+    dst = get_r16(r16_byte, gb);
+    
+    // Get LSB and SP++ 
+    lsb = get_byte(gb, gb->reg->sp);
+    gb->reg->sp++;
+
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Get MSB and SP++ 
+    msb = get_byte(gb, gb->reg->sp);
+    gb->reg->sp++;
+
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Assign value
+    data = (msb << 8) | lsb;
+    *dst = data;
+    
+    printf("Data is %04x.\n", data);
+    // Increment cycle
+    inc_cycle(gb);
+    return 0;
+}
