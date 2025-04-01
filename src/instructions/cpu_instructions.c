@@ -22,16 +22,20 @@ void test_instructions(gameboy *gb)
     gb->reg->e = 0x12;
     gb->reg->f = 0xe3;
     gb->reg->hl = 0xff43;
+    gb->reg->sp = 0x0034;
     print_registers(gb);
     
-    uint8_t* r = get_address(gb, 0xff43);
-    *r = 0xff;
-    ld_r8_r8(0b01111110, gb);
+    // uint8_t* r = get_address(gb, 0xff43);
+    // *r = 0xff;
+    // ld_r8_r8(0b01111110, gb);
     
 
-    print_registers(gb);
+    // print_registers(gb);
     
-    // printf("LA VALEUR DE FIN %02x\n", get_byte(gb, gb->reg->hl));
+    printf("BEFORE PUSH: SP = %04x.\n", gb->reg->sp);
+    push_r16(0b11100101, gb); // PUSH value of HL register
+    printf("AFTER PUSH: SP = %04x.\n", gb->reg->sp);
+    printf("Points to %02x (lsb) %02x (msb).\n", get_byte(gb, gb->reg->sp), get_byte(gb, gb->reg->sp+1));
 
     // // LD B, A
     // printf("LD B into A -> 1 Cycle | 1 Length\n");

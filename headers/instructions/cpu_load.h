@@ -277,4 +277,26 @@ int ld_nn_sp(gameboy *gb);
  */
 int ld_sp_hl(gameboy *gb);
 
+
+/*
+The Game Boy's CPU understands two insructions for doing just that. PUSH will write the contents of any 16-bit register into the stack and POP writes the head of stack into any 16-bit register.
+
+Here's what's actually happening when a PUSH is performed:
+
+Decrease the stack pointer by 1.
+Write the most significant byte of the 16 bit value into memory at the location the stack pointer is now pointing to
+Decrease the stack pointer by 1 again.
+Write the least significant byte of the 16 bit value into memory at the location the stack pointer is now pointing to
+*/
+
+/**
+ * @brief Push to the stack memory, data from the 16-bit register rr
+ * OPCODE : 0b11xx0101 | CYCLES : 4 | LENGTH : 1
+ * @details Decrease SP by one to copy MSB, then, deacrease SP by one to copy LSB
+ * @author Erwann SUARD
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int push_r16(uint8_t opcode, gameboy *gb);
+
 #endif
