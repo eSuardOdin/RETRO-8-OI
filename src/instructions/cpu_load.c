@@ -32,9 +32,6 @@ int ld_r8_n8(uint8_t opcode, gameboy *gb)
     uint8_t dst_byte = (opcode & 0b00111000) >> 3;
     // Get destination register
     dst = get_r8(dst_byte, gb);
-    *dst = 3;
-    printf("Value of r8 is %0x\n", *dst);
-    printf("Value of register pointed to by HL is %0x\n", get_byte(gb, gb->reg->hl));
 
     // Increment Cycle and PC
     inc_cycle(gb);
@@ -43,10 +40,9 @@ int ld_r8_n8(uint8_t opcode, gameboy *gb)
     // Get immediate value
     inc_cycle(gb);
     value = get_byte(gb, gb->reg->pc);
-    //printf("Value is %04x\n", value);
+
     // Assign value
     *dst = value;
-    printf("Pointed to register is now %02x.\n", get_byte(gb, gb->reg->hl));
     return 0;
 }
 

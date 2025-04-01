@@ -24,15 +24,14 @@ void test_instructions(gameboy *gb)
     gb->reg->hl = 0xff43;
     print_registers(gb);
     
-    uint8_t* r = get_address(gb, gb->reg->pc+1);
+    uint8_t* r = get_address(gb, 0xff43);
     *r = 0xff;
-
-    ld_r8_n8(0b00110110, gb);
+    ld_r8_r8(0b01111110, gb);
     
-    //printf("%04x\n", get_byte(gb, gb->reg->hl));
+
     print_registers(gb);
     
-    printf("LA VALEUR DE FIN %02x\n", get_byte(gb, gb->reg->hl));
+    // printf("LA VALEUR DE FIN %02x\n", get_byte(gb, gb->reg->hl));
 
     // // LD B, A
     // printf("LD B into A -> 1 Cycle | 1 Length\n");
