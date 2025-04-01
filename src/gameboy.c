@@ -47,9 +47,6 @@ int run_gameboy(gameboy *gb)
 
     //     // Decode
     // }
-
-
-
     return 0;
 }
 
@@ -221,6 +218,7 @@ uint16_t *get_r16(uint8_t byte, gameboy *gb)
         case 0x3:
             return &(gb->reg->sp);
     }
+    return NULL;
 }
 
 void print_registers(gameboy *gb)

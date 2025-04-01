@@ -94,4 +94,7 @@ void inc_cycle(gameboy *gb);
  * @param gb 
  */
 void print_registers(gameboy *gb);
+
+
+int set_flags(gameboy* gb, unsigned int result, int is_8_bit, int is_sub);
 #endif
