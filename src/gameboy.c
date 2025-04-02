@@ -260,3 +260,44 @@ int set_flags(gameboy* gb, unsigned int result, int is_8_bit, int is_sub){
         mask += 0b00010000; //setup C
     gb->reg->f = (gb->reg->f | mask) & 0b11110000; //on applique le mask et on suppr les 4 derniers bits
 }
+
+
+int set_H_flag(gameboy *gb, int32_t a, int32_t b, uint8_t is_8bit)
+{
+    uint8_t is_sub = b < 0 ? 1 : 0;
+    // For 8 bit
+    if(is_8bit)
+    {
+        // Get the nibbles to check
+        int8_t a_nib, b_nib;
+        a_nib = a & 0xF;
+        b_nib = abs(b) & 0xF;
+
+        // Check for overflow or borrow depending on operation
+        if(!is_sub) // If addition
+        {
+            // Set H flag
+            if((a_nib + b_nib) & 0x10) // 1
+            {
+                gb->reg->f |= 0x20;    
+            }
+            else // 0
+            {
+                gb->reg->f &= 0xd0;
+            }
+        }
+        else        // If substraction
+        {
+            if(a_nib < b_nib) // 1
+            {
+                gb->reg->f |= 0x20;
+            }
+            else // 0
+            {
+                gb->reg->f &= 0xd0;
+            }
+        }
+    }
+
+    return 0;
+}

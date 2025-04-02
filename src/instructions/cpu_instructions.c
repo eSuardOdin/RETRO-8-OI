@@ -20,7 +20,7 @@ void test_instructions(gameboy *gb)
     gb->reg->c = 0x44;
     gb->reg->d = 0x05;
     gb->reg->e = 0x12;
-    gb->reg->f = 0xe3;
+    gb->reg->f = 0x00;
     gb->reg->hl = 0xff43;
     gb->reg->sp = 0x0034;
     print_registers(gb);
@@ -29,19 +29,34 @@ void test_instructions(gameboy *gb)
     // *r = 0xff;
     // ld_r8_r8(0b01111110, gb);
     
+    // Test of half carry
+    int32_t a = 5;
+    int32_t b = -5;
+    printf("Checking for %d + (%d).\n", a, b);
+    set_H_flag(gb, a, b,1);
+    printf("Flag register is %02x.\n", gb->reg->f);
+    print_registers(gb);
+
+    b = -6;
+    printf("Checking for %d + (%d).\n", a, b);
+    set_H_flag(gb, a, b,1);
+    printf("Flag register is %02x.\n", gb->reg->f);
+    print_registers(gb);
+
+
 
     // print_registers(gb);
     
-    printf("BEFORE PUSH: SP = %04x.\n", gb->reg->sp);
-    push_r16(0b11100101, gb); // PUSH value of HL register
-    printf("AFTER PUSH: SP = %04x.\n", gb->reg->sp);
-    printf("Points to %02x (lsb) %02x (msb).\n", get_byte(gb, gb->reg->sp), get_byte(gb, gb->reg->sp+1));
+    // printf("BEFORE PUSH: SP = %04x.\n", gb->reg->sp);
+    // push_r16(0b11100101, gb); // PUSH value of HL register
+    // printf("AFTER PUSH: SP = %04x.\n", gb->reg->sp);
+    // printf("Points to %02x (lsb) %02x (msb).\n", get_byte(gb, gb->reg->sp), get_byte(gb, gb->reg->sp+1));
 
 
-    printf("Poping to BC register.\n");
-    pop_r16(0b11000001, gb);
-    printf("AFTER POP: SP = %04x.\n", gb->reg->sp);
-    print_registers(gb);
+    // printf("Poping to BC register.\n");
+    // pop_r16(0b11000001, gb);
+    // printf("AFTER POP: SP = %04x.\n", gb->reg->sp);
+    // print_registers(gb);
 
     // // LD B, A
     // printf("LD B into A -> 1 Cycle | 1 Length\n");

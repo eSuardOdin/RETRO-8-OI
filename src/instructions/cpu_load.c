@@ -592,3 +592,27 @@ int pop_r16(uint8_t opcode, gameboy *gb)
     inc_cycle(gb);
     return 0;
 }
+
+
+
+int ld_hl_sp_e(uint8_t opcode, gameboy *gb)
+{
+    int8_t e;
+
+    // Increment Cycle and PC
+    gb->reg->pc++;
+    inc_cycle(gb);
+
+    // Get e value
+    e = (int8_t) get_byte(gb, gb->reg->pc);
+
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Assign new value to HL
+    gb->reg->hl += e;
+
+    // Increment cycle
+    inc_cycle(gb);
+    return 0;
+}

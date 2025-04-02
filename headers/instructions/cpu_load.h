@@ -307,7 +307,9 @@ int pop_r16(uint8_t opcode, gameboy *gb);
  * @brief Add the signed value e8 to SP and copy the result in HL.
  * OPCODE : 0b11111000/0xF8 | CYCLES : 3 | LENGTH : 2
  * @details Flags : Z = 0 | N = 0 | H = Overflow from bit 3 | C = Overflow from bit 7  
- * @author Erwann SUARD
+ * 
+ * WARNING : Need to test well this one, flags, negative e, etc.. 
+ *@author Erwann SUARD
  * @param gb Gameboy struct
  * @return TO DETERMINE
  */
