@@ -29,19 +29,50 @@ void test_instructions(gameboy *gb)
     // *r = 0xff;
     // ld_r8_r8(0b01111110, gb);
     
-    // Test of half carry
+    // ### Test of half carry ###
+    /*
+    // -> Should be set to 0
     int32_t a = 5;
     int32_t b = -5;
     printf("Checking for %d + (%d).\n", a, b);
     set_H_flag(gb, a, b,1);
     printf("Flag register is %02x.\n", gb->reg->f);
     print_registers(gb);
-
+    // -> Should be set to 1
     b = -6;
     printf("Checking for %d + (%d).\n", a, b);
     set_H_flag(gb, a, b,1);
     printf("Flag register is %02x.\n", gb->reg->f);
     print_registers(gb);
+    */
+    
+    // -> Should be set to 1
+    int32_t a = 0x98;
+    int32_t b = 0x08;
+    printf("Checking for %02x + (%02x) = %02x.\n", a, b, a + b);
+    set_H_flag(gb, a, b,1);
+    printf("Flag register is %02x.\n", gb->reg->f);
+    print_registers(gb);
+    // -> Should be set to 0
+    a = 0xc8;
+    b = 0x33;
+    printf("Checking for %02x + (%02x) = %02x.\n", a, b, a + b);
+    set_H_flag(gb, a, b,1);
+    printf("Flag register is %02x.\n", gb->reg->f);
+    print_registers(gb);
+
+    // -> Should be set to 1
+    a = 0x17;
+    b = -0x6a;
+    printf("Checking for %02x + (%02x) = %02x.\n", a, b, a + b);
+    set_H_flag(gb, a, b,1);
+    printf("Flag register is %02x.\n", gb->reg->f);
+    print_registers(gb);
+    // b = -6;
+    // printf("Checking for %d + (%d).\n", a, b);
+    // set_H_flag(gb, a, b,1);
+    // printf("Flag register is %02x.\n", gb->reg->f);
+    // print_registers(gb);
 
 
 
