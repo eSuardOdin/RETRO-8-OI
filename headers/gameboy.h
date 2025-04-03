@@ -58,6 +58,7 @@ uint8_t write_memory(gameboy *gb, uint16_t address);
  */
 uint8_t *get_r8(uint8_t byte, gameboy* gb);
 
+uint16_t *get_r16(uint8_t byte, gameboy *gb);
 
 /**
  * @brief Get the byte in memory correponding with addr and return it.
@@ -93,4 +94,31 @@ void inc_cycle(gameboy *gb);
  * @param gb 
  */
 void print_registers(gameboy *gb);
+
+
+int set_flags(gameboy* gb, unsigned int result, int is_8_bit, int is_sub);
+/**
+ * @brief Set the H (Half Carry flag) [TO REFACTOR]
+ * 
+ * @details 
+ * 
+ * Add : 
+ *    - Set to 1 if a Carry occurs from bit 3 to bit 4 
+ *    - Set to 0 if no Carry occurs from bit 3 to bit 4
+ * 
+ * Sub :
+ *    - Set to 1 if a Borrow from bit 4 occurs
+ *    - Set to 0 if no Borrow from bit 4 occurs
+ * 
+ * On 16bit arithmetic, carry occurs from bit 11 to 12.
+ * 
+ * @param gb The gameboy struct
+ * @param a The left operande 
+ * @param b The right operande
+ * @param is_8bit 
+ * @return TO DETERMINE
+ */
+int set_H_flag(gameboy *gb, int32_t a, int32_t b, uint8_t is_8bit);
+int set_C_flag(gameboy *gb, int32_t a, int32_t b, uint8_t is_8bit);
+
 #endif

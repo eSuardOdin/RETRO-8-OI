@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['div_0',['DIV',['../memory__constants_8h.html#a8295e0aed07a8923d8363ce46c7b08e2',1,'memory_constants.h']]],
-  ['dma_1',['DMA',['../memory__constants_8h.html#a137c9e7c0bc9e12f455df0a6e41c0287',1,'memory_constants.h']]]
+  ['e_5fcgb_9',['e_cgb',['../cartridge_8h.html#a59619d7f0e0a0a4f361b3549bcc8b022',1,'cartridge.h']]],
+  ['e_5fmbc_10',['e_mbc',['../cartridge_8h.html#a021a2fff4455b80ecd66c1c2a5e662c3',1,'cartridge.h']]]
 ];
