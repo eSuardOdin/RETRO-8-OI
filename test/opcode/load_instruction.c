@@ -23,6 +23,7 @@ void init_ld(gameboy *gb){
     *(get_address(gb, gb->reg->hl)) = 0x62;
 }
 
+#pragma region ld_r8_r8
 // Load Instruction ld_r8_r8
 void test_ld_r8_r8(void){
     gameboy *gb = malloc(sizeof(gameboy));
@@ -65,10 +66,11 @@ void test_ld_r8_r8_hl(void){
     uint8_t buff = get_byte(gb, gb->reg->hl);
     free(gb);
 
-    TEST_ASSERT_EQUAL(0x62, buff);
+    TEST_ASSERT_EQUAL(0x00, buff);
 }
+#pragma endregion
 
-
+#pragma region ld_r8_n8
 // Load Instruction ld_r8_n8
 void test_ld_r8_n8_b(void){
     gameboy *gb = malloc(sizeof(gameboy));
@@ -248,10 +250,11 @@ void test_ld_r8_n8_a(void){
     free(gb);
     TEST_ASSERT_EQUAL(0x66, buff);
 }
+#pragma endregion
 
-
+#pragma region ld_r8_hl
 // Load Instruction ld_r8_hl
-void test_r8_hl_b(void){
+void test_ld_r8_hl_b(void){
     gameboy *gb = malloc(sizeof(gameboy));
     char* path = "Tetris.gb";
     reset_gameboy(gb, path);
@@ -271,7 +274,7 @@ void test_r8_hl_b(void){
     TEST_ASSERT_EQUAL(0x62, buff);
 }
 
-void test_r8_hl_c(void){
+void test_ld_r8_hl_c(void){
     gameboy *gb = malloc(sizeof(gameboy));
     char* path = "Tetris.gb";
     reset_gameboy(gb, path);
@@ -291,7 +294,7 @@ void test_r8_hl_c(void){
     TEST_ASSERT_EQUAL(0x62, buff);
 }
 
-void test_r8_hl_d(void){
+void test_ld_r8_hl_d(void){
     gameboy *gb = malloc(sizeof(gameboy));
     char* path = "Tetris.gb";
     reset_gameboy(gb, path);
@@ -306,12 +309,12 @@ void test_r8_hl_d(void){
     gb->reg->hl = 0xff43;
     *(get_address(gb, gb->reg->hl)) = 0x62;
     ld_r8_hl(0b01010110, gb);
-    uint8_t buff = gb->reg->b;
+    uint8_t buff = gb->reg->d;
     free(gb);
     TEST_ASSERT_EQUAL(0x62, buff);
 }
 
-void test_r8_hl_e(void){
+void test_ld_r8_hl_e(void){
     gameboy *gb = malloc(sizeof(gameboy));
     char* path = "Tetris.gb";
     reset_gameboy(gb, path);
@@ -331,7 +334,7 @@ void test_r8_hl_e(void){
     TEST_ASSERT_EQUAL(0x62, buff);
 }
 
-void test_r8_hl_h(void){
+void test_ld_r8_hl_h(void){
     gameboy *gb = malloc(sizeof(gameboy));
     char* path = "Tetris.gb";
     reset_gameboy(gb, path);
@@ -351,7 +354,7 @@ void test_r8_hl_h(void){
     TEST_ASSERT_EQUAL(0x62, buff);
 }
 
-void test_r8_hl_l(void){
+void test_ld_r8_hl_l(void){
     gameboy *gb = malloc(sizeof(gameboy));
     char* path = "Tetris.gb";
     reset_gameboy(gb, path);
@@ -371,7 +374,7 @@ void test_r8_hl_l(void){
     TEST_ASSERT_EQUAL(0x62, buff);
 }
 
-void test_r8_hl_a(void){
+void test_ld_r8_hl_a(void){
     gameboy *gb = malloc(sizeof(gameboy));
     char* path = "Tetris.gb";
     reset_gameboy(gb, path);
@@ -388,12 +391,13 @@ void test_r8_hl_a(void){
     ld_r8_hl(0b01111110, gb);
     uint8_t buff = gb->reg->a;
     free(gb);
-    TEST_ASSERT_EQUAL(0x62, gb->reg->a);
+    TEST_ASSERT_EQUAL(0x62, buff);
 }
+#pragma endregion
 
-
+#pragma region ld_hl_r8
 // Load Instruction ld_hl_r8
-void test_hl_r8_b(void){
+void test_ld_hl_r8_b(void){
     gameboy *gb = malloc(sizeof(gameboy));
     char* path = "Tetris.gb";
     reset_gameboy(gb, path);
@@ -413,7 +417,7 @@ void test_hl_r8_b(void){
     TEST_ASSERT_EQUAL(0x00, buff);
 }
 
-void test_hl_r8_c(void){
+void test_ld_hl_r8_c(void){
     gameboy *gb = malloc(sizeof(gameboy));
     char* path = "Tetris.gb";
     reset_gameboy(gb, path);
@@ -433,7 +437,7 @@ void test_hl_r8_c(void){
     TEST_ASSERT_EQUAL(0x44, buff);
 }
 
-void test_hl_r8_d(void){
+void test_ld_hl_r8_d(void){
     gameboy *gb = malloc(sizeof(gameboy));
     char* path = "Tetris.gb";
     reset_gameboy(gb, path);
@@ -453,7 +457,7 @@ void test_hl_r8_d(void){
     TEST_ASSERT_EQUAL(0x05, buff);
 }
 
-void test_hl_r8_e(void){
+void test_ld_hl_r8_e(void){
     gameboy *gb = malloc(sizeof(gameboy));
     char* path = "Tetris.gb";
     reset_gameboy(gb, path);
@@ -473,7 +477,7 @@ void test_hl_r8_e(void){
     TEST_ASSERT_EQUAL(0x12, buff);
 }
 
-void test_hl_r8_h(void){
+void test_ld_hl_r8_h(void){
     gameboy *gb = malloc(sizeof(gameboy));
     char* path = "Tetris.gb";
     reset_gameboy(gb, path);
@@ -494,7 +498,7 @@ void test_hl_r8_h(void){
     TEST_ASSERT_EQUAL(0x54, buff);
 }
 
-void test_hl_r8_l(void){
+void test_ld_hl_r8_l(void){
     gameboy *gb = malloc(sizeof(gameboy));
     char* path = "Tetris.gb";
     reset_gameboy(gb, path);
@@ -515,7 +519,7 @@ void test_hl_r8_l(void){
     TEST_ASSERT_EQUAL(0x41, buff);
 }
 
-void test_hl_r8_a(void){
+void test_ld_hl_r8_a(void){
     gameboy *gb = malloc(sizeof(gameboy));
     char* path = "Tetris.gb";
     reset_gameboy(gb, path);
@@ -536,7 +540,7 @@ void test_hl_r8_a(void){
 }
 
 // Load Instructions ld_hl_n8
-void test_hl_n8(void){
+void test_ld_hl_n8(void){
     gameboy *gb = malloc(sizeof(gameboy));
     char* path = "Tetris.gb";
     reset_gameboy(gb, path);
@@ -559,3 +563,5 @@ void test_hl_n8(void){
     TEST_ASSERT_EQUAL(0x66, buff);
 
 }
+#pragma endregion
+

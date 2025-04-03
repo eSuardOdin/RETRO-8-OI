@@ -60,15 +60,24 @@ int main(int argc, char *argv[])
     RUN_TEST(test_ld_r8_n8_hl);
     RUN_TEST(test_ld_r8_n8_a);
     //LD_R8_HL
-    RUN_TEST(test_ld_r8_n8_hl);
+    RUN_TEST(test_ld_r8_hl_b);
+    RUN_TEST(test_ld_r8_hl_c);
+    RUN_TEST(test_ld_r8_hl_d);
+    RUN_TEST(test_ld_r8_hl_e);
+    RUN_TEST(test_ld_r8_hl_l);
+    RUN_TEST(test_ld_r8_hl_h);
+    RUN_TEST(test_ld_r8_hl_a);
+    //LD_HL_R8
+    RUN_TEST(test_ld_hl_r8_b);
+    RUN_TEST(test_ld_hl_r8_c);
+    RUN_TEST(test_ld_hl_r8_d);
+    RUN_TEST(test_ld_hl_r8_e);
+    RUN_TEST(test_ld_hl_r8_h);
+    RUN_TEST(test_ld_hl_r8_l);
+    RUN_TEST(test_ld_hl_r8_a);
 
-    RUN_TEST(test_hl_r8_b);
-    RUN_TEST(test_hl_r8_c);
-    RUN_TEST(test_hl_r8_d);
-    RUN_TEST(test_hl_r8_e);
-    RUN_TEST(test_hl_r8_h);
-    RUN_TEST(test_hl_r8_l);
-    RUN_TEST(test_hl_r8_a);
+    //LD_HL_N8
+    RUN_TEST(test_ld_hl_n8);
 
     UNITY_END();
     return 0;
