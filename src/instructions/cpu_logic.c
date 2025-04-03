@@ -30,7 +30,7 @@ int and_a_r8(uint8_t opcode, gameboy* gb){
 
     *dst = result;
 
-    set_flags(gb,carry,1,0);
+    set_logic_flags(carry, 1);
     return 0;
 }
 
@@ -48,7 +48,7 @@ int and_a_r8(uint8_t opcode, gameboy* gb){
 
     *dst = result;
     
-    set_flags(gb,carry,1,0);
+    set_logic_flags(carry, 1);
     return 0;
 }
 
@@ -66,7 +66,7 @@ int and_a_n(gameboy* gb){
 
     gb->reg->a = result;
     
-    set_flags(gb,carry,1,0);
+    set_logic_flags(carry, 1);
     return 0;
 }
 
@@ -91,7 +91,7 @@ int or_a_r8(uint8_t opcode, gameboy* gb){
 
     *dst = result;
 
-    set_flags(gb,carry,1,0);
+    set_logic_flags(carry, 0);
     return 0;
 }
 
@@ -109,7 +109,7 @@ int or_a_hl(gameboy* gb){
 
     *dst = result;
     
-    set_flags(gb,carry,1,0);
+    set_logic_flags(carry, 0);
     return 0;
 }
 
@@ -128,7 +128,7 @@ int or_a_n(gameboy* gb){
 
     gb->reg->a = result;
     
-    set_flags(gb,carry,1,0);
+    set_logic_flags(carry, 0);
     return 0;
 }
 
@@ -153,7 +153,7 @@ int xor_a_r8(uint8_t opcode, gameboy* gb){
 
     *dst = result;
 
-    set_flags(gb,carry,1,0);
+    set_logic_flags(carry, 0);
     return 0;
 }
 
@@ -171,7 +171,7 @@ int xor_a_hl(gameboy* gb){
 
     *dst = result;
     
-    set_flags(gb,carry,1,0);
+    set_logic_flags(carry, 0);
     return 0;
 }
 
@@ -190,6 +190,26 @@ int xor_a_n(gameboy* gb){
 
     gb->reg->a = result;
     
-    set_flags(gb,carry,1,0);
+    set_logic_flags(carry, 0);
     return 0;
 }
+
+/*
+=====================
+    FLAGS
+=====================
+*/
+
+void set_logic_flags(int carry, int is_h){
+
+    //Si c'est un AND C=1, Si c'est un OR/XOR C=0
+    int a,b = 8;
+    if(!is_h)
+        b = 10;
+
+    set_Z_flags(gb,carry);
+    set_N_flag(gb, is_sub);
+    set_H_flag(gb, a, b, 1);
+    set_C_flag(gb, carry, 1);
+}
+
