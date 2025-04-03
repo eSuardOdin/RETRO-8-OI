@@ -28,7 +28,7 @@ int add_a_r8(uint8_t opcode, gameboy* gb){
 
     *dst = result;
 
-    set_flags(gb,carry,1,0);
+    set_arithmetic_flags(0);
     return 0;
 }
 
@@ -44,7 +44,7 @@ int add_a_hl(gameboy* gb){
 
     *dst = result;
     
-    set_flags(gb,carry,1,0);
+    set_arithmetic_flags(0);
     return 0;
 }
 
@@ -61,7 +61,7 @@ int add_a_n(gameboy* gb){
 
     gb->reg->a = result;
     
-    set_flags(gb,carry,1,0);
+    set_arithmetic_flags(0);
     return 0;
 }
 
@@ -85,7 +85,7 @@ int adc_a_r8(uint8_t opcode, gameboy* gb){
 
     *dst = result;
 
-    set_flags(gb,carry,1,0);
+    set_arithmetic_flags(0);
     return 0;
 }
 
@@ -102,7 +102,7 @@ int adc_a_hl(gameboy* gb){
 
     *dst = result;
     
-    set_flags(gb,carry,1,0);
+    set_arithmetic_flags(0);
     return 0;
 }
 
@@ -120,7 +120,7 @@ int adc_a_n(gameboy* gb){
 
     gb->reg->a = result;
     
-    set_flags(gb,carry,1,0);
+    set_arithmetic_flags(0);
     return 0;
 }
 
@@ -143,7 +143,7 @@ int sub_a_r8(uint8_t opcode, gameboy* gb){
 
     *dst = result;
 
-    set_flags(gb,carry,1,1);
+    set_arithmetic_flags(1);
     return 0;
 }
 
@@ -159,7 +159,7 @@ int sub_a_hl(gameboy* gb){
 
     *dst = result;
     
-    set_flags(gb,carry,1,1);
+    set_arithmetic_flags(1);
     return 0;
 }
 
@@ -176,7 +176,7 @@ int sub_a_n(gameboy* gb){
 
     gb->reg->a = result;
     
-    set_flags(gb,carry,1,1);
+    set_arithmetic_flags(1);
     return 0;
 }
 
@@ -200,7 +200,7 @@ int sbc_a_r8(uint8_t opcode, gameboy* gb){
 
     *dst = result;
 
-    set_flags(gb,carry,1,1);
+    set_arithmetic_flags(1);
     return 0;
 }
 
@@ -217,7 +217,7 @@ int sbc_a_hl(gameboy* gb){
 
     *dst = result;
     
-    set_flags(gb,carry,1,1);
+    set_arithmetic_flags(1);
     return 0;
 }
 
@@ -235,7 +235,7 @@ int sbc_a_n(gameboy* gb){
 
     gb->reg->a = result;
     
-    set_flags(gb,carry,1,1);
+    set_arithmetic_flags(1);
     return 0;
 }
 
@@ -257,7 +257,7 @@ int cp_a_r8(uint8_t opcode, gameboy* gb){
     int carry = *src - *dst;
     inc_cycle(gb);
 
-    set_flags(gb,carry,1,1);
+    set_arithmetic_flags(1);
     return result;
 }
 
@@ -271,7 +271,7 @@ int cp_a_hl(gameboy* gb){
     int carry = *src - *dst;
     inc_cycle(gb);
     
-    set_flags(gb,carry,1,1);
+    set_arithmetic_flags(1);
     return result;
 }
 
@@ -286,12 +286,14 @@ int cp_a_n(gameboy* gb){
     int carry = src - dst;
     inc_cycle(gb);
     
-    set_flags(gb,carry,1,1);
+    set_arithmetic_flags(1);
     return result;
 }
 
 /*
+=====================
     INC
+=====================
 */
 
 
@@ -306,7 +308,7 @@ int inc_r8(uint8_t opcode, gameboy* gb){
 
     *src = result;
 
-    set_flags(gb,carry,1,0);
+    set_arithmetic_flags(0);
     return 0;
 }
 
@@ -322,12 +324,14 @@ int inc_hl(gameboy* gb){
 
     *src = result;
     
-    set_flags(gb,carry,1,0);
+    set_arithmetic_flags(0);
     return 0;
 }
 
 /*
+=====================
     DEC
+=====================
 */
 
 
@@ -342,7 +346,7 @@ int dec_r8(uint8_t opcode, gameboy* gb){
 
     *src = result;
 
-    set_flags(gb,carry,1,0);
+    set_arithmetic_flags(1);
     return 0;
 }
 
@@ -358,6 +362,19 @@ int dec_hl(gameboy* gb){
 
     *src = result;
     
-    set_flags(gb,carry,1,0);
+    set_arithmetic_flags(1);
     return 0;
+}
+
+/*
+=====================
+    FLAGS
+=====================
+*/
+
+void set_arithmetic_flags(int is_sub){
+    set_Z_flags(gb,carry);
+    set_N_flag(gb, is_sub);
+    set_H_flag(gb, *src, *dst, 1);
+    set_C_flag(gb, carry, 1);
 }
