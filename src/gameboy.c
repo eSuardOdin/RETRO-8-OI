@@ -233,8 +233,6 @@ void print_registers(gameboy *gb)
 
 }
 
-
-
 uint8_t get_byte(gameboy* gb, uint16_t addr)
 {
     return read_memory(gb, addr);
@@ -254,9 +252,9 @@ int set_flags(gameboy* gb, unsigned int result, int is_8bit, int is_sub){
     if(is_sub)
         mask += 0b01000000; //setup N
     // Warning : Not accurate, the result may have been > 15 before operation. Check : https://gist.github.com/meganesu/9e228b6b587decc783aa9be34ae27841 
-    if(result > 15 && is_8_bit) //peut être modifier que avec du 8bits
+    if(result > 15 && is_8bit) //peut être modifier que avec du 8bits
         mask += 0b00100000; //setup H
-    if((is_8_bit && (result > 255)) || (!is_8_bit && (result > 65535)))
+    if((is_8bit && (result > 255)) || (!is_8bit && (result > 65535)))
         mask += 0b00010000; //setup C
     gb->reg->f = (gb->reg->f | mask) & 0b11110000; //on applique le mask et on suppr les 4 derniers bits
 }
