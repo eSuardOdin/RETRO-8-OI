@@ -217,7 +217,7 @@ uint8_t *get_r8(uint8_t byte, gameboy *gb)
         case 0x5:
             return &(gb->reg->l);
         case 0x6: // GET [HL] (Indirection of HL)
-            return get_address(gb, byte);
+            return get_address(gb, get_address(gb, gb->reg->hl));
         case 0x7:
             return &(gb->reg->a);
     }

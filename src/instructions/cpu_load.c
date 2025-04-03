@@ -23,8 +23,6 @@ int ld_r8_r8(uint8_t opcode, gameboy *gb)
     return 0;
 }
 
-
-
 int ld_r8_n8(uint8_t opcode, gameboy *gb)
 {
     uint8_t value;

@@ -121,6 +121,7 @@ cartridge* load_cart(char *path, cartridge* c)
 
 e_mbc get_mbc(uint8_t byte)
 {
+    /*
     printf("Read banks : %02x\n", byte);
     e_mbc e;
     switch (byte) {
@@ -211,6 +212,7 @@ e_mbc get_mbc(uint8_t byte)
     }
 
     return e;
+    */
 
 }
 
