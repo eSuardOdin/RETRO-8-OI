@@ -203,3 +203,12 @@ int dec_r8(uint8_t opcode, gameboy* gb);
  * @param gb Instance de GameBoy.
  */
 int dec_hl(gameboy* gb);
+
+/**
+ * @brief Set les flags pour les fonctions artihmetic.
+ *
+ * @author Thomas
+ * @param carry le résultat du calcul.
+ * @param is_sub boolean si le calcul est une soustraction
+ */
+void set_arithmetic_flags(int carry, int is_sub);

@@ -100,3 +100,12 @@ int xor_a_hl(gameboy* gb);
  * @param gb Instance de GameBoy.
  */
 int xor_a_n(gameboy* gb);
+
+/**
+ * @brief Set les flags pour les fonctions logic.
+ *
+ * @author Thomas
+ * @param carry le résultat du calcul.
+ * @param is_h boolean si H doit être activé.
+ */
+void set_logic_flags(int carry, int is_h);
