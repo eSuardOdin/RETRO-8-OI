@@ -39,7 +39,7 @@ int ld_r8_n8(uint8_t opcode, gameboy *gb)
 
     // Get immediate value
     inc_cycle(gb);
-    value = read_memory(gb, gb->reg->pc);
+    value = get_byte(gb, gb->reg->pc);
 
     // Assign value
     *dst = value;
@@ -425,6 +425,192 @@ int ldh_hl_inc_a(gameboy *gb)
 
     // Assign value
     *dst = gb->reg->a;
+
+    // Increment cycle
+    inc_cycle(gb);
+    return 0;
+}
+
+
+
+
+/*
+    16 Bits LD
+*/
+int ld_r16_n16(uint8_t opcode, gameboy *gb)
+{
+    uint16_t *dst = get_r16(opcode, gb);
+    uint16_t data = 0;
+
+    // Increment Cycle and PC
+    inc_cycle(gb);
+    gb->reg->pc++;
+
+    // Get LSB
+    data = get_byte(gb, gb->reg->pc) << 8;
+
+    // Increment Cycle and PC
+    inc_cycle(gb);
+    gb->reg->pc++;
+
+    // Get MSB
+    data = data | get_byte(gb, gb->reg->pc);
+
+    // Assign value
+    *dst = data;
+
+    // Increment Cycle
+    inc_cycle(gb);
+    return 0;
+}
+
+
+
+
+int ld_nn_sp(gameboy *gb)
+{
+    uint16_t dst_addr = 0;
+    uint8_t *dst;
+
+    // Increment Cycle and PC
+    inc_cycle(gb);
+    gb->reg->pc++;
+
+    // Get LSB
+    dst_addr = get_byte(gb, gb->reg->pc) << 8;
+
+    // Increment Cycle and PC
+    inc_cycle(gb);
+    gb->reg->pc++;
+
+    // Get MSB
+    dst_addr = dst_addr | get_byte(gb, gb->reg->pc);
+
+    // Assign value
+    dst = get_address(gb, dst_addr);
+    *dst = gb->reg->sp;
+
+    // Increment Cycle
+    inc_cycle(gb);
+
+    // Increment cycles left (to check)
+    inc_cycle(gb);
+    inc_cycle(gb);
+    return 0;
+}
+
+
+
+int ld_sp_hl(gameboy *gb)
+{
+    // Increment Cycle
+    inc_cycle(gb);
+
+    // Assign values
+    gb->reg->sp = gb->reg->hl;
+
+    // Increment cycle
+    inc_cycle(gb);
+    return 0;
+}
+
+
+
+int push_r16(uint8_t opcode, gameboy *gb)
+{
+    uint16_t *src;
+    uint8_t *dst;
+    uint8_t msb;
+    uint8_t lsb;
+    uint8_t r16_byte;
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Get src r16
+    r16_byte = (opcode & 0b00110000) >> 4;
+    src = get_r16(r16_byte, gb);
+    
+    // Get MSB / LSB
+    msb = (*src & 0xff00) >> 8;
+    lsb = *src & 0x00ff;
+
+    // Increment cycle
+    inc_cycle(gb);
+
+    // SP-- and copy MSB
+    gb->reg->sp--;
+    dst = get_address(gb, gb->reg->sp);
+    *dst = msb;
+
+    // Increment cycle
+    inc_cycle(gb);
+
+    // SP-- and copy LSB
+    gb->reg->sp--;
+    dst = get_address(gb, gb->reg->sp);
+    *dst = lsb;
+
+    // Increment cycle
+    inc_cycle(gb);
+    return 0;
+}
+
+
+
+int pop_r16(uint8_t opcode, gameboy *gb)
+{
+    uint16_t *dst;
+    uint8_t msb;
+    uint8_t lsb;
+    uint16_t data = 0;
+    uint8_t r16_byte;
+    
+    // Get dst r16
+    r16_byte = (opcode & 0b00110000) >> 4;
+    dst = get_r16(r16_byte, gb);
+    
+    // Get LSB and SP++ 
+    lsb = get_byte(gb, gb->reg->sp);
+    gb->reg->sp++;
+
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Get MSB and SP++ 
+    msb = get_byte(gb, gb->reg->sp);
+    gb->reg->sp++;
+
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Assign value
+    data = (msb << 8) | lsb;
+    *dst = data;
+    
+    printf("Data is %04x.\n", data);
+    // Increment cycle
+    inc_cycle(gb);
+    return 0;
+}
+
+
+
+int ld_hl_sp_e(uint8_t opcode, gameboy *gb)
+{
+    int8_t e;
+
+    // Increment Cycle and PC
+    gb->reg->pc++;
+    inc_cycle(gb);
+
+    // Get e value
+    e = (int8_t) get_byte(gb, gb->reg->pc);
+
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Assign new value to HL
+    gb->reg->hl += e;
 
     // Increment cycle
     inc_cycle(gb);
