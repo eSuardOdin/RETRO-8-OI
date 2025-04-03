@@ -1,4 +1,4 @@
-#include "../../headers/instructions/cpu_load.h"
+#include "../../headers/instructions/cpu_logic.h"
 #include "../../headers/gameboy.h"
 #include <stdint.h>
 #include <stdio.h>
@@ -15,13 +15,7 @@
 =====================
 */
 
-/**
- * @brief Performe un AND logique de A avec r8.
- *
- * @author Thomas
- * @param opcode Opcode.
- * @param gb Instance de GameBoy.
- */
+
 int and_a_r8(uint8_t opcode, gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src;
@@ -40,12 +34,7 @@ int and_a_r8(uint8_t opcode, gameboy* gb){
     return 0;
 }
 
-/**
- * @brief Performe un AND logique de A avec La valeur pointée par HL.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
+
  int and_a_hl(gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src = get_address(gb, gb->reg->hl);
@@ -63,12 +52,6 @@ int and_a_r8(uint8_t opcode, gameboy* gb){
     return 0;
 }
 
-/**
- * @brief Performe un AND logique de A avec n.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
 int and_a_n(gameboy* gb){
     gb->reg->pc++;
     uint8_t n = get_byte(gb, gb->reg->pc);
@@ -93,13 +76,7 @@ int and_a_n(gameboy* gb){
 =====================
 */
 
-/**
- * @brief Performe un OR logique de A avec r8.
- *
- * @author Thomas
- * @param opcode Opcode.
- * @param gb Instance de GameBoy.
- */
+
 int or_a_r8(uint8_t opcode, gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src;
@@ -118,12 +95,7 @@ int or_a_r8(uint8_t opcode, gameboy* gb){
     return 0;
 }
 
-/**
- * @brief Performe un OR logique de A avec La valeur pointée par HL.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
+
 int or_a_hl(gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src = get_address(gb, gb->reg->hl);
@@ -141,12 +113,7 @@ int or_a_hl(gameboy* gb){
     return 0;
 }
 
-/**
- * @brief Performe un OR logique avec le carry de A avec n.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
+
 int or_a_n(gameboy* gb){
     gb->reg->pc++;
     uint8_t n = get_byte(gb, gb->reg->pc);
@@ -171,13 +138,7 @@ int or_a_n(gameboy* gb){
 =====================
 */
 
-/**
- * @brief Performe un XOR logique de A avec r8.
- *
- * @author Thomas
- * @param opcode Opcode.
- * @param gb Instance de GameBoy.
- */
+
 int xor_a_r8(uint8_t opcode, gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src;
@@ -196,12 +157,7 @@ int xor_a_r8(uint8_t opcode, gameboy* gb){
     return 0;
 }
 
-/**
- * @brief Performe un XOR logique de A avec La valeur pointée par HL.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
+
 int xor_a_hl(gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src = get_address(gb, gb->reg->hl);
@@ -219,12 +175,7 @@ int xor_a_hl(gameboy* gb){
     return 0;
 }
 
-/**
- * @brief Performe un XOR logique avec le carry de A avec n.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
+
 int xor_a_n(gameboy* gb){
     gb->reg->pc++;
     uint8_t n = get_byte(gb, gb->reg->pc);
