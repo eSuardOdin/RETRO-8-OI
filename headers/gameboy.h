@@ -77,7 +77,14 @@ uint8_t get_byte(gameboy* gb, uint16_t addr);
  */
 uint16_t get_word(gameboy* gb, uint16_t addr);
 
-
+/**
+ * @brief set flags corresponding to the result
+ * @param gb To get the ram from
+ * @param result 
+ * @param is_8_bit
+ * @param is_sub
+ */
+int set_flags(gameboy *gb, unsigned int result, int is_8_bit, int is_sub);
 
 
 /**
@@ -96,7 +103,6 @@ void inc_cycle(gameboy *gb);
 void print_registers(gameboy *gb);
 
 
-int set_flags(gameboy* gb, unsigned int result, int is_8_bit, int is_sub);
 /**
  * @brief Set the H (Half Carry flag) [TO REFACTOR]
  * 
