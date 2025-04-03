@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['a_0',['a',['../structcpu__reg.html#af212f2a70e7b8ce887fa09e0f4bd4a80',1,'cpu_reg']]],
-  ['architecture_1',['Architecture',['../md_README.html#autotoc_md1',1,'']]]
+  ['bgp_1',['BGP',['../memory__constants_8h.html#a038b372f0024c962a04f2b959f02f139',1,'memory_constants.h']]]
 ];
