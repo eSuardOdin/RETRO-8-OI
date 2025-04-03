@@ -119,6 +119,8 @@ int set_flags(gameboy* gb, unsigned int result, int is_8_bit, int is_sub);
  * @return TO DETERMINE
  */
 int set_H_flag(gameboy *gb, int32_t a, int32_t b, uint8_t is_8bit);
-int set_C_flag(gameboy *gb, int32_t a, int32_t b, uint8_t is_8bit);
+int set_C_flag(gameboy* gb, unsigned int result, int is_8bit);
+int set_N_flag(gameboy* gb, int is_sub);
+int set_Z_flags(gameboy* gb, unsigned int result);
 
 #endif
