@@ -109,3 +109,27 @@ int xor_a_n(gameboy* gb);
  * @param is_h boolean si H doit être activé.
  */
 void set_logic_flags(int carry, int is_h);
+
+/**
+ * @brief Performe un XOR logique avec le carry de A avec n.
+ *
+ * @author Thomas
+ * @param gb Instance de GameBoy.
+ */
+int ccf(gameboy* gb);
+
+/**
+ * @brief Met le flag C à 1 et le flag N et H à 0.
+ *
+ * @author Thomas
+ * @param gb Instance de GameBoy.
+ */
+int scf(gameboy* gb);
+
+/**
+ * @brief Flip le flage Z et C puis mets H à 0.
+ *
+ * @author Thomas
+ * @param gb Instance de GameBoy.
+ */
+int daa(gameboy* gb);
