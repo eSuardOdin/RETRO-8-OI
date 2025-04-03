@@ -1,4 +1,4 @@
-#include "../../headers/instructions/cpu_load.h"
+#include "../../headers/instructions/cpu_arithmetic.h"
 #include "../../headers/gameboy.h"
 #include <stdint.h>
 #include <stdio.h>
@@ -15,13 +15,7 @@
 =====================
 */
 
-/**
- * @brief Additionne A avec r8.
- *
- * @author Thomas
- * @param opcode Opcode.
- * @param gb Instance de GameBoy.
- */
+
 int add_a_r8(uint8_t opcode, gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src;
@@ -38,12 +32,7 @@ int add_a_r8(uint8_t opcode, gameboy* gb){
     return 0;
 }
 
-/**
- * @brief Additionne A avec La valeur pointée par HL.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
+
 int add_a_hl(gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src = get_address(gb, gb->reg->hl);
@@ -59,12 +48,7 @@ int add_a_hl(gameboy* gb){
     return 0;
 }
 
-/**
- * @brief Additionne A avec n.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
+
 int add_a_n(gameboy* gb){
     gb->reg->pc++;
     uint8_t n = get_byte(gb, gb->reg->pc);
@@ -87,13 +71,7 @@ int add_a_n(gameboy* gb){
 =====================
 */
 
-/**
- * @brief Additionne avec le carry, A avec r8.
- *
- * @author Thomas
- * @param opcode Opcode.
- * @param gb Instance de GameBoy.
- */
+
 int adc_a_r8(uint8_t opcode, gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src;
@@ -111,13 +89,8 @@ int adc_a_r8(uint8_t opcode, gameboy* gb){
     return 0;
 }
 
-/**
- * @brief Additionne avec le carry, A avec La valeur pointée par HL.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
- int adc_a_hl(gameboy* gb){
+
+int adc_a_hl(gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src = get_address(gb, gb->reg->hl);
     uint8_t flag_c = gb->reg->f & 0b00010000;
@@ -133,12 +106,7 @@ int adc_a_r8(uint8_t opcode, gameboy* gb){
     return 0;
 }
 
-/**
- * @brief Additionne avec le carry, A avec n.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
+
 int adc_a_n(gameboy* gb){
     gb->reg->pc++;
     uint8_t src = get_byte(gb, gb->reg->pc);
@@ -162,13 +130,7 @@ int adc_a_n(gameboy* gb){
 =====================
 */
 
-/**
- * @brief Soustrait A avec r8.
- *
- * @author Thomas
- * @param opcode Opcode.
- * @param gb Instance de GameBoy.
- */
+
 int sub_a_r8(uint8_t opcode, gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src;
@@ -185,12 +147,7 @@ int sub_a_r8(uint8_t opcode, gameboy* gb){
     return 0;
 }
 
-/**
- * @brief Soustrait A avec La valeur pointée par HL.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
+
 int sub_a_hl(gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src = get_address(gb, gb->reg->hl);
@@ -206,13 +163,8 @@ int sub_a_hl(gameboy* gb){
     return 0;
 }
 
-/**
- * @brief Soustrait A avec n.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
- int sub_a_n(gameboy* gb){
+
+int sub_a_n(gameboy* gb){
     gb->reg->pc++;
     uint8_t src = get_byte(gb, gb->reg->pc);
     uint8_t dst = gb->reg->a;
@@ -234,13 +186,7 @@ int sub_a_hl(gameboy* gb){
 =====================
 */
 
-/**
- * @brief Soustrait avec le carry, A avec r8.
- *
- * @author Thomas
- * @param opcode Opcode.
- * @param gb Instance de GameBoy.
- */
+
 int sbc_a_r8(uint8_t opcode, gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src;
@@ -258,13 +204,8 @@ int sbc_a_r8(uint8_t opcode, gameboy* gb){
     return 0;
 }
 
-/**
- * @brief Soustrait avec le carry, A avec La valeur pointée par HL.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
- int sbc_a_hl(gameboy* gb){
+
+int sbc_a_hl(gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src = get_address(gb, gb->reg->hl);
     uint8_t flag_c = gb->reg->f & 0b00010000;
@@ -280,13 +221,8 @@ int sbc_a_r8(uint8_t opcode, gameboy* gb){
     return 0;
 }
 
-/**
- * @brief Soustrait avec le carry, A avec n.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
- int sbc_a_n(gameboy* gb){
+
+int sbc_a_n(gameboy* gb){
     gb->reg->pc++;
     uint8_t src = get_byte(gb, gb->reg->pc);
     uint8_t dst = gb->reg->a;
@@ -309,13 +245,7 @@ int sbc_a_r8(uint8_t opcode, gameboy* gb){
 =====================
 */
 
-/**
- * @brief Compare A avec r8.
- *
- * @author Thomas
- * @param opcode Opcode.
- * @param gb Instance de GameBoy.
- */
+
 int cp_a_r8(uint8_t opcode, gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src;
@@ -331,12 +261,7 @@ int cp_a_r8(uint8_t opcode, gameboy* gb){
     return result;
 }
 
-/**
- * @brief Compare A avec La valeur pointée par HL.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
+
 int cp_a_hl(gameboy* gb){
     uint8_t *dst = &gb->reg->a;
     uint8_t *src = get_address(gb, gb->reg->hl);
@@ -350,13 +275,8 @@ int cp_a_hl(gameboy* gb){
     return result;
 }
 
-/**
- * @brief Compare A avec n.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
- int cp_a_n(gameboy* gb){
+
+int cp_a_n(gameboy* gb){
     gb->reg->pc++;
     uint8_t src = get_byte(gb, gb->reg->pc);
     uint8_t dst = gb->reg->a;
@@ -374,14 +294,8 @@ int cp_a_hl(gameboy* gb){
     INC
 */
 
-/**
- * @brief Incremente de 1 r8.
- *
- * @author Thomas
- * @param opcode Opcode.
- * @param gb Instance de GameBoy.
- */
- int inc_r8(uint8_t opcode, gameboy* gb){
+
+int inc_r8(uint8_t opcode, gameboy* gb){
     uint8_t *src;
 
     uint8_t src_byte = opcode & 0x03;
@@ -396,12 +310,7 @@ int cp_a_hl(gameboy* gb){
     return 0;
 }
 
-/**
- * @brief Incremente de 1 la valeur pointée par HL.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
+
 int inc_hl(gameboy* gb){
     uint8_t *src = get_address(gb, gb->reg->hl);
     inc_cycle(gb);
@@ -421,14 +330,8 @@ int inc_hl(gameboy* gb){
     DEC
 */
 
-/**
- * @brief Decremente de 1 r8.
- *
- * @author Thomas
- * @param opcode Opcode.
- * @param gb Instance de GameBoy.
- */
- int dec_r8(uint8_t opcode, gameboy* gb){
+
+int dec_r8(uint8_t opcode, gameboy* gb){
     uint8_t *src;
 
     uint8_t src_byte = opcode & 0x03;
@@ -443,12 +346,7 @@ int inc_hl(gameboy* gb){
     return 0;
 }
 
-/**
- * @brief Decremente de 1 la valeur pointée par HL.
- *
- * @author Thomas
- * @param gb Instance de GameBoy.
- */
+
 int dec_hl(gameboy* gb){
     uint8_t *src = get_address(gb, gb->reg->hl);
     inc_cycle(gb);
