@@ -308,7 +308,9 @@ int inc_r8(uint8_t opcode, gameboy* gb){
 
     *src = result;
 
-    set_arithmetic_flags(0);
+    set_Z_flags(gb,carry);
+    set_N_flag(gb, 0);
+    set_H_flag(gb, *src, *dst, 1);
     return 0;
 }
 
@@ -324,7 +326,9 @@ int inc_hl(gameboy* gb){
 
     *src = result;
     
-    set_arithmetic_flags(0);
+    set_Z_flags(gb,carry);
+    set_N_flag(gb, 0);
+    set_H_flag(gb, *src, *dst, 1);
     return 0;
 }
 
@@ -346,7 +350,9 @@ int dec_r8(uint8_t opcode, gameboy* gb){
 
     *src = result;
 
-    set_arithmetic_flags(1);
+    set_Z_flags(gb,carry);
+    set_N_flag(gb, 1);
+    set_H_flag(gb, *src, *dst, 1);
     return 0;
 }
 
@@ -361,8 +367,10 @@ int dec_hl(gameboy* gb){
     inc_cycle(gb);
 
     *src = result;
+    set_Z_flags(gb,carry);
+    set_N_flag(gb, 1);
+    set_H_flag(gb, *src, *dst, 1);
     
-    set_arithmetic_flags(1);
     return 0;
 }
 
