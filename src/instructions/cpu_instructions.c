@@ -46,28 +46,28 @@ void test_instructions(gameboy *gb)
     print_registers(gb);
     */
     
-    // -> Should be set to 1
-    int32_t a = 0x98;
-    int32_t b = 0x08;
-    printf("Checking for %02x + (%02x) = %02x.\n", a, b, a + b);
-    set_H_flag(gb, a, b,1);
-    printf("Flag register is %02x.\n", gb->reg->f);
-    print_registers(gb);
-    // -> Should be set to 0
-    a = 0xc8;
-    b = 0x33;
-    printf("Checking for %02x + (%02x) = %02x.\n", a, b, a + b);
-    set_H_flag(gb, a, b,1);
-    printf("Flag register is %02x.\n", gb->reg->f);
-    print_registers(gb);
+    // // -> Should be set to 1
+    // int32_t a = 0x98;
+    // int32_t b = 0x08;
+    // printf("Checking for %02x + (%02x) = %02x.\n", a, b, a + b);
+    // set_H_flag(gb, a, b,1);
+    // printf("Flag register is %02x.\n", gb->reg->f);
+    // print_registers(gb);
+    // // -> Should be set to 0
+    // a = 0xc8;
+    // b = 0x33;
+    // printf("Checking for %02x + (%02x) = %02x.\n", a, b, a + b);
+    // set_H_flag(gb, a, b,1);
+    // printf("Flag register is %02x.\n", gb->reg->f);
+    // print_registers(gb);
 
-    // -> Should be set to 1
-    a = 0x17;
-    b = -0x6a;
-    printf("Checking for %02x + (%02x) = %02x.\n", a, b, a + b);
-    set_H_flag(gb, a, b,1);
-    printf("Flag register is %02x.\n", gb->reg->f);
-    print_registers(gb);
+    // // -> Should be set to 1
+    // a = 0x17;
+    // b = -0x6a;
+    // printf("Checking for %02x + (%02x) = %02x.\n", a, b, a + b);
+    // set_H_flag(gb, a, b,1);
+    // printf("Flag register is %02x.\n", gb->reg->f);
+    // print_registers(gb);
     // b = -6;
     // printf("Checking for %d + (%d).\n", a, b);
     // set_H_flag(gb, a, b,1);
@@ -101,6 +101,7 @@ void test_instructions(gameboy *gb)
     // ld_r8_n8(0b00001110, gb);
     // print_registers(gb);
 
+
     // // LD r, [HL] -> I put it on 0xaa
     // value = get_address(gb, gb->reg->hl);
     // *value = 0xaa;
@@ -108,11 +109,13 @@ void test_instructions(gameboy *gb)
     // ld_r8_hl(0b01010110, gb);
     // print_registers(gb);
 
-    // // LD [HL], r
-    // printf("LD [HL], E -> 2 Cycles | 1 Length\n");
-    // ld_hl_r8(0b01110011, gb);
-    // printf("[HL] : address: %04x | value: %0x\n", gb->reg->hl, get_byte(gb, gb->reg->hl));
-    // print_registers(gb);
+    // LD [HL], r
+    printf("LD [HL], E -> 2 Cycles | 1 Length\n");
+    gb->reg->l = 0x33;
+    printf("[HL] : address: %04x | value: %0x\n", gb->reg->hl, get_byte(gb, gb->reg->hl));
+    ld_hl_r8(0b01110101, gb);
+    printf("[HL] : address: %04x | value: %0x\n", gb->reg->hl, get_byte(gb, gb->reg->hl));
+    print_registers(gb);
 
     // // LD [HL], n -> Setting it on 0xef
     // printf("LD [HL], n -> 3 Cycles | 2 Length\n");

@@ -172,7 +172,7 @@ void test_hl_r8_e(){
     TEST_ASSERT_EQUAL(0x12, get_byte(gb, gb->reg->hl));
 }
 
-void test_hl_r8_h(){
+void test_hl_r8_h(){ // To check
     init_ld();
     printf("%d\n",get_byte(gb, gb->reg->hl));
     ld_hl_r8(0b110100, gb);
@@ -180,7 +180,7 @@ void test_hl_r8_h(){
     TEST_ASSERT_EQUAL(0x54, get_byte(gb, gb->reg->hl));
 }
 
-void test_hl_r8_l(){
+void test_hl_r8_l(){ // To check
     init_ld();
     printf("%d\n", get_byte(gb, gb->reg->hl));
     ld_hl_r8(0b110101, gb);
