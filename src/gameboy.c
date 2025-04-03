@@ -265,11 +265,11 @@ int set_flags(gameboy* gb, unsigned int result, int is_8_bit, int is_sub){
 int set_H_flag(gameboy *gb, int32_t a, int32_t b, uint8_t is_8bit)
 {
     uint8_t is_sub = b < 0 ? 1 : 0;
+    int8_t a_nib, b_nib;
     // For 8 bit
     if(is_8bit)
     {
         // Get the nibbles to check
-        int8_t a_nib, b_nib;
         a_nib = a & 0xF;
         b_nib = abs(b) & 0xF;
 
@@ -278,6 +278,37 @@ int set_H_flag(gameboy *gb, int32_t a, int32_t b, uint8_t is_8bit)
         {
             // Set H flag
             if((a_nib + b_nib) & 0x10) // 1
+            {
+                gb->reg->f |= 0x20;    
+            }
+            else // 0
+            {
+                gb->reg->f &= 0xd0;
+            }
+        }
+        else        // If substraction
+        {
+            if(a_nib < b_nib) // 1
+            {
+                gb->reg->f |= 0x20;
+            }
+            else // 0
+            {
+                gb->reg->f &= 0xd0;
+            }
+        }
+    }
+    if(!is_8bit)
+    {
+        // Get the nibbles to check
+        a_nib = a & 0xFFF;
+        b_nib = abs(b) & 0xFFF;
+
+        // Check for overflow or borrow depending on operation
+        if(!is_sub) // If addition
+        {
+            // Set H flag
+            if((a_nib + b_nib) & 0x1000) // 1
             {
                 gb->reg->f |= 0x20;    
             }

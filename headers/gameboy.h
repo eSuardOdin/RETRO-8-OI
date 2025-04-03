@@ -98,7 +98,7 @@ void print_registers(gameboy *gb);
 
 int set_flags(gameboy* gb, unsigned int result, int is_8_bit, int is_sub);
 /**
- * @brief Set the H (Half Carry flag)
+ * @brief Set the H (Half Carry flag) [TO REFACTOR]
  * 
  * @details 
  * 
