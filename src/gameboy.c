@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include <errno.h>
 
 #include "../headers/gameboy.h"
 #include "../headers/memory_constants.h"
