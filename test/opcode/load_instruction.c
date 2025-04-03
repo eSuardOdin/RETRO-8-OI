@@ -1,3 +1,5 @@
+#include <stdint.h>
+
 #include "../../headers/gameboy.h"
 #include "../../headers/cartridge.h"
 #include "../../headers/memory.h"
@@ -172,13 +174,17 @@ void test_hl_r8_e(){
 
 void test_hl_r8_h(){
     init_ld();
+    printf("%d\n",get_byte(gb, gb->reg->hl));
     ld_hl_r8(0b110100, gb);
+    printf("%d\n",get_byte(gb, gb->reg->hl));
     TEST_ASSERT_EQUAL(0x54, get_byte(gb, gb->reg->hl));
 }
 
 void test_hl_r8_l(){
     init_ld();
+    printf("%d\n", get_byte(gb, gb->reg->hl));
     ld_hl_r8(0b110101, gb);
+    printf("%d\n",get_byte(gb, gb->reg->hl));
     TEST_ASSERT_EQUAL(0x41, get_byte(gb, gb->reg->hl));
 }
 
