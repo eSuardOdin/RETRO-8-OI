@@ -247,7 +247,7 @@ uint16_t get_word(gameboy *gb, uint16_t addr)
 
 
 // ES : Need to change signature and implementation
-int set_flags(gameboy* gb, unsigned int result, int is_8_bit, int is_sub){
+int set_flags(gameboy* gb, unsigned int result, int is_8bit, int is_sub){
     int mask = 0;
     if(!result)
         mask += 0b10000000; //setup Z
@@ -259,6 +259,24 @@ int set_flags(gameboy* gb, unsigned int result, int is_8_bit, int is_sub){
     if((is_8_bit && (result > 255)) || (!is_8_bit && (result > 65535)))
         mask += 0b00010000; //setup C
     gb->reg->f = (gb->reg->f | mask) & 0b11110000; //on applique le mask et on suppr les 4 derniers bits
+}
+
+int set_Z_flags(gameboy* gb, unsigned int result){
+    if(!result)
+        gb->reg->f = gb->reg->f | 0b10000000;
+    return 0;
+}
+
+int set_N_flag(gameboy* gb, int is_sub){
+    if(is_sub)
+        gb->reg->f = gb->reg->f | 0b01000000;
+    return 0;
+}
+
+int set_C_flag(gameboy* gb, unsigned int result, int is_8bit){
+    if((is_8bit && (result > 255)) || (!is_8bit && (result > 65535)))
+        gb->reg->f = gb->reg->f | 0b00010000;
+    return 0;
 }
 
 
