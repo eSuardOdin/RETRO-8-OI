@@ -40,11 +40,11 @@ int run_gameboy(gameboy *gb)
         // Fetch opcode
         uint8_t opcode =  get_byte(gb, gb->reg->pc);
 
-        // Decode
+        // Decode / Execute
 
-        // Execute
+        // Fix timing / cycles
 
-
+        // Check for interrupts
 
     }
     return 0;

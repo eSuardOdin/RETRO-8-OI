@@ -1,5 +1,6 @@
 #include "../../headers/instructions/cpu_instructions.h"
 #include <stdint.h>
+#include <stdio.h>
 
 uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode)
 {
@@ -8,13 +9,44 @@ uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode)
     // Big branching to operate on smaller switches (Check opcodes table : https://gbdev.io/gb-opcodes/optables/)
     // LOAD OPERATIONS
     if(
-        l_nib >= 0x4 && l_nib <= 0x7 /*||*/)
+        l_nib >= 0x4 && l_nib <= 0x7 ||
+        l_nib <= 0x3 && (r_nib == 0x2 || r_nib == 0x6 || r_nib == 0xa || r_nib == 0xe) ||
+        l_nib >= 0xe && (r_nib == 0x0 || r_nib == 0x2 || r_nib == 0xa))
     {
-
-    }
-    switch (opcode)
-    {
-        case 
+        printf("%04x is a load operation.\n", opcode); // Debug print
+        switch (opcode)
+        {
+            // ### CONSTANT OPCODES (no register bits to switch) ###
+            case 0x36:
+                printf("LD [HL] n\n"); // Debug print
+                ld_hl_n8(gb);
+                break;
+            case 0x0a:
+                printf("LD A [BC]\n"); // Debug print
+                ld_a_bc(gb);
+                break;
+            case 0x1a:
+                printf("LD A [DE]\n"); // Debug print
+                ld_a_de(gb);
+                break;
+            case 0x02:
+                printf("LD [BC] A\n"); // Debug print
+                ld_bc_a(gb);
+                break;
+            case 0x12:
+                printf("LD [DE] A\n"); // Debug print
+                ld_de_a(gb);
+                break;
+            case 0xfa:
+                printf("LD A nn\n"); // Debug print
+                ld_a_nn(gb);
+                break;
+            case 0xea:
+                printf("LD nn A\n"); // Debug print
+                ld_nn_a(gb);
+                break;
+            
+        }
     }
 
 
