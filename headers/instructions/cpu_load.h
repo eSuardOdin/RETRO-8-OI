@@ -20,6 +20,10 @@
  * @brief Copy the value from src register to dst register. (LD r, r’)
  * 
  * OPCODE : 0b01xxxyyy | CYCLES : 1 | LENGTH : 1
+ *
+ * WARNING : MAY NOT CONTAIN ANY [HL] -> There are dedicated functions for HL indirection
+ * (this is because they take one more cycle to execute, maybe juste increment one more cycle depending on opcode ?) 
+ *
  * @author Erwann SUARD
  * @param opcode Opcode to get register from
  * @param gb Gameboy struct
