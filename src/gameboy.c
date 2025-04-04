@@ -35,17 +35,18 @@ int run_gameboy(gameboy *gb)
         return 1;
     }
 
-    // while(1)
-    // {
-    //     // Fetch 
-    //     //read_memory(gb->mem, uint16_t address)
+    while(1)
+    {
+        // Fetch opcode
+        uint8_t opcode =  get_byte(gb, gb->reg->pc);
 
-    //     // Execute
+        // Decode
+
+        // Execute
 
 
 
-    //     // Decode
-    // }
+    }
     return 0;
 }
 
@@ -339,3 +340,5 @@ int set_H_flag(gameboy *gb, int32_t a, int32_t b, uint8_t is_8bit)
 
     return 0;
 }
+
+

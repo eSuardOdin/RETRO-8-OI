@@ -1,16 +1,25 @@
 #include "../../headers/instructions/cpu_instructions.h"
 #include <stdint.h>
 
-uint8_t fetch_instruction(gameboy* gb)
+uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode)
 {
-    // Increment Cycles and PC (while returning)
-    inc_cycle(gb);
-    uint8_t res = read_memory(gb, gb->reg->pc);
-    gb->reg->pc++;
-    return res;
+    uint8_t l_nib = (opcode & 0xF0) >> 8;
+    uint8_t r_nib = opcode & 0xF;
+    // Big branching to operate on smaller switches (Check opcodes table : https://gbdev.io/gb-opcodes/optables/)
+    // LOAD OPERATIONS
+    if(
+        l_nib >= 0x4 && l_nib <= 0x7 /*||*/)
+    {
+
+    }
+    switch (opcode)
+    {
+        case 
+    }
+
+
+    return 0; // Mouais
 }
-
-
 
 
 void test_instructions(gameboy *gb)
