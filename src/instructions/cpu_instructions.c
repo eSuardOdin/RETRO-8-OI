@@ -45,7 +45,50 @@ uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode)
                 printf("LD nn A\n"); // Debug print
                 ld_nn_a(gb);
                 break;
-            
+            case 0xf2:
+                printf("LD A C\n"); // Debug print
+                ldh_a_c(gb);
+                break;
+            case 0xe2:
+                printf("LD C A\n"); // Debug print
+                ldh_c_a(gb);
+                break;
+            case 0xf0:
+                printf("LD A n\n"); // Debug print
+                ldh_a_n(gb);
+                break;
+            case 0xe0:
+                printf("LD n A\n"); // Debug print
+                ldh_n_a(gb);
+                break;
+            case 0x3a:
+                printf("LD A [HL-]\n"); // Debug print
+                ldh_a_hl_dec(gb);
+                break;
+            case 0x32:
+                printf("LD [HL-] A\n"); // Debug print
+                ld_hl_dec_a(gb);
+                break;
+            case 0x2a:
+                printf("LD A [HL+]\n"); // Debug print
+                ldh_a_hl_inc(gb);
+                break;
+            case 0x22:
+                printf("LD [HL+] A\n"); // Debug print
+                ld_hl_inc_a(gb);
+                break;
+            case 0x08:
+                printf("LD nn SP\n"); // Debug print
+                ld_nn_sp(gb);
+                break;
+            case 0xf9:
+                printf("LD SP HL\n"); // Debug print
+                ld_sp_hl(gb);
+                break;
+            case 0xf8:
+                printf("LD HL SP+e\n"); // Debug print
+                ld_hl_sp_e(opcode, gb);
+                break;
         }
     }
 

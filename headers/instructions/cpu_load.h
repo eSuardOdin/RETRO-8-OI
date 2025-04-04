@@ -190,7 +190,9 @@ int ldh_n_a(gameboy *gb);
 
 /**
  * @brief Load to the 8-bit A register, data from the absolute address specified by the 16-bit register HL
- * 
+ *
+ * WARNING : FUNCTION NAMES MAY CONTAIN AN ERROR (ldh instead of ld) 
+ *
  * OPCODE : 0b00111010/0x3A | CYCLES : 2 | LENGTH : 1
  * 
  * @details The value of HL is decremented after the memory read.
