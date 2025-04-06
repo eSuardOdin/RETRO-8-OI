@@ -1,16 +1,133 @@
 #include "../../headers/instructions/cpu_instructions.h"
 #include <stdint.h>
+#include <stdio.h>
 
-uint8_t fetch_instruction(gameboy* gb)
+uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode)
 {
-    // Increment Cycles and PC (while returning)
-    inc_cycle(gb);
-    uint8_t res = read_memory(gb, gb->reg->pc);
-    gb->reg->pc++;
-    return res;
+    uint8_t l_nib = (opcode & 0xF0) >> 8;
+    uint8_t r_nib = opcode & 0xF;
+    // Big branching to operate on smaller switches (Check opcodes table : https://gbdev.io/gb-opcodes/optables/)
+    // ### NO PREFIX ###
+    if(opcode != 0xCB)
+    {
+        // LOAD OPERATIONS
+        // ### VARIABLE LOAD OPCODES ###
+        if(opcode & 0b01000000) // If opcode is 0b01xxxyyy
+        {
+            // Check if any of the register bits is 110 (Indirection of HL)
+            if((opcode & 0b00111000) >> 3 == 0x6)
+            {
+                ld_hl_r8(opcode, gb);
+            }
+            else if((opcode & 0b00000111) == 0x6)
+            {
+                ld_r8_hl(opcode, gb);
+            }
+            else
+            {
+                ld_r8_r8(opcode, gb);
+            }
+        }
+        // ### CONSTANT LOAD OPCODES (no register bits to switch) ###
+        else if(
+            l_nib >= 0x4 && l_nib <= 0x7 ||
+            l_nib <= 0x3 && (r_nib == 0x2 || r_nib == 0x6 || r_nib == 0xa || r_nib == 0xe) ||
+            l_nib >= 0xe && (r_nib == 0x0 || r_nib == 0x2 || r_nib == 0xa))
+        {
+            printf("%04x is a load operation.\n", opcode); // Debug print
+            switch (opcode)
+            {
+                case 0x36:
+                    printf("LD [HL] n\n"); // Debug print
+                    ld_hl_n8(gb);
+                    break;
+                case 0x0a:
+                    printf("LD A [BC]\n"); // Debug print
+                    ld_a_bc(gb);
+                    break;
+                case 0x1a:
+                    printf("LD A [DE]\n"); // Debug print
+                    ld_a_de(gb);
+                    break;
+                case 0x02:
+                    printf("LD [BC] A\n"); // Debug print
+                    ld_bc_a(gb);
+                    break;
+                case 0x12:
+                    printf("LD [DE] A\n"); // Debug print
+                    ld_de_a(gb);
+                    break;
+                case 0xfa:
+                    printf("LD A nn\n"); // Debug print
+                    ld_a_nn(gb);
+                    break;
+                case 0xea:
+                    printf("LD nn A\n"); // Debug print
+                    ld_nn_a(gb);
+                    break;
+                case 0xf2:
+                    printf("LD A C\n"); // Debug print
+                    ldh_a_c(gb);
+                    break;
+                case 0xe2:
+                    printf("LD C A\n"); // Debug print
+                    ldh_c_a(gb);
+                    break;
+                case 0xf0:
+                    printf("LD A n\n"); // Debug print
+                    ldh_a_n(gb);
+                    break;
+                case 0xe0:
+                    printf("LD n A\n"); // Debug print
+                    ldh_n_a(gb);
+                    break;
+                case 0x3a:
+                    printf("LD A [HL-]\n"); // Debug print
+                    ldh_a_hl_dec(gb);
+                    break;
+                case 0x32:
+                    printf("LD [HL-] A\n"); // Debug print
+                    ld_hl_dec_a(gb);
+                    break;
+                case 0x2a:
+                    printf("LD A [HL+]\n"); // Debug print
+                    ldh_a_hl_inc(gb);
+                    break;
+                case 0x22:
+                    printf("LD [HL+] A\n"); // Debug print
+                    ld_hl_inc_a(gb);
+                    break;
+                case 0x08:
+                    printf("LD nn SP\n"); // Debug print
+                    ld_nn_sp(gb);
+                    break;
+                case 0xf9:
+                    printf("LD SP HL\n"); // Debug print
+                    ld_sp_hl(gb);
+                    break;
+                case 0xf8:
+                    printf("LD HL SP+e\n"); // Debug print
+                    ld_hl_sp_e(opcode, gb);
+                    break;
+            }
+        }
+    }
+    // ### PREFIXED OPCODE ###
+    else 
+    {
+        // Increment pc and switch next opcode
+        gb->reg->pc++;
+        opcode = get_byte(gb, gb->reg->pc);
+        switch (opcode)
+        {
+        
+        }
+    }
+
+
+
+    return 0; // Mouais
 }
-
-
 
 
 void test_instructions(gameboy *gb)

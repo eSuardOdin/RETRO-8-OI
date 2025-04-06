@@ -9,20 +9,12 @@
 
 
 /**
- * @brief Fetch the next instruction pointed to by Program Counter to put it in IR or variable
- * 
- * @param gb The gameboy to get CPU Program Counter from
- * @return The next instruction
- */
-uint8_t fetch_instruction(gameboy* gb);
-
-/**
  * @brief Executes the instruction provided in argument
  * 
  * @param opcode The instruction to execute
- * @return Number of M-cycles elapsed
+ * @return TO DETERMINE
  */
-uint8_t execute_instruction(uint8_t opcode);
+uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode);
 
 
 /**
