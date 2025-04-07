@@ -118,6 +118,16 @@ uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode)
 
             switch (opcode)
             {
+                case 0x80:
+                case 0x81:
+                case 0x82:
+                case 0x83:
+                case 0x84:
+                case 0x85:
+                case 0x87:
+                    printf("ADD A R8\n");
+                    add_a_r8(opcode,gb);
+                    break;
                 case 0x86:
                     printf("ADD A [HL]\n"); // Debug print
                     add_a_hl(gb);
@@ -125,6 +135,16 @@ uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode)
                 case 0xC6:
                     printf("ADD A nn\n"); // Debug print
                     add_a_n(gb);
+                    break;
+                case 0x88:
+                case 0x89:
+                case 0x8A:
+                case 0x8B:
+                case 0x8C:
+                case 0x8D:
+                case 0x8F:
+                    printf("ADC A R8\n");
+                    adc_a_r8(opcode,gb);
                     break;
                 case 0x8E:
                     printf("ADC A [HL]\n"); // Debug print
@@ -135,31 +155,22 @@ uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode)
                     adc_a_n(gb);
                     break;
             }
-
-            if(l_nib == 0x8 && (r_nib >= 0x0 && r_nib <= 0x5)){ // If opcode is 0b10000xxx
-                printf("ADD A R8\n");
-                add_a_r8(opcode,gb);
-            }
-            if(l_nib == 0x8 && (r_nib == 0x8 && r_nib == 0xE)){ // If opcode is 0b10001xxx
-                printf("ADC A R8\n");
-                adc_a_r8(opcode,gb);
-            }
         }
         else if(l_nib == 0x9 || (l_nib == 0xD && (r_nib == 0x6 && r_nib == 0xE)))
         {
             printf("%04x is a SUB/SBC operation.\n", opcode);
-
-            if(opcode & 0b10001000){ // If opcode is 0b10001xxx
-                printf("SUB A R8\n"); // Debug print
-                sub_a_r8(opcode, gb);
-            }
-            if(opcode & 0b10011000){ // If opcode is 0b10011xxx
-                printf("SBC A R8\n"); // Debug print
-                sbc_a_r8(opcode, gb);
-            }
-
             switch (opcode)
             {
+                case 0x90:
+                case 0x91:
+                case 0x92:
+                case 0x93:
+                case 0x94:
+                case 0x95:
+                case 0x97:
+                    printf("ADD A R8\n");
+                    add_a_r8(opcode,gb);
+                    break;
                 case 0x96:
                     printf("SUB A [HL]\n"); // Debug print
                     sub_a_hl(gb);
@@ -168,13 +179,23 @@ uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode)
                     printf("SUB A nn\n"); // Debug print
                     sub_a_n(gb);
                     break;
+                case 0x98:
+                case 0x99:
+                case 0x9A:
+                case 0x9B:
+                case 0x9C:
+                case 0x9D:
+                case 0x9F:
+                    printf("SBC A [HL]\n"); // Debug print
+                    sbc_a_r8(gb);
+                    break;
                 case 0x9E:
                     printf("SBC A [HL]\n"); // Debug print
                     sbc_a_hl(gb);
                     break;
                 case 0xDE:
                     printf("SBC A nn\n"); // Debug print
-                    sbc_a_hl(gb);
+                    sbc_a_n(gb);
                     break;
             }
         }
@@ -182,47 +203,57 @@ uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode)
         {
             printf("%04x is a CP operation.\n", opcode); // Debug print
 
-            if(opcode & 0b10111000){ // If opcode is 0b10111xxx
-                printf("CP A R8\n");
-                cp_a_r8(opcode, gb);
-            }
-
             switch (opcode)
             {
+                case 0xB8:
+                case 0xB9:
+                case 0xBA:
+                case 0xBB:
+                case 0xBC:
+                case 0xBD:
+                case 0xBF:
+                    printf("CP A R8\n"); // Debug print
+                    cp_a_r8(gb);
+                    break;
                 case 0xBE:
                     printf("CP A [HL]\n"); // Debug print
                     cp_a_hl(gb);
                     break;
                 case 0xFE:
                     printf("CP A nn\n"); // Debug print
-                    cp_a_r8(gb);
+                    cp_a_n(gb);
                     break;
             }
         }
         else if((l_nib == 0x0 && l_nib == 0x4) || (l_nib == 0x3 && l_nib == 0x4))
         {
             printf("%04x is a INC operation.\n", opcode); // Debug print
-
-            if(opcode & 0b111000111){ // If opcode is 0b00xxx100
-                printf("INC R8\n");
-                inc_r8(opcode, gb);
-            }
-            if(opcode == 0b00110100){ // If opcode is 0b00110100
-                printf("INC HL\n");
-                inc_hl(gb);
+            
+            switch (opcode)
+            {
+                case 0x04:
+                    printf("INC R8\n");
+                    inc_r8(opcode, gb);
+                    break;
+                case 0x34:
+                    printf("INC HL\n");
+                    inc_hl(gb);
+                    break;
             }
         }
         else if((l_nib == 0x0 && l_nib == 0x5) || (l_nib == 0x3 && l_nib == 0x5))
         {
             printf("%04x is a DEC operation.\n", opcode); // Debug print
-            
-            if(opcode == 0b00000100){ // If opcode is 0b00xxx101
-                printf("DEC R8\n");
-                dec_r8(opcode, gb);
-            }
-            if(opcode == 0b00110101){ // If opcode is 0b00110101
-                printf("DEC HL\n");
-                dec_hl(gb);
+            switch (opcode)
+            {
+                case 0x05:
+                    printf("DEC R8\n");
+                    dec_r8(opcode, gb);
+                    break;
+                case 0x35:
+                    printf("DEC HL\n");
+                    dec_hl(gb);
+                    break;
             }
         }
         else if(l_nib == 0xA || (l_nib == 0xE && (r_nib == 0x6 && r_nib == 0xE)))
@@ -231,6 +262,12 @@ uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode)
             switch (opcode)
             {
                 case 0xA0:
+                case 0xA1:
+                case 0xA2:
+                case 0xA3:
+                case 0xA4:
+                case 0xA5:
+                case 0xA7:
                     printf("AND A R8\n"); // Debug print
                     and_a_r8(opcode,gb);
                     break;
@@ -242,7 +279,13 @@ uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode)
                     printf("AND A nn\n"); // Debug print
                     and_a_n(gb);
                     break;
-                    case 0xA8:
+                case 0xA8:
+                case 0xA9:
+                case 0xAA:
+                case 0xAB:
+                case 0xAC:
+                case 0xAD:
+                case 0xAF:
                     printf("XOR A R8\n"); // Debug print
                     xor_a_r8(opcode, gb);
                     break;
@@ -262,8 +305,14 @@ uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode)
             switch (opcode)
             {
                 case 0xB0:
-                    printf("OR A R8\n"); // Debug print
-                    or_a_r8(opcode,gb);
+                case 0xB1:
+                case 0xB2:
+                case 0xB3:
+                case 0xB4:
+                case 0xB5:
+                case 0xB7:
+                    printf("CP A R8\n"); // Debug print
+                    cp_a_r8(gb);
                     break;
                 case 0xB6:
                     printf("OR A [HL]\n"); // Debug print
