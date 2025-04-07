@@ -232,8 +232,6 @@ void print_registers(gameboy *gb)
 
 }
 
-
-
 uint8_t get_byte(gameboy* gb, uint16_t addr)
 {
     return read_memory(gb, addr);

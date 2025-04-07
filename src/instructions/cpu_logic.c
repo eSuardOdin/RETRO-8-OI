@@ -203,13 +203,40 @@ int xor_a_n(gameboy* gb){
 void set_logic_flags(int carry, int is_h){
 
     //Si c'est un AND C=1, Si c'est un OR/XOR C=0
-    int a,b = 8;
+    int a,b = 0;
     if(!is_h)
-        b = 10;
+        b = 20;
 
     set_Z_flags(gb,carry);
     set_N_flag(gb, is_sub);
     set_H_flag(gb, a, b, 1);
     set_C_flag(gb, carry, 1);
+}
+
+int ccf(gameboy* gb){
+    set_N_flag(gb, 0);
+    set_H_flag(gb, 0, 0, 1);
+    //Flip la valeur de C
+    gb->reg->f = gb->reg->f ^ 0b00010000;
+
+    return 0;
+}
+
+int scf(gameboy* gb){
+    set_N_flag(gb, 0);
+    set_H_flag(gb, 0, 0, 1);
+    set_C_flag(gb, 300, 1);
+
+    return 0;
+}
+
+int daa(gameboy* gb){
+    //Flip la valeur de Z
+    gb->reg->f = gb->reg->f ^ 0b10000000;
+    set_H_flag(gb, 0, 0, 1);
+    //Flip la valeur de C 
+    gb->reg->f = gb->reg->f ^ 0b00010000;
+
+    return 0;
 }
 
