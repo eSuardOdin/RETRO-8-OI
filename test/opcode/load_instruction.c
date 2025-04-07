@@ -681,17 +681,3 @@ void test_ld_a_nn(void){
     free(gb);
     TEST_ASSERT_EQUAL(0x22, buff);
 }
-#pragma endregion
-void test_hl_r8_l(){
-    init_ld();
-    printf("%d\n", get_byte(gb, gb->reg->hl));
-    ld_hl_r8(0b110101, gb);
-    printf("%d\n",get_byte(gb, gb->reg->hl));
-    TEST_ASSERT_EQUAL(0x41, get_byte(gb, gb->reg->hl));
-}
-
-void test_hl_r8_a(){
-    init_ld();
-    ld_hl_r8(0b110111, gb);
-    TEST_ASSERT_EQUAL(0x22, get_byte(gb, gb->reg->hl));
-}

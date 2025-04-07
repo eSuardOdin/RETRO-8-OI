@@ -27,6 +27,8 @@ int r_lc_a(gameboy* gb)
     gb->reg->f &= fmask;
     gb->reg->f |= last_byte;
 
+    set_Z_flags(gb, *reg);
+
     inc_cycle(gb);
     return 0;
 }
@@ -54,6 +56,8 @@ int r_rc_a(gameboy* gb)
     gb->reg->f &= fmask;
     gb->reg->f |= last_byte;
 
+    set_Z_flags(gb, *reg);
+
     inc_cycle(gb);
     return 0;
 }
@@ -79,6 +83,8 @@ int r_l_a(gameboy* gb)
     last_byte = last_byte << 4;
     gb->reg->f &= fmask;
     gb->reg->f |= last_byte;
+
+    set_Z_flags(gb, *reg);
 
     inc_cycle(gb);
     return 0;
@@ -106,6 +112,8 @@ int r_r_a(gameboy* gb)
     gb->reg->f &= fmask;
     gb->reg->f |= last_byte;
 
+    set_Z_flags(gb, *reg);
+
     inc_cycle(gb);
     return 0;
 }
@@ -129,6 +137,8 @@ int r_lc_r8(uint8_t opcode, gameboy* gb)
     last_byte = last_byte << 4;
     gb->reg->f &= fmask;
     gb->reg->f |= last_byte;
+
+    set_Z_flags(gb, *reg);
 
     inc_cycle(gb);
     inc_cycle(gb);
@@ -154,6 +164,8 @@ int r_lc_hl(gameboy* gb)
     last_byte = last_byte << 4;
     gb->reg->f &= fmask;
     gb->reg->f |= last_byte;
+
+    set_Z_flags(gb, *reg);
 
     inc_cycle(gb);
     inc_cycle(gb);
@@ -182,6 +194,8 @@ int r_rc_r8(uint8_t opcode, gameboy* gb)
     gb->reg->f &= fmask;
     gb->reg->f |= last_byte;
 
+    set_Z_flags(gb, *reg);
+
     inc_cycle(gb);
     inc_cycle(gb);
     return 0;
@@ -206,6 +220,8 @@ int r_rc_hl(gameboy* gb)
     last_byte = last_byte >> 3;
     gb->reg->f &= fmask;
     gb->reg->f |= last_byte;
+
+    set_Z_flags(gb, *reg);
 
     inc_cycle(gb);
     inc_cycle(gb);
@@ -233,6 +249,8 @@ int r_l_r8(uint8_t opcode, gameboy* gb)
     gb->reg->f &= fmask;
     gb->reg->f |= last_byte;
 
+    set_Z_flags(gb, *reg);
+
     inc_cycle(gb);
     inc_cycle(gb);
     return 0;
@@ -256,6 +274,8 @@ int r_l_hl(gameboy* gb)
     last_byte = last_byte << 4;
     gb->reg->f &= fmask;
     gb->reg->f |= last_byte;
+
+    set_Z_flags(gb, *reg);
 
     inc_cycle(gb);
     inc_cycle(gb);
@@ -283,6 +303,8 @@ int r_r_r8(uint8_t opcode, gameboy* gb)
     gb->reg->f &= fmask;
     gb->reg->f |= last_byte;
 
+    set_Z_flags(gb, *reg);
+
     inc_cycle(gb);
     inc_cycle(gb);
     return 0;
@@ -306,6 +328,8 @@ int r_r_hl(gameboy* gb)
     last_byte = last_byte >> 3;
     gb->reg->f &= fmask;
     gb->reg->f |= last_byte;
+
+    set_Z_flags(gb, *reg);
 
     inc_cycle(gb);
     inc_cycle(gb);
@@ -333,6 +357,8 @@ int s_la_r8(uint8_t opcode, gameboy* gb)
     gb->reg->f &= fmask;
     gb->reg->f |= last_byte;
 
+    set_Z_flags(gb, *reg);
+
     inc_cycle(gb);
     inc_cycle(gb);
     return 0;
@@ -356,6 +382,8 @@ int s_la_hl(gameboy* gb)
     last_byte = last_byte << 4;
     gb->reg->f &= fmask;
     gb->reg->f |= last_byte;
+
+    set_Z_flags(gb, *reg);
 
     inc_cycle(gb);
     inc_cycle(gb);
@@ -383,6 +411,8 @@ int s_ra_r8(uint8_t opcode, gameboy* gb)
     gb->reg->f &= fmask;
     gb->reg->f |= last_byte;
 
+    set_Z_flags(gb, *reg);
+
     inc_cycle(gb);
     inc_cycle(gb);
     return 0;
@@ -407,6 +437,8 @@ int s_ra_hl(gameboy* gb)
     gb->reg->f &= fmask;
     gb->reg->f |= last_byte;
 
+    set_Z_flags(gb, *reg);
+
     inc_cycle(gb);
     inc_cycle(gb);
     inc_cycle(gb);
@@ -426,6 +458,8 @@ int swap_r8(uint8_t opcode, gameboy* gb)
     *reg = *reg << 4;
     *reg += last_bytes;
 
+    set_Z_flags(gb, *reg);
+
     inc_cycle(gb);
     inc_cycle(gb);
     return 0;
@@ -443,7 +477,11 @@ int swap_hl(gameboy* gb)
     *reg = *reg << 4;
     *reg += last_bytes;
 
+    set_Z_flags(gb, *reg);
+
     inc_cycle(gb);
     inc_cycle(gb);
     return 0;
 }
+
+
