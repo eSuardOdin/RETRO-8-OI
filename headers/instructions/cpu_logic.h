@@ -8,8 +8,8 @@
 * @copyright Copyright (c) 2025
 * 
 */
-#ifndef CPU_LOAD_H
-#define CPU_LOAD_H
+#ifndef CPU_LOGIC_H
+#define CPU_LOGIC_H
 
 #include "../gameboy.h"
 #include <stdint.h>
@@ -117,7 +117,7 @@ int xor_a_n(gameboy* gb);
  * @param carry le résultat du calcul.
  * @param is_h boolean si H doit être activé.
  */
-void set_logic_flags(int carry, int is_h);
+void set_logic_flags(gameboy *gb, int carry, int is_h, int is_sub);
 
 /**
  * @brief Performe un XOR logique avec le carry de A avec n.
@@ -145,3 +145,6 @@ int scf(gameboy* gb);
  * @param gb Instance de GameBoy.
  */
 int daa(gameboy* gb);
+
+
+#endif

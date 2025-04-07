@@ -6,6 +6,8 @@
 
 #include "../gameboy.h"
 #include "cpu_load.h"
+#include "cpu_logic.h"
+#include "cpu_arithmetic.h"
 
 
 /**
