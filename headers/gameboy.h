@@ -21,6 +21,9 @@ void reset_gameboy(gameboy *gb, char *path);
 
 int run_gameboy(gameboy *gb);
 
+
+
+
 /**
  * @brief Gets the absolute address and switch it to get in the right struct 
  * subaddress. Returns the value in memory

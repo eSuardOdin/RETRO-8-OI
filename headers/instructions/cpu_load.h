@@ -20,6 +20,10 @@
  * @brief Copy the value from src register to dst register. (LD r, r’)
  * 
  * OPCODE : 0b01xxxyyy | CYCLES : 1 | LENGTH : 1
+ *
+ * WARNING : MAY NOT CONTAIN ANY [HL] -> There are dedicated functions for HL indirection
+ * (this is because they take one more cycle to execute, maybe juste increment one more cycle depending on opcode ?) 
+ *
  * @author Erwann SUARD
  * @param opcode Opcode to get register from
  * @param gb Gameboy struct
@@ -190,7 +194,9 @@ int ldh_n_a(gameboy *gb);
 
 /**
  * @brief Load to the 8-bit A register, data from the absolute address specified by the 16-bit register HL
- * 
+ *
+ * WARNING : FUNCTION NAMES MAY CONTAIN AN ERROR (ldh instead of ld) 
+ *
  * OPCODE : 0b00111010/0x3A | CYCLES : 2 | LENGTH : 1
  * 
  * @details The value of HL is decremented after the memory read.

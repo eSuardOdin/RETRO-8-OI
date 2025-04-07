@@ -607,8 +607,12 @@ int ld_hl_sp_e(uint8_t opcode, gameboy *gb)
     // Increment cycle
     inc_cycle(gb);
 
-    // Assign new value to HL
+    // Set Flags
+    set_Z_flags(gb, 1);
+    set_N_flag(gb, 0);
     set_H_flag(gb, gb->reg->hl, e, 0);
+    set_C_flag(gb, gb->reg->hl + e, 0);
+    // Assign new value to HL
     gb->reg->hl += e;
 
     // Increment cycle
