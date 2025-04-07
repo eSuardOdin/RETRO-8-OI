@@ -8,8 +8,8 @@
 * @copyright Copyright (c) 2025
 * 
 */
-#ifndef CPU_LOAD_H
-#define CPU_LOAD_H
+#ifndef CPU_ARITHMETIC_H
+#define CPU_ARITHMETIC_H
 
 #include "../gameboy.h"
 #include <stdint.h>
@@ -232,3 +232,6 @@ int dec_hl(gameboy* gb);
  * @param is_sub boolean si le calcul est une soustraction
  */
 void set_arithmetic_flags(int carry, int is_sub);
+
+
+#endif
