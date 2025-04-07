@@ -52,6 +52,8 @@ int jp_cc_nn(gameboy* gb, uint8_t opcode);
 /**
  * @brief Unconditional jump to the relative address specified by the signed 8-bit operand e
  * 
+ * (Check the docs but seems to juste add e to PC, whatever the e)
+ * 
  * OPCODE : 0b00011000/0x18 | CYCLES : 3 | LENGTH : 2
  * @author Erwann SUARD
  * @param gb Gameboy struct
@@ -71,6 +73,22 @@ int jr_e(gameboy *gb);
  * @param gb Gameboy struct
  * @return TO DETERMINE
  */
-int jr_cc_e(gameboy *gb);
+int jr_cc_e(gameboy *gb, uint8_t opcode);
+
+
+/**
+ * @brief Unconditional function call to the absolute address specified by the 16-bit operand nn.
+ * 
+ * (This on copies LSB/MSB on the stack and decreases the stack pointer, it then jumps to the address
+ * copied on the stack)
+ * 
+ * OPCODE : 0b11001101/0xCD | CYCLES : 6 | LENGTH : 3
+ * @author Erwann SUARD
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int call_nn(gameboy *gb);
+
+
 
 #endif
