@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include <errno.h>
 
 #include "../headers/gameboy.h"
 #include "../headers/memory_constants.h"
@@ -36,17 +35,18 @@ int run_gameboy(gameboy *gb)
         return 1;
     }
 
-    // while(1)
-    // {
-    //     // Fetch 
-    //     //read_memory(gb->mem, uint16_t address)
+    while(1)
+    {
+        // Fetch opcode
+        uint8_t opcode =  get_byte(gb, gb->reg->pc);
 
-    //     // Execute
+        // Decode / Execute
 
+        // Fix timing / cycles
 
+        // Check for interrupts
 
-    //     // Decode
-    // }
+    }
     return 0;
 }
 
@@ -232,8 +232,6 @@ void print_registers(gameboy *gb)
 
 }
 
-
-
 uint8_t get_byte(gameboy* gb, uint16_t addr)
 {
     return read_memory(gb, addr);
@@ -245,19 +243,28 @@ uint16_t get_word(gameboy *gb, uint16_t addr)
 }
 
 
-// ES : Need to change signature and implementation
-int set_flags(gameboy* gb, unsigned int result, int is_8_bit, int is_sub){
-    int mask = 0;
+int set_Z_flags(gameboy* gb, unsigned int result){
     if(!result)
-        mask += 0b10000000; //setup Z
+        gb->reg->f = gb->reg->f | 0b10000000;
+    else
+        gb->reg->f = gb->reg->f | 0b01111111;
+    return 0;
+}
+
+int set_N_flag(gameboy* gb, int is_sub){
     if(is_sub)
-        mask += 0b01000000; //setup N
-    // Warning : Not accurate, the result may have been > 15 before operation. Check : https://gist.github.com/meganesu/9e228b6b587decc783aa9be34ae27841 
-    if(result > 15 && is_8_bit) //peut être modifier que avec du 8bits
-        mask += 0b00100000; //setup H
-    if((is_8_bit && (result > 255)) || (!is_8_bit && (result > 65535)))
-        mask += 0b00010000; //setup C
-    gb->reg->f = (gb->reg->f | mask) & 0b11110000; //on applique le mask et on suppr les 4 derniers bits
+        gb->reg->f = gb->reg->f | 0b01000000;
+    else
+        gb->reg->f = gb->reg->f & 0b10111111;
+    return 0;
+}
+
+int set_C_flag(gameboy* gb, unsigned int result, int is_8bit){
+    if((is_8bit && (result > 255)) || (!is_8bit && (result > 65535)))
+        gb->reg->f = gb->reg->f | 0b00010000;
+    else
+        gb->reg->f = gb->reg->f & 0b11101111;
+    return 0;
 }
 
 
@@ -331,3 +338,5 @@ int set_H_flag(gameboy *gb, int32_t a, int32_t b, uint8_t is_8bit)
 
     return 0;
 }
+
+
