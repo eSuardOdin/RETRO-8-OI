@@ -168,9 +168,11 @@ uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode)
                     printf("SUB A nn\n"); // Debug print
                     sub_a_n(gb);
                     break;
+
                 case 0x9E:
                     printf("SBC A [HL]\n"); // Debug print
                     sbc_a_hl(gb);
+
                     break;
                 case 0xDE:
                     printf("SBC A nn\n"); // Debug print
@@ -195,7 +197,7 @@ uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode)
                     break;
                 case 0xFE:
                     printf("CP A nn\n"); // Debug print
-                    cp_a_r8(gb);
+                    cp_a_r8(opcode, gb);
                     break;
             }
         }
