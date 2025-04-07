@@ -162,7 +162,7 @@ int cp_a_r8(uint8_t opcode, gameboy* gb);
 
 /**
  * @brief Compare A avec La valeur pointée par HL.
- * OPCODE : 0b10011110 / 0x9E
+ * OPCODE : 0b10011110 / 0xBE
  *
  * @author Thomas
  * @param gb Instance de GameBoy.
