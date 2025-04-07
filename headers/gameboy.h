@@ -64,6 +64,14 @@ uint8_t *get_r8(uint8_t byte, gameboy* gb);
 uint16_t *get_r16(uint8_t byte, gameboy *gb);
 
 /**
+ * @brief Checks the condition to evaluate with byte
+ * 
+ * @param byte The 2 bits to switch
+ * @return uint8_t True or False (1 / 0)
+ */
+int is_cond(gameboy *gb, uint8_t byte);
+
+/**
  * @brief Get the byte in memory correponding with addr and return it.
  * 
  * @param gb To get the ram from
