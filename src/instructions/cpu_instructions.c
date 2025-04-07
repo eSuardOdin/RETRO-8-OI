@@ -223,7 +223,7 @@ uint8_t decode_execute_instruction(gameboy *gb, uint8_t opcode)
                     break;
                 case 0xFE:
                     printf("CP A nn\n"); // Debug print
-                    cp_a_r8(gb);
+                    cp_a_n(opcode, gb);
                     break;
             }
         }
