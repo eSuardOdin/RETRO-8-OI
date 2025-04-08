@@ -408,6 +408,7 @@ int ldh_a_hl_inc(gameboy *gb)
 
 
 
+
 int ldh_hl_inc_a(gameboy *gb)
 {
     uint8_t *dst;
