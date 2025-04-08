@@ -66,11 +66,24 @@ typedef struct {
      * 
      */
     uint8_t ie;
+    
+    /**
+     * @brief Interrupt master enable flag
+     * 
+     * If 0 : Interrupt enables are set in IE but
+     * they are not handeld
+     *
+     *
+     * If 1: Interrupt handled
+     * 
+     */
+    uint8_t ime;
 
     /**
      * @brief Stack pointer
      */
     uint16_t sp;
+
     /**
      * @brief Program counter
      */

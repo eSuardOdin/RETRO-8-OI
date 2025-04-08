@@ -1,5 +1,6 @@
 #include "../../headers/instructions/cpu_control_flow.h"
 #include "../../headers/gameboy.h"
+#include "../../headers/memory_constants.h"
 #include <stdint.h>
 #include <stdio.h>
 
@@ -208,10 +209,6 @@ int ret(gameboy *gb)
     uint16_t address = 0;
     uint8_t lsb = 0;
     uint8_t msb = 0;
-
-    // Get lsb and increment stack pointer
-    lsb = get_byte(gb, gb->reg->sp);
-    gb->reg->sp++;
     // Increment cycle
     inc_cycle(gb);
 
@@ -231,6 +228,109 @@ int ret(gameboy *gb)
     address = lsb;
     address |= msb << 8;
 
+    // Increment cycle and jump
+    inc_cycle(gb);
+    gb->reg->pc = address;
     return 0;
 }
+
+
+
+int ret_cc(uint8_t opcode, gameboy *gb)
+{
+    uint16_t address = 0;
+    uint8_t lsb = 0;
+    uint8_t msb = 0;
+    int is_ret = is_cond(gb, opcode);
+
+    // Get lsb and increment stack pointer
+    lsb = get_byte(gb, gb->reg->sp);
+    gb->reg->sp++;
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Get msb and increment stack pointer
+    msb = get_byte(gb, gb->reg->sp);
+    gb->reg->sp++;
+    // Increment cycle
+    inc_cycle(gb);
+
+    if(is_ret)
+    {
+        // Set address to return to
+        address = lsb;
+        address |= msb << 8;
+
+        // Increment cycle and jump
+        inc_cycle(gb);
+        gb->reg->pc = address;
+    }
+
+    return 0;
+}
+
+
+int reti(gameboy *gb)
+{
+    uint16_t address = 0;
+    uint8_t lsb = 0;
+    uint8_t msb = 0;
+
+    // Get lsb and increment stack pointer
+    lsb = get_byte(gb, gb->reg->sp);
+    gb->reg->sp++;
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Get msb and increment stack pointer
+    msb = get_byte(gb, gb->reg->sp);
+    gb->reg->sp++;
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Set address to return to
+    address = lsb;
+    address |= msb << 8;
+
+    // Increment cycle and jump
+    inc_cycle(gb);
+    gb->reg->pc = address;
+
+    // Set EMI to 1
+    gb->reg->ime = 1;
+    // Increment cycle
+    inc_cycle(gb);
+
+    return 0;
+}
+
+
+int rst(uint8_t opcode, gameboy* gb)
+{
+    uint8_t msb;
+    uint8_t lsb;
+    uint16_t new_pc = 0;
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Store PC in stack
+    msb = (gb->reg->pc & 0xF0) >> 8;
+    lsb = (gb->reg->pc & 0xF);
+    gb->reg->sp--;
+    *(get_address(gb, gb->reg->sp)) = msb;
+    gb->reg->sp--;
+    *(get_address(gb, gb->reg->sp)) = lsb;
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Set new pc
+    new_pc = opcode << 8;
+    new_pc &= 0xF0; // Just to be sure lsb nibble set to 0
+    gb->reg->pc = new_pc;
+    // Increment cycle
+    inc_cycle(gb);
+    inc_cycle(gb);
+    return 0;
+}
+
 

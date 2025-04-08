@@ -18,6 +18,8 @@ void reset_gameboy(gameboy *gb, char *path)
     gb->reg->pc = 0x0100;
     // Stack pointer base address
     gb->reg->sp = 0xfffe;
+    // Set IME to 0
+    gb->reg->ime = 0;
 }
 
 
@@ -287,8 +289,8 @@ int set_N_flag(gameboy* gb, int is_sub){
     return 0;
 }
 
-int set_C_flag(gameboy* gb, unsigned int result, int is_8bit){
-    if((is_8bit && (result > 255)) || (!is_8bit && (result > 65535)))
+int set_C_flag(gameboy* gb, int result, int is_8bit){
+    if((is_8bit && (result > 255)) || (!is_8bit && (result > 65535)) || result < 0) 
         gb->reg->f = gb->reg->f | 0b00010000;
     else
         gb->reg->f = gb->reg->f & 0b11101111;

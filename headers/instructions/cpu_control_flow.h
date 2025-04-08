@@ -112,4 +112,41 @@ int call_cc_nn(uint8_t opcode, gameboy* gb);
  * @return TO DETERMINE
  */
 int ret(gameboy* gb);
+
+
+
+/**
+ * @brief Conditional return from a function, depending on the condition cc.
+ * 
+ * WARNING : Seems to increment SP whatever the value of cc
+ *
+ * OPCODE : 0b110xx000 | CYCLES : 4 | LENGTH : 1
+ * @author Erwann SUARD
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ret_cc(uint8_t opcode, gameboy* gb);
+
+
+/**
+ * @brief Unconditional return from a function.
+ * Also enables interrupts by setting IME = 1. (https://gbdev.io/pandocs/Interrupts.html#interrupts)
+ * 
+ * OPCODE : 0b11011001/0xD9 | CYCLES : 4 | LENGTH : 1
+ * @author Erwann SUARD
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int reti(gameboy* gb);
+
+
+/**
+ * @brief Unconditional function call to the absolute fixed address defined by the opcode.
+ * 
+ * OPCODE : 0b11xxx111 | CYCLES : 4 | LENGTH : 1
+ * @author Erwann SUARD
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int rst(uint8_t opcode, gameboy* gb);
 #endif
