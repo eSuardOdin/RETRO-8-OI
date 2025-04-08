@@ -8,11 +8,12 @@
  * @copyright Copyright (c) 2025
  * 
  */
- #ifndef CARTRIDGE_H
- #define CARTRIDGE_H
+ #ifndef TESTS_H
+ #define TESTS_H
  
  #include <stdint.h>
-
+#include "gameboy.h"
+#include "instructions/cpu_arithmetic.h"
 /**
  * @brief Display the value of the reg
  */
