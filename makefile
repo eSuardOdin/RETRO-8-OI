@@ -18,7 +18,7 @@ $(OUT): $(OBJ)
 
 # Nettoyage des fichiers temporaires
 clean:
-	rm -f $(OBJ) $(OUT)
+	rm -f $(OBJ)
 
 # Cible pour afficher l'aide
 help:
