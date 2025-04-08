@@ -119,9 +119,47 @@ cartridge* load_cart(char *path, cartridge* c)
 }
 
 
+
+
+
+cartridge* load_test_cart(char *path, cartridge* c)
+{
+    /* Open cart */
+    int fd = open(path, O_RDONLY);
+    if(fd == -1)
+    {
+        perror("Open ROM");
+        exit(EXIT_FAILURE);
+    }
+
+    
+    /* Copy CARTRIDGE */
+    c->rom = malloc(32768);
+    if(pread(fd, c->rom, 32768, 0) == -1)
+    {
+        perror("Copying rom");
+        close(fd);
+        exit(EXIT_FAILURE);
+    }
+
+    /* 0x014e - 0x14f : GLOBAL CHECKSUM -> OSEF (?) */
+
+    return c;
+}
+
+
+
+
+
+
+
+
+
+
+
 e_mbc get_mbc(uint8_t byte)
 {
-    /*
+    
     printf("Read banks : %02x\n", byte);
     e_mbc e;
     switch (byte) {
@@ -212,7 +250,6 @@ e_mbc get_mbc(uint8_t byte)
     }
 
     return e;
-    */
 
 }
 
