@@ -16,7 +16,7 @@
 /**
  * @brief Unconditional jump to the absolute address specified by the 16-bit immediate operand nn.
  * 
- * OPCODE : 0b11000011/0xC3 | CYCLES : 3 | LENGTH : 4
+ * OPCODE : 0b11000011/0xC3 | CYCLES : 4 | LENGTH : 3
  * @author Erwann SUARD
  * @param gb Gameboy struct
  * @return TO DETERMINE

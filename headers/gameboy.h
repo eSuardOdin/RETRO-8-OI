@@ -18,6 +18,8 @@ typedef struct {
 } gameboy;
 
 void reset_gameboy(gameboy *gb, char *path);
+void reset_test_gameboy(gameboy *gb, char *path);
+
 
 int run_gameboy(gameboy *gb);
 

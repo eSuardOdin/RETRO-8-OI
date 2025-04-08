@@ -1,4 +1,4 @@
-#include "../headers/tests.h"
+#include "../../headers/tests/test_cpu_arithmetic.h"
 #include <stdint.h>
 #include <stdio.h>
 

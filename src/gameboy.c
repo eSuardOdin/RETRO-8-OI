@@ -23,6 +23,22 @@ void reset_gameboy(gameboy *gb, char *path)
 }
 
 
+void reset_test_gameboy(gameboy *gb, char *path)
+{
+    memset(gb, 0, sizeof(gameboy));
+    gb->reg = malloc(sizeof(cpu_reg));
+    gb->mem = malloc(sizeof(memory));
+    gb->cart = malloc(sizeof(cartridge));
+    load_test_cart(path, gb->cart);
+    // True program start
+    gb->reg->pc = 0x0;
+    // Stack pointer base address
+    gb->reg->sp = 0xfffe;
+    // Set IME to 0
+    gb->reg->ime = 0;
+}
+
+
 int run_gameboy(gameboy *gb)
 {
 
@@ -259,7 +275,13 @@ void print_registers(gameboy *gb)
     printf("HL: %04x\tPC: %04x\n", gb->reg->hl, gb->reg->pc);
     printf("M-Cycles : %d\n", gb->t_cycles/4);
     printf("============================\n\n");
-
+    printf("FLAGS :\n\tZ: %d\tN: %d\n\tH: %d\tC: %d\n", 
+    gb->reg->f >> 7,
+    gb->reg->f >> 6,
+    gb->reg->f >> 5,
+    gb->reg->f >> 4
+    );
+    printf("============================\n\n");
 }
 
 uint8_t get_byte(gameboy* gb, uint16_t addr)

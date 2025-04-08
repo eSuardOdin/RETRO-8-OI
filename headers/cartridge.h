@@ -82,6 +82,8 @@ typedef struct
  */
 cartridge* load_cart(char *path, cartridge* c);
 
+cartridge* load_test_cart(char *path, cartridge* c);
+
 /**
  * @brief Get the mbc type
  * 

@@ -1,7 +1,7 @@
 # Définir les variables
 CC = gcc
 CFLAGS = -Wall -Wextra -g
-SRCS = src/main.c src/gameboy.c src/memory.c src/cartridge.c src/instructions/cpu_instructions.c src/instructions/cpu_load.c src/instructions/cpu_arithmetic.c src/instructions/cpu_logic.c src/tests.c
+SRCS = src/main.c src/gameboy.c src/memory.c src/cartridge.c src/instructions/cpu_instructions.c src/instructions/cpu_load.c src/instructions/cpu_arithmetic.c src/instructions/cpu_logic.c src/instructions/cpu_control_flow.c src/tests/test_cpu_arithmetic.c src/tests/test_cpu_control_flow.c
 OBJ = $(SRCS:.c=.o)
 OUT = gb
 
