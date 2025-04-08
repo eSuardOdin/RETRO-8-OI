@@ -1,5 +1,3 @@
-#include "../headers/gameboy.h"
-#include "../headers/instructions/cpu_arithmetic.h"
 #include "../headers/tests.h"
 #include <stdint.h>
 #include <stdio.h>
