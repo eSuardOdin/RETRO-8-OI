@@ -216,7 +216,7 @@ int ldh_a_hl_dec(gameboy *gb);
  * @param gb Gameboy struct
  * @return TO DETERMINE
  */
-int ld_hl_dec_a(gameboy *gb);
+int ldh_hl_dec_a(gameboy *gb);
 
 
 
@@ -242,7 +242,7 @@ int ldh_a_hl_inc(gameboy *gb);
  * @param gb Gameboy struct
  * @return TO DETERMINE
  */
-int ld_hl_inc_a(gameboy *gb);
+int ldh_hl_inc_a(gameboy *gb);
 
 
 // ######### LD 16 bits #########

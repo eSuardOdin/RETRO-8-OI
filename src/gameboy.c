@@ -16,6 +16,8 @@ void reset_gameboy(gameboy *gb, char *path)
     load_cart(path, gb->cart);
     // True program start
     gb->reg->pc = 0x0100;
+    // Stack pointer base address
+    gb->reg->sp = 0xfffe;
 }
 
 
@@ -219,6 +221,30 @@ uint16_t *get_r16(uint8_t byte, gameboy *gb)
     }
     return NULL;
 }
+
+
+
+int is_cond(gameboy *gb, uint8_t byte)
+{
+    // Check the byte
+    switch (byte)
+    {
+        case 0x0: // nz (not zero)
+            if(gb->reg->f & 0b100000000)    return 0;
+            else                            return 1;
+        case 0x1: // z 
+            if(gb->reg->f & 0b100000000)    return 1;
+            else                            return 0;
+        case 0x2: // nc (not carry)
+            if(gb->reg->f & 0b000100000)    return 0;
+            else                            return 1;
+        case 0x3: // c (not carry)
+            if(gb->reg->f & 0b000100000)    return 1;
+            else                            return 0; 
+    }
+}
+
+
 
 void print_registers(gameboy *gb)
 {
