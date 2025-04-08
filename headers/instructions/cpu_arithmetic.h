@@ -231,7 +231,7 @@ int dec_hl(gameboy* gb);
  * @param carry le résultat du calcul.
  * @param is_sub boolean si le calcul est une soustraction
  */
-void set_arithmetic_flags(int carry, int is_sub);
+void set_arithmetic_flags(gameboy* gb, int carry, int src, int dst, int is_sub);
 
 
 #endif
