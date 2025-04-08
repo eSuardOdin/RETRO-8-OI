@@ -137,8 +137,9 @@ int sub_a_r8(uint8_t opcode, gameboy* gb){
 
     uint8_t src_byte = opcode & 0x03;
     src = get_r8(src_byte, gb);
-    uint8_t result = *src - *dst;
-    int carry = *src - *dst;
+    
+    uint8_t result = *dst - *src;
+    int carry = *dst - *src;
     inc_cycle(gb);
 
     *dst = result;
@@ -153,8 +154,8 @@ int sub_a_hl(gameboy* gb){
     uint8_t *src = get_address(gb, gb->reg->hl);
     inc_cycle(gb);
 
-    uint8_t result = *src - *dst;
-    int carry = *src - *dst;
+    uint8_t result = *dst - *src;
+    int carry = *dst - *src;
     inc_cycle(gb);
 
     *dst = result;
@@ -170,8 +171,8 @@ int sub_a_n(gameboy* gb){
     uint8_t dst = gb->reg->a;
     inc_cycle(gb);
 
-    uint8_t result = src - dst;
-    int carry = src - dst;
+    uint8_t result = dst - src;
+    int carry = dst - src;
     inc_cycle(gb);
 
     gb->reg->a = result;
@@ -194,8 +195,8 @@ int sbc_a_r8(uint8_t opcode, gameboy* gb){
 
     uint8_t src_byte = opcode & 0x03;
     src = get_r8(src_byte, gb);
-    uint8_t result = *src - *dst - flag_c;
-    int carry = *src - *dst - flag_c;
+    uint8_t result = *dst - *src - flag_c;
+    int carry = *dst - *src - flag_c;
     inc_cycle(gb);
 
     *dst = result;
@@ -211,8 +212,8 @@ int sbc_a_hl(gameboy* gb){
     uint8_t flag_c = gb->reg->f & 0b00010000;
     inc_cycle(gb);
 
-    uint8_t result = *src - *dst - flag_c;
-    int carry = *src - *dst - flag_c;
+    uint8_t result = *dst - *src - flag_c;
+    int carry = *dst - *src - flag_c;
     inc_cycle(gb);
 
     *dst = result;
@@ -229,8 +230,8 @@ int sbc_a_n(gameboy* gb){
     uint8_t flag_c = gb->reg->f & 0b00010000;
     inc_cycle(gb);
 
-    uint8_t result = src - dst - flag_c;
-    int carry = src - dst - flag_c;
+    uint8_t result = dst - src - flag_c;
+    int carry = dst - src - flag_c;
     inc_cycle(gb);
 
     gb->reg->a = result;
@@ -253,8 +254,8 @@ int cp_a_r8(uint8_t opcode, gameboy* gb){
     // Get source register
     uint8_t src_byte = opcode & 0x03;
     src = get_r8(src_byte, gb);
-    uint8_t result = *src - *dst;
-    int carry = *src - *dst;
+    uint8_t result = *dst - *src;
+    int carry = *dst - *src;
     inc_cycle(gb);
 
     set_arithmetic_flags(gb,carry,*src,*dst,1);
@@ -267,8 +268,8 @@ int cp_a_hl(gameboy* gb){
     uint8_t *src = get_address(gb, gb->reg->hl);
     inc_cycle(gb);
 
-    uint8_t result = *src - *dst;
-    int carry = *src - *dst;
+    uint8_t result = *dst - *src;
+    int carry = *dst - *src;
     inc_cycle(gb);
     
     set_arithmetic_flags(gb,carry,*src,*dst,1);
@@ -282,8 +283,8 @@ int cp_a_n(gameboy* gb){
     uint8_t dst = gb->reg->a;
     inc_cycle(gb);
 
-    uint8_t result = src - dst;
-    int carry = src - dst;
+    uint8_t result = dst - src;
+    int carry = dst - src;
     inc_cycle(gb);
     
     set_arithmetic_flags(gb,carry,dst,result,1);
