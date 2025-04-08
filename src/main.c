@@ -6,10 +6,7 @@
 #include "../headers/cartridge.h"
 #include "../headers/memory.h"
 #include "../headers/memory_constants.h"
-
-void test_fion(gameboy* gb){
-    printf("ton pere\n");
-}
+#include "../headers/tests.h"
 
 int main(int argc, char *argv[])
 {
@@ -29,6 +26,8 @@ int main(int argc, char *argv[])
 
     //run_gameboy(gb);
 
-    test_fion(gb);
+    test_add_r8(gb);
+    test_sub_r8(gb);
+    free(gb);
     return 0;
 }
