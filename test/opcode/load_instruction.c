@@ -221,7 +221,7 @@ void test_ld_r8_n8_hl(void){
     gb->reg->l = 0x41;
     gb->reg->hl = 0xff43;
     *(get_address(gb, gb->reg->hl)) = 0x62;
-    uint8_t *value = get_address(gb, gb->reg->hl);
+    uint8_t *value = get_address(gb, gb->reg->pc + 1);
     *value = 0x66;
     ld_r8_n8(0b00110110, gb);
     uint8_t buff = get_byte(gb, gb->reg->hl);
@@ -498,16 +498,186 @@ void test_ld_hl_r8_h(void){
     TEST_ASSERT_EQUAL(0x54, buff);
 }
 
-void test_hl_r8_l(){
-    init_ld();
-    printf("%d\n", get_byte(gb, gb->reg->hl));
-    ld_hl_r8(0b110101, gb);
-    printf("%d\n",get_byte(gb, gb->reg->hl));
-    TEST_ASSERT_EQUAL(0x41, get_byte(gb, gb->reg->hl));
+void test_ld_hl_r8_l(void){
+    gameboy *gb = malloc(sizeof(gameboy));
+    char* path = "Tetris.gb";
+    reset_gameboy(gb, path);
+    gb->reg->a = 0x22;
+    gb->reg->b = 0x00;
+    gb->reg->c = 0x44;
+    gb->reg->d = 0x05;
+    gb->reg->e = 0x12;
+    gb->reg->f = 0xe3;
+    gb->reg->h = 0x54;
+    gb->reg->l = 0x41;
+    gb->reg->hl = 0xff43;
+    *(get_address(gb, gb->reg->hl)) = 0x62;
+    gb->reg->l = 0x41;
+    ld_hl_r8(0b01110101, gb);
+    uint8_t buff = get_byte(gb, gb->reg->hl);
+    free(gb);
+    TEST_ASSERT_EQUAL(0x41, buff);
 }
 
-void test_hl_r8_a(){
-    init_ld();
-    ld_hl_r8(0b110111, gb);
-    TEST_ASSERT_EQUAL(0x22, get_byte(gb, gb->reg->hl));
+void test_ld_hl_r8_a(void){
+    gameboy *gb = malloc(sizeof(gameboy));
+    char* path = "Tetris.gb";
+    reset_gameboy(gb, path);
+    gb->reg->a = 0x22;
+    gb->reg->b = 0x00;
+    gb->reg->c = 0x44;
+    gb->reg->d = 0x05;
+    gb->reg->e = 0x12;
+    gb->reg->f = 0xe3;
+    gb->reg->h = 0x54;
+    gb->reg->l = 0x41;
+    gb->reg->hl = 0xff43;
+    *(get_address(gb, gb->reg->hl)) = 0x62;
+    ld_hl_r8(0b01110111, gb);
+    uint8_t buff = get_byte(gb, gb->reg->hl);
+    free(gb);
+    TEST_ASSERT_EQUAL(0x22, buff);
+}
+#pragma endregion
+
+#pragma region ld_hl_n8
+
+// Load Instructions ld_hl_n8
+void test_ld_hl_n8(void){
+    gameboy *gb = malloc(sizeof(gameboy));
+    char* path = "Tetris.gb";
+    reset_gameboy(gb, path);
+    gb->reg->a = 0x22;
+    gb->reg->b = 0x00;
+    gb->reg->c = 0x44;
+    gb->reg->d = 0x05;
+    gb->reg->e = 0x12;
+    gb->reg->f = 0xe3;
+    gb->reg->h = 0x54;
+    gb->reg->l = 0x41;
+    gb->reg->hl = 0xff43;
+    *(get_address(gb, gb->reg->hl)) = 0x62;
+
+    uint8_t *value = get_address(gb, gb->reg->pc + 1);
+    *value = 0x66;
+    ld_hl_n8(gb);
+    uint8_t buff = get_byte(gb, gb->reg->hl);
+    free(gb);
+    TEST_ASSERT_EQUAL(0x66, buff);
+
+}
+#pragma endregion
+
+#pragma region ld_a_bc
+void test_ld_a_bc(void){
+    gameboy *gb = malloc(sizeof(gameboy));
+    char* path = "Tetris.gb";
+    reset_gameboy(gb, path);
+    gb->reg->a = 0x22;
+    gb->reg->b = 0x00;
+    gb->reg->c = 0x44;
+    gb->reg->d = 0x05;
+    gb->reg->e = 0x12;
+    gb->reg->f = 0xe3;
+    gb->reg->h = 0x54;
+    gb->reg->l = 0x41;
+    gb->reg->bc = 0xff43;
+    *(get_address(gb, gb->reg->bc)) = 0x62;
+
+    ld_a_bc(gb);
+    uint8_t buff = gb->reg->a;
+    free(gb);
+    TEST_ASSERT_EQUAL(0x62, buff);
+}
+#pragma endregion
+
+#pragma region ld_a_de
+void test_ld_a_de(void){
+    gameboy *gb = malloc(sizeof(gameboy));
+    char* path = "Tetris.gb";
+    reset_gameboy(gb, path);
+    gb->reg->a = 0x22;
+    gb->reg->b = 0x00;
+    gb->reg->c = 0x44;
+    gb->reg->d = 0x05;
+    gb->reg->e = 0x12;
+    gb->reg->f = 0xe3;
+    gb->reg->h = 0x54;
+    gb->reg->l = 0x41;
+    gb->reg->bc = 0xff43;
+    *(get_address(gb, gb->reg->de)) = 0x62;
+
+    ld_a_de(gb);
+    uint8_t buff = gb->reg->a;
+    free(gb);
+    TEST_ASSERT_EQUAL(0x62, buff);
+}
+#pragma endregion
+
+#pragma region ld_bc_a
+void test_ld_bc_a(void){
+    gameboy *gb = malloc(sizeof(gameboy));
+    char* path = "Tetris.gb";
+    reset_gameboy(gb, path);
+    gb->reg->a = 0x22;
+    gb->reg->b = 0x00;
+    gb->reg->c = 0x44;
+    gb->reg->d = 0x05;
+    gb->reg->e = 0x12;
+    gb->reg->f = 0xe3;
+    gb->reg->h = 0x54;
+    gb->reg->l = 0x41;
+    gb->reg->bc = 0xff43;
+    *(get_address(gb, gb->reg->bc)) = 0x62;
+
+    ld_bc_a(gb);
+    uint8_t buff = get_byte(gb, gb->reg->bc);
+    free(gb);
+    TEST_ASSERT_EQUAL(0x22, buff);
+}
+#pragma endregion
+
+#pragma region ld_de_a
+void test_ld_de_a(void){
+    gameboy *gb = malloc(sizeof(gameboy));
+    char* path = "Tetris.gb";
+    reset_gameboy(gb, path);
+    gb->reg->a = 0x22;
+    gb->reg->b = 0x00;
+    gb->reg->c = 0x44;
+    gb->reg->d = 0x05;
+    gb->reg->e = 0x12;
+    gb->reg->f = 0xe3;
+    gb->reg->h = 0x54;
+    gb->reg->l = 0x41;
+    gb->reg->bc = 0xff43;
+    *(get_address(gb, gb->reg->de)) = 0x62;
+
+    ld_bc_a(gb);
+    uint8_t buff = get_byte(gb, gb->reg->de);
+    free(gb);
+    TEST_ASSERT_EQUAL(0x22, buff);
+}
+#pragma endregion
+
+#pragma region ld_a_nn
+void test_ld_a_nn(void){
+    gameboy *gb = malloc(sizeof(gameboy));
+    char* path = "Tetris.gb";
+    reset_gameboy(gb, path);
+    gb->reg->a = 0x22;
+    gb->reg->b = 0x00;
+    gb->reg->c = 0x44;
+    gb->reg->d = 0x05;
+    gb->reg->e = 0x12;
+    gb->reg->f = 0xe3;
+    gb->reg->h = 0x54;
+    gb->reg->l = 0x41;
+    gb->reg->bc = 0xff43;
+    *(get_address(gb, gb->reg->de)) = 0x62;
+
+    ld_bc_a(gb);
+    uint8_t buff = get_byte(gb, gb->reg->de);
+    free(gb);
+    TEST_ASSERT_EQUAL(0x22, buff);
 }

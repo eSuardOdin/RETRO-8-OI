@@ -79,6 +79,15 @@ int main(int argc, char *argv[])
     //LD_HL_N8
     RUN_TEST(test_ld_hl_n8);
 
+    //LD_A_BC
+    RUN_TEST(test_ld_a_bc);
+
+    //LD_A_DE
+    RUN_TEST(test_ld_a_de);
+
+    //LD_BC_A
+    RUN_TEST(test_ld_bc_a);
+
     UNITY_END();
     return 0;
 }

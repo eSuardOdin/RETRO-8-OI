@@ -244,6 +244,8 @@ int is_cond(gameboy *gb, uint8_t byte)
             if(gb->reg->f & 0b000100000)    return 1;
             else                            return 0; 
     }
+
+    return -1; //si c'est -1 c'est une erreur
 }
 
 

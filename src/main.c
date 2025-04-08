@@ -6,7 +6,10 @@
 #include "../headers/cartridge.h"
 #include "../headers/memory.h"
 #include "../headers/memory_constants.h"
-#include "../headers/instructions/cpu_instructions.h"
+
+void test_fion(gameboy* gb){
+    printf("ton pere\n");
+}
 
 int main(int argc, char *argv[])
 {
@@ -24,8 +27,8 @@ int main(int argc, char *argv[])
     // cartridge *c = malloc(sizeof(cartridge));
     // load_cart(argv[1], c);
 
-    run_gameboy(gb);
+    //run_gameboy(gb);
 
-    test_instructions(gb);
+    test_fion(gb);
     return 0;
 }
