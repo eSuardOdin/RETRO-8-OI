@@ -128,7 +128,7 @@ int call_nn(gameboy *gb)
     // Increment PC to get LSB - Increment cycle
     gb->reg->pc++;
     lsb = get_byte(gb, gb->reg->pc);
-    address = get_byte;
+    address = lsb;
     inc_cycle(gb);
 
     // Increment PC to get MSB - Increment cycle
@@ -154,3 +154,83 @@ int call_nn(gameboy *gb)
     
     return 0;
 }
+
+
+
+int call_cc_nn(uint8_t opcode, gameboy *gb)
+{
+
+    uint16_t address = 0;
+    uint8_t lsb = 0;
+    uint8_t msb = 0;
+    int is_call = is_cond(gb, opcode);
+    // Increment Cycle
+    inc_cycle(gb);
+
+    // Increment PC to get LSB - Increment cycle
+    gb->reg->pc++;
+    lsb = get_byte(gb, gb->reg->pc);
+    address = lsb;
+    inc_cycle(gb);
+
+    // Increment PC to get MSB - Increment cycle
+    gb->reg->pc++;
+    address |= get_byte(gb, gb->reg->pc) << 8;
+    inc_cycle(gb);
+    
+    // If cc = true, same logic as call_nn()
+    if(is_call)
+    {
+        // Decrement SP and copy MSB
+        gb->reg->sp--;
+        *(get_address(gb, gb->reg->sp)) = msb;
+        // Increment cycle
+        inc_cycle(gb);
+
+        // Decrement SP and copy LSB
+        gb->reg->sp--;
+        *(get_address(gb, gb->reg->sp)) = lsb;
+        // Increment cycle
+        inc_cycle(gb);
+
+        // Jump to address and increment cycle
+        gb->reg->pc = address;
+        inc_cycle(gb);
+    }
+    
+    return 0;
+}
+
+
+
+int ret(gameboy *gb)
+{
+    uint16_t address = 0;
+    uint8_t lsb = 0;
+    uint8_t msb = 0;
+
+    // Get lsb and increment stack pointer
+    lsb = get_byte(gb, gb->reg->sp);
+    gb->reg->sp++;
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Get lsb and increment stack pointer
+    lsb = get_byte(gb, gb->reg->sp);
+    gb->reg->sp++;
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Get msb and increment stack pointer
+    msb = get_byte(gb, gb->reg->sp);
+    gb->reg->sp++;
+    // Increment cycle
+    inc_cycle(gb);
+
+    // Set address to return to
+    address = lsb;
+    address |= msb << 8;
+
+    return 0;
+}
+

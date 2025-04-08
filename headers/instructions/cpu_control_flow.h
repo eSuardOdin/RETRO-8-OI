@@ -59,7 +59,7 @@ int jp_cc_nn(gameboy* gb, uint8_t opcode);
  * @param gb Gameboy struct
  * @return TO DETERMINE
  */
-int jr_e(gameboy *gb);
+int jr_e(gameboy* gb);
 
 
 /**
@@ -73,7 +73,7 @@ int jr_e(gameboy *gb);
  * @param gb Gameboy struct
  * @return TO DETERMINE
  */
-int jr_cc_e(gameboy *gb, uint8_t opcode);
+int jr_cc_e(gameboy* gb, uint8_t opcode);
 
 
 /**
@@ -87,8 +87,29 @@ int jr_cc_e(gameboy *gb, uint8_t opcode);
  * @param gb Gameboy struct
  * @return TO DETERMINE
  */
-int call_nn(gameboy *gb);
+int call_nn(gameboy* gb);
 
 
+/**
+ * @brief Conditional function call to the absolute address specified by the 16-bit operand nn, depending on the condition cc.
+ * 
+ * Note that the operand (absolute address) is read even when the condition is false!
+ * 
+ * OPCODE : 0b110xx100 | CYCLES : 6 (cc = true) / 3 (cc = false    ) | LENGTH : 3
+ * @author Erwann SUARD
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int call_cc_nn(uint8_t opcode, gameboy* gb);
 
+
+/**
+ * @brief Unconditionnal return from a function
+ * 
+ * OPCODE : 0b11001001/0xC9 | CYCLES : 4 | LENGTH : 1
+ * @author Erwann SUARD
+ * @param gb Gameboy struct
+ * @return TO DETERMINE
+ */
+int ret(gameboy* gb);
 #endif
