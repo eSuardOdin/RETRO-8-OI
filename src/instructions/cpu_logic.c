@@ -213,7 +213,8 @@ int xor_a_n(gameboy* gb){
 void set_logic_flags(gameboy *gb, int carry, int is_h, int is_sub){
 
     //Si c'est un AND C=1, Si c'est un OR/XOR C=0
-    int a,b = 0;
+    int a = 0;
+    int b = 0;
     if(!is_h)
         b = 20;
 
