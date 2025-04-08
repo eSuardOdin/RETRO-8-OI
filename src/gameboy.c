@@ -16,6 +16,8 @@ void reset_gameboy(gameboy *gb, char *path)
     load_cart(path, gb->cart);
     // True program start
     gb->reg->pc = 0x0100;
+    // Stack pointer base address
+    gb->reg->sp = 0xfffe;
 }
 
 
