@@ -198,6 +198,7 @@ uint8_t *get_address(gameboy *gb, uint16_t address)
 void inc_cycle(gameboy *gb)
 {
     gb->t_cycles += 4;
+    gb->m_cycles += 1;
 }
 
 uint8_t *get_r8(uint8_t byte, gameboy *gb)
@@ -274,14 +275,14 @@ void print_registers(gameboy *gb)
     printf("E : %02x\t\tF : %02x\n", gb->reg->e, gb->reg->f);
     printf("HL: %04x\tPC: %04x\n", gb->reg->hl, gb->reg->pc);
     printf("M-Cycles : %d\n", gb->t_cycles/4);
-    printf("============================\n\n");
+    printf("____________________________\n");
     printf("FLAGS :\n\tZ: %d\tN: %d\n\tH: %d\tC: %d\n", 
     gb->reg->f >> 7,
     gb->reg->f >> 6,
     gb->reg->f >> 5,
     gb->reg->f >> 4
     );
-    printf("============================\n\n");
+    printf("============================\n\n\n\n");
 }
 
 uint8_t get_byte(gameboy* gb, uint16_t addr)
