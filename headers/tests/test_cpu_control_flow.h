@@ -10,6 +10,16 @@ int control_test_suite();
 
 int test_jp_nn(gameboy *gb);
 
+int test_jp_hl(gameboy *gb);
 
+
+/**
+ * @brief Used to check if jp is well done
+ * 
+ * @param target_address 
+ * @param target_cycle 
+ * @return int 
+ */
+int check_jp(gameboy* gb, uint16_t target_address, uint32_t target_cycle);
 
 #endif

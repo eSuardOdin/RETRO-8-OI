@@ -46,7 +46,6 @@ int jp_cc_nn(gameboy *gb, uint8_t opcode)
     
     // Check the condition
     int is_jmp = is_cond(gb, opcode);
-    
     // Increment Cycle
     inc_cycle(gb);
 

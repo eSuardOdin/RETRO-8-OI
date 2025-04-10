@@ -58,7 +58,7 @@ int run_gameboy(gameboy *gb)
     while(1)
     {
         // Fetch opcode
-        uint8_t opcode =  get_byte(gb, gb->reg->pc);
+        //uint8_t opcode =  get_byte(gb, gb->reg->pc);
 
         // Decode / Execute
 
@@ -198,6 +198,7 @@ uint8_t *get_address(gameboy *gb, uint16_t address)
 void inc_cycle(gameboy *gb)
 {
     gb->t_cycles += 4;
+    gb->m_cycles += 1;
 }
 
 uint8_t *get_r8(uint8_t byte, gameboy *gb)
@@ -244,20 +245,27 @@ uint16_t *get_r16(uint8_t byte, gameboy *gb)
 
 int is_cond(gameboy *gb, uint8_t byte)
 {
+    // printf("Byte checked in condition is : %d (%0x).\n", byte, byte);
+    // printf("Flag current status : %0X\n", gb->reg->f);
+    // printf("Z: %d | N: %d | H: %d | C: %d\n", 
+    // ((gb->reg->f & 0b10000000)>> 7),
+    // ((gb->reg->f & 0b01000000)>> 6),
+    // ((gb->reg->f & 0b00100000)>> 5),
+    // ((gb->reg->f & 0b00010000)>> 4));
     // Check the byte
-    switch (byte)
+    switch ((byte & 0b00011000) >> 3)
     {
         case 0x0: // nz (not zero)
-            if(gb->reg->f & 0b100000000)    return 0;
+            if(gb->reg->f & 0b10000000)    return 0;
             else                            return 1;
         case 0x1: // z 
-            if(gb->reg->f & 0b100000000)    return 1;
+            if(gb->reg->f & 0b10000000)    return 1;
             else                            return 0;
         case 0x2: // nc (not carry)
-            if(gb->reg->f & 0b000100000)    return 0;
+            if(gb->reg->f & 0b00010000)    return 0;
             else                            return 1;
         case 0x3: // c (not carry)
-            if(gb->reg->f & 0b000100000)    return 1;
+            if(gb->reg->f & 0b00010000)    return 1;
             else                            return 0; 
     }
 
@@ -274,14 +282,14 @@ void print_registers(gameboy *gb)
     printf("E : %02x\t\tF : %02x\n", gb->reg->e, gb->reg->f);
     printf("HL: %04x\tPC: %04x\n", gb->reg->hl, gb->reg->pc);
     printf("M-Cycles : %d\n", gb->t_cycles/4);
-    printf("============================\n\n");
+    printf("____________________________\n");
     printf("FLAGS :\n\tZ: %d\tN: %d\n\tH: %d\tC: %d\n", 
-    gb->reg->f >> 7,
-    gb->reg->f >> 6,
-    gb->reg->f >> 5,
-    gb->reg->f >> 4
+    ((gb->reg->f & 0b10000000)>> 7),
+    ((gb->reg->f & 0b01000000)>> 6),
+    ((gb->reg->f & 0b00100000)>> 5),
+    ((gb->reg->f & 0b00010000)>> 4)
     );
-    printf("============================\n\n");
+    printf("============================\n\n\n\n");
 }
 
 uint8_t get_byte(gameboy* gb, uint16_t addr)
