@@ -10,6 +10,9 @@ int control_test_suite();
 
 int test_jp_nn(gameboy *gb);
 
+int test_jp_hl(gameboy *gb);
+
+
 /**
  * @brief Used to check if jp is well done
  * 

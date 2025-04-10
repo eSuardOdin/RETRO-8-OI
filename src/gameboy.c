@@ -58,7 +58,7 @@ int run_gameboy(gameboy *gb)
     while(1)
     {
         // Fetch opcode
-        uint8_t opcode =  get_byte(gb, gb->reg->pc);
+        //uint8_t opcode =  get_byte(gb, gb->reg->pc);
 
         // Decode / Execute
 
@@ -245,22 +245,27 @@ uint16_t *get_r16(uint8_t byte, gameboy *gb)
 
 int is_cond(gameboy *gb, uint8_t byte)
 {
-    printf("Byte checked in condition is : %d (%0x).\n", byte, byte);
+    // printf("Byte checked in condition is : %d (%0x).\n", byte, byte);
+    // printf("Flag current status : %0X\n", gb->reg->f);
+    // printf("Z: %d | N: %d | H: %d | C: %d\n", 
+    // ((gb->reg->f & 0b10000000)>> 7),
+    // ((gb->reg->f & 0b01000000)>> 6),
+    // ((gb->reg->f & 0b00100000)>> 5),
+    // ((gb->reg->f & 0b00010000)>> 4));
     // Check the byte
     switch ((byte & 0b00011000) >> 3)
     {
         case 0x0: // nz (not zero)
-            printf("%04x.\n", gb->reg->f & 0b100000000);
-            if(gb->reg->f & 0b100000000)    return 0;
+            if(gb->reg->f & 0b10000000)    return 0;
             else                            return 1;
         case 0x1: // z 
-            if(gb->reg->f & 0b100000000)    return 1;
+            if(gb->reg->f & 0b10000000)    return 1;
             else                            return 0;
         case 0x2: // nc (not carry)
-            if(gb->reg->f & 0b000100000)    return 0;
+            if(gb->reg->f & 0b00010000)    return 0;
             else                            return 1;
         case 0x3: // c (not carry)
-            if(gb->reg->f & 0b000100000)    return 1;
+            if(gb->reg->f & 0b00010000)    return 1;
             else                            return 0; 
     }
 
