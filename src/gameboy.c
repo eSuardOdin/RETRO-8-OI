@@ -245,10 +245,12 @@ uint16_t *get_r16(uint8_t byte, gameboy *gb)
 
 int is_cond(gameboy *gb, uint8_t byte)
 {
+    printf("Byte checked in condition is : %d (%0x).\n", byte, byte);
     // Check the byte
-    switch (byte)
+    switch ((byte & 0b00011000) >> 3)
     {
         case 0x0: // nz (not zero)
+            printf("%04x.\n", gb->reg->f & 0b100000000);
             if(gb->reg->f & 0b100000000)    return 0;
             else                            return 1;
         case 0x1: // z 
@@ -277,10 +279,10 @@ void print_registers(gameboy *gb)
     printf("M-Cycles : %d\n", gb->t_cycles/4);
     printf("____________________________\n");
     printf("FLAGS :\n\tZ: %d\tN: %d\n\tH: %d\tC: %d\n", 
-    gb->reg->f >> 7,
-    gb->reg->f >> 6,
-    gb->reg->f >> 5,
-    gb->reg->f >> 4
+    ((gb->reg->f & 0b10000000)>> 7),
+    ((gb->reg->f & 0b01000000)>> 6),
+    ((gb->reg->f & 0b00100000)>> 5),
+    ((gb->reg->f & 0b00010000)>> 4)
     );
     printf("============================\n\n\n\n");
 }

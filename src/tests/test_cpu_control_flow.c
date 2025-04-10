@@ -50,6 +50,7 @@ int test_jp_nn(gameboy *gb)
 
 
     // --- Unconditionnal jumps to [HL] ---
+    // JMP from 0x7FFF to 0x3A50
     gb->reg->hl = 0x3a50;
     printf("jp_hl from 0x7FFF to [HL] (%04X). (Using 1 cycles)\n", gb->reg->hl);
     print_registers(gb);
@@ -58,9 +59,43 @@ int test_jp_nn(gameboy *gb)
     if(check_jp(gb, gb->reg->hl, cycles+1)) return 1;
     cycles = gb->m_cycles;
 
-    printf("Value there : %04x\n", (get_byte(gb, gb->reg->pc+1) << 8) | get_byte(gb, gb->reg->pc));
+
+    // JMP from 0x3A50 to 0x23A1
+    printf("Value there : %04x\n", get_byte(gb, gb->reg->pc));
+    gb->reg->hl = 0x23a1;
+    printf("jp_hl from %04X to [HL] (%04X). (Using 1 cycles)\n",gb->reg->pc , gb->reg->hl);
+    print_registers(gb);
+    jp_hl(gb);
+    print_registers(gb);
+    if(check_jp(gb, gb->reg->hl, cycles+1)) return 1;
+    cycles = gb->m_cycles;
+
+
+    
     // --- Conditionnal jumps ---
-    // 
+    // 0: NZ | 1: Z | 2: NC | 3: C
+    // jp_cc_nn : 0b110xx010
+    // Don't JMP from 0x23A1 to 0x23A4 (NZ = 0)
+    gb->reg->f = 0x80; // Flag Zero set
+    printf("jp_cc_nn from %04X to %04X (condition not met, using 3 cycles)\n", gb->reg->pc, gb->reg->pc+3);
+    print_registers(gb);
+    jp_cc_nn(gb, 0xa2);
+    print_registers(gb);
+    if(check_jp(gb, 0x23A4, cycles+3)) return 1;
+    cycles = gb->m_cycles;
+
+    // JMP from 0x23A4 to 0x3020
+    gb->reg->f = 0x0; // Flag Zero unset
+    printf("jp_cc_nn from %04X to 0x3020 (condition met, using 4 cycles)\n", gb->reg->pc);
+    print_registers(gb);
+    jp_cc_nn(gb, 0xa2);
+    print_registers(gb);
+    if(check_jp(gb, 0x23A4, cycles+4)) return 1;
+    cycles = gb->m_cycles;
+
+
+
+
     return 0;
 }
 
