@@ -22,6 +22,9 @@ int test_jp_nn(gameboy *gb)
 {
     uint32_t cycles = gb->m_cycles;
 
+    // 0-----------0
+    // |   JP NN   |
+    // 0-----------0
     // --- Unconditionnal jumps to next bytes N address ---
     // JMP from 0x0 to 0x0110
     printf("####################################################\n");
@@ -53,7 +56,9 @@ int test_jp_nn(gameboy *gb)
     cycles = gb->m_cycles;
 
 
-    // --- Unconditionnal jumps to [HL] ---
+    // 0-----------0
+    // |   JP HL   |
+    // 0-----------0
     // JMP from 0x7FFF to 0x3A50
     gb->reg->hl = 0x3a50;
     printf("####################################################\n");
@@ -75,12 +80,12 @@ int test_jp_nn(gameboy *gb)
     if(check_jp(gb, gb->reg->hl, cycles+1)) return 1;
     cycles = gb->m_cycles;
 
-
-
     
-    // --- Conditionnal jumps ---
-    // 0: NZ | 1: Z | 2: NC | 3: C
 
+    // 0--------------0
+    // |   JP CC NN   |
+    // 0--------------0
+    // 0: NZ | 1: Z | 2: NC | 3: C
     // jp_cc_nn : 0b110xx010
     // ---- opcode A2 (condition on NZ) ----
     // Don't JMP from 0x23A1 to 0x23A3 (NZ = 0)
@@ -103,6 +108,7 @@ int test_jp_nn(gameboy *gb)
     if(check_jp(gb, 0x3020, cycles+4)) return 1;
     cycles = gb->m_cycles;
 
+
     // ---- opcode AA (condition on Z) ----
     // JMP from 0x3020 to 0x3022    (Z = 0)
     printf("####################################################\n");
@@ -124,6 +130,58 @@ int test_jp_nn(gameboy *gb)
     if(check_jp(gb, 0x0c80, cycles+4)) return 1;
     cycles = gb->m_cycles;
 
+
+    // ---- opcode B2 (condition on NC) ----
+    // JMP from 0x0c80 to 0x0c72    (NC = 1)
+    printf("####################################################\n");
+    printf("jp_cc_nn from %04X to 0c72 (condition met, using 4 cycles)\n", gb->reg->pc);
+    print_registers(gb);
+    jp_cc_nn(gb, 0xb2);
+    print_registers(gb);
+    if(check_jp(gb, 0x0c72, cycles+4)) return 1;
+    cycles = gb->m_cycles;
+
+    // JMP from 0x0c72 to 0x0c74    (NC = 0)
+    gb->reg->f = 0x90; // -> Add carry flag
+    printf("####################################################\n");
+    printf("jp_cc_nn from %04X to 0C74 (condition not met, using 3 cycles)\n", gb->reg->pc);
+    print_registers(gb);
+    jp_cc_nn(gb, 0xb2);
+    print_registers(gb);
+    if(check_jp(gb, 0x0c74, cycles+3)) return 1;
+    cycles = gb->m_cycles;
+
+
+    // ---- opcode BA (condition on C) ----
+    printf("####################################################\n");
+    printf("jp_cc_nn from %04X to 0505 (condition met, using 4 cycles)\n", gb->reg->pc);
+    print_registers(gb);
+    jp_cc_nn(gb, 0xba);
+    print_registers(gb);
+    if(check_jp(gb, 0x0505, cycles+4)) return 1;
+    cycles = gb->m_cycles;
+
+    gb->reg->f = 0; // -> Remove carry flag (and zero flag)
+    printf("####################################################\n");
+    printf("jp_cc_nn from %04X to 0507 (condition not met, using 3 cycles)\n", gb->reg->pc);
+    print_registers(gb);
+    jp_cc_nn(gb, 0xba);
+    print_registers(gb);
+    if(check_jp(gb, 0x0507, cycles+3)) return 1;
+    cycles = gb->m_cycles;
+
+
+
+    // 0----------0
+    // |   JR E   |
+    // 0----------0
+    printf("####################################################\n");
+    printf("jr_e from %04X with e = %0x\n", gb->reg->pc, get_byte(gb, gb->reg->pc+1));
+    print_registers(gb);
+    jr_e(gb);
+    print_registers(gb);
+    if(check_jp(gb, 0x050c, cycles+3)) return 1;
+    cycles = gb->m_cycles;
     return 0;
 }
 
