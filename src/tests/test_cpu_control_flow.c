@@ -182,6 +182,98 @@ int test_jp_nn(gameboy *gb)
     print_registers(gb);
     if(check_jp(gb, 0x050c, cycles+3)) return 1;
     cycles = gb->m_cycles;
+
+
+    // 0-------------0
+    // |   JR CC E   |
+    // 0-------------0
+    
+    // --- NZ Condition ---
+    // True
+    gb->reg->f = 0; // set Z to 0
+    printf("####################################################\n");
+    printf("jr_cc_e from %04X with e = %0x and check NZ, condition MET, 3 Cycles\n", gb->reg->pc, get_byte(gb, gb->reg->pc+1));
+    print_registers(gb);
+    jr_cc_e(gb, 0x20);
+    print_registers(gb);
+    if(check_jp(gb, 0x0510, cycles+3)) return 1;
+    cycles = gb->m_cycles;
+    // False
+    gb->reg->f = 0x80; // set Z to 1
+    printf("####################################################\n");
+    printf("jr_cc_e from %04X with e = %0x and check NZ, condition NOT MET, 2 Cycles\n", gb->reg->pc, get_byte(gb, gb->reg->pc+1));
+    print_registers(gb);
+    jr_cc_e(gb, 0x20);
+    print_registers(gb);
+    if(check_jp(gb, 0x0511, cycles+2)) return 1;
+    cycles = gb->m_cycles;
+
+    // --- Z Condition ---
+    // True
+    gb->reg->f = 0x80; // set Z to 1
+    printf("####################################################\n");
+    printf("jr_cc_e from %04X with e = %0x and check Z, condition MET, 3 Cycles\n", gb->reg->pc, get_byte(gb, gb->reg->pc+1));
+    print_registers(gb);
+    jr_cc_e(gb, 0x28);
+    print_registers(gb);
+    if(check_jp(gb, 0x0515, cycles+3)) return 1;
+    cycles = gb->m_cycles;
+    // False
+    gb->reg->f = 0; // set Z to 0
+    printf("####################################################\n");
+    printf("jr_cc_e from %04X with e = %0x and check Z, condition NOT MET, 2 Cycles\n", gb->reg->pc, get_byte(gb, gb->reg->pc+1));
+    print_registers(gb);
+    jr_cc_e(gb, 0x28);
+    print_registers(gb);
+    if(check_jp(gb, 0x0516, cycles+2)) return 1;
+    cycles = gb->m_cycles;
+
+
+    // --- NC Condition ---
+    // True
+    gb->reg->f = 0; // set C to 0
+    printf("####################################################\n");
+    printf("jr_cc_e from %04X with e = %0x and check NC, condition MET, 3 Cycles\n", gb->reg->pc, get_byte(gb, gb->reg->pc+1));
+    print_registers(gb);
+    jr_cc_e(gb, 0x30);
+    print_registers(gb);
+    if(check_jp(gb, 0x051A, cycles+3)) return 1;
+    cycles = gb->m_cycles;
+    // False
+    gb->reg->f = 0x10; // set C to 1
+    printf("####################################################\n");
+    printf("jr_cc_e from %04X with e = %0x and check NC, condition NOT MET, 2 Cycles\n", gb->reg->pc, get_byte(gb, gb->reg->pc+1));
+    print_registers(gb);
+    jr_cc_e(gb, 0x30);
+    print_registers(gb);
+    if(check_jp(gb, 0x051B, cycles+2)) return 1;
+    cycles = gb->m_cycles;
+
+
+    // --- C Condition ---
+    // True
+    gb->reg->f = 0x10; // set C to 1
+    printf("####################################################\n");
+    printf("jr_cc_e from %04X with e = %0x and check C, condition MET, 3 Cycles\n", gb->reg->pc, get_byte(gb, gb->reg->pc+1));
+    print_registers(gb);
+    jr_cc_e(gb, 0x38);
+    print_registers(gb);
+    if(check_jp(gb, 0x051F, cycles+3)) return 1;
+    cycles = gb->m_cycles;
+    // False
+    gb->reg->f = 0; // set C to 0
+    printf("####################################################\n");
+    printf("jr_cc_e from %04X with e = %0x and check C, condition NOT MET, 2 Cycles\n", gb->reg->pc, get_byte(gb, gb->reg->pc+1));
+    print_registers(gb);
+    jr_cc_e(gb, 0x38);
+    print_registers(gb);
+    if(check_jp(gb, 0x0520, cycles+2)) return 1;
+    cycles = gb->m_cycles;
+
+
+
+
+
     return 0;
 }
 
